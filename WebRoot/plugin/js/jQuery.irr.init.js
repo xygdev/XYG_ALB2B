@@ -90,6 +90,7 @@
 					$('#'+options.pageframe+' i[data-pagetype="firstpage"]').css('display','none');
 					$('#'+options.pageframe+' i[data-pagetype="lastpage"]').css('display','none');
 					$('#'+options.pageframe+' i[data-pagetype="nextpage"]').css('display','none');
+					$('#'+options.pageframe+' i[data-reveal-id="query"]').click();
             	}	
 			}
 			else{
@@ -108,6 +109,7 @@
 					$('#'+options.pageframe+' i[data-pagetype="firstpage"]').css('display','none');
 					$('#'+options.pageframe+' i[data-pagetype="lastpage"]').css('display','none');
 					$('#'+options.pageframe+' i[data-pagetype="nextpage"]').css('display','none');
+					$('#'+options.pageframe+' i[data-reveal-id="query"]').click();
             	}
 			}			
 		},
