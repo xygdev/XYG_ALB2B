@@ -1,0 +1,125 @@
+@CHARSET "UTF-8";
+/* ==========================================================================
+公共属性
+========================================================================== */
+*{font-size:15px;font-family:Microsoft YaHei}
+a{text-decoration:none;color:black}
+ul, li {margin:0;padding:0;list-style:none;}
+table{border-collapse:collapse;border-spacing:0;width:100%;border-style:solid;border-width:0 1px 1px 1px;border-color:#e6e6e6}
+th{border-style:solid;border-width:1px 0 0 1px;border-color:#e6e6e6;background-color:#f2f2f2;height:50px;}
+td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#7a7a7a;background-color:#f9f9f9;text-align:center;height:40px}	
+.pointer{cursor:pointer}
+.left{float:left;}
+.right{float:right;}
+.reveal-modal-bg { position: fixed; height: 100%;width:100%;background:#000;background:rgba(0,0,0,.8);z-index:100;display:none;top:0;left:0;}
+/* ==========================================================================
+主容器
+========================================================================== */
+#container{position:relative;width:100%}
+/* ==========================================================================
+数据加载动画
+========================================================================== */
+.ajax_loading{position:fixed;left:50%;top:200px;margin-left:-30px;z-index: 101;padding:10px;width:60px;height:60px;background:#000;background:rgba(0,0,0,.8);-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;display:none;}
+/* ==========================================================================
+主表格
+========================================================================== */
+.table{position:relative;width:100%;min-height:270px}  
+/* ==========================================================================
+主表格按钮
+========================================================================== */
+.table_button{position:relative;width:100%;height:30px;padding:10px 0;background-color:#f2f2f2;border-color:#e6e6e6;border-width:1px;}   
+.setting{position:relative;float:left;width:30px;height:30px;padding:1px 4px;margin-left:5px;font-size:1.4em}
+#setting{position:absolute;left:55px;top:-160px;width:100px;min-height:200px;visibility: hidden;z-index:101;background-color:white;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;-moz-box-shadow: 0 0 10px rgba(0,0,0,.4);-webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);-box-shadow: 0 0 10px rgba(0,0,0,.4);}
+#setting .title{position:relative;padding:8px 10%;height:14px;width:80%;}
+#setting .title span{font-weight:bold;}
+#setting .line{position:relative;width:100%;height:2px;background:black;}
+#setting .content{position:relative;width:100%;}
+#setting .content ul li{float:left;width:100%;}
+#setting .content ul li a{width:100%;height:30px;display:block;text-align:center;line-height:2em;font-weight:bold;color:#7a7a7a;}
+#setting .content ul li ul{display:none;}
+#setting .content ul li:hover ul{position:absolute;display:block;width:100px;left:100px;top:0;}
+#setting .content ul li:hover ul li a{width:100%;height:30px;display:block;text-align:center;line-height:2em;font-weight:bold;color:#7a7a7a;background-color:white;}
+#setting .content ul li:hover ul li a:hover{color:white;background-color:#7a7a7a;}
+#setting .content ul li:hover ul li a{width:100%;height:30px;display:block;text-align:center;line-height:2em;font-weight:bold;color:#7a7a7a;background-color:white;}
+#setting .content ul li:hover a{background-color:#7a7a7a;color:white;}
+#setting .close-setting {font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer;} 
+#setting .content .hidden{visibility:hidden;}
+.pageRow{float:right;padding:0 5px;}
+.pageRow span{line-height:1.4;font-size:1.5em;height:42px;text-align:center;display:block;}
+.arrow_S{float:right;width:17px;height:26px;display:block;padding:1px 4px;font-size:1.4em}  
+.arrow_L{float:right;width:26px;height:26px;display:block;padding:1px 4px;font-size:1.4em}  
+.arrow_S.margin{margin-right:20px;}
+/* ==========================================================================
+定义列
+========================================================================== */
+#row-def{visibility:hidden;top:100px; left:50%;margin-left:-260px;width:520px;height:400px;position:fixed;z-index:101;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;}
+#row-def .close-reveal-modal {font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight: bold;cursor: pointer;} 
+#row-def>.title{position:relative;width:100%;height:30px;padding:10px;}
+#row-def>.title>.title_name{font-family:Microsoft YaHei;font-size:20px;font-weight:700;}
+#row-def>.line{position:relative;width:100%;height:1px;background:black;}
+#row-def>.contain{position:relative;width:86%;height:300px;padding:10px 7%;padding-bottom:5px;}
+#row-def>.contain>.option_frame{float:left;width:35%;height:300px;}
+#row-def>.contain>.button_frame{float:left;width:7%;padding:2%;height:250px;}
+#row-def>.contain>.button_frame .button{width:100%;height:30px;color:white;background-color:black;border:0;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;margin:1px auto;}
+/* ==========================================================================
+多维排序
+========================================================================== */
+#orderby{visibility:hidden;top:100px;left:50%;margin-left:-260px;width:520px;height:300px;position: fixed;z-index: 101;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;}
+#orderby .close-reveal-modal {font-size:22px;line-height:.5;position:absolute;top:8px;right: 11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor: pointer;} 
+#orderby>.title{position:relative;width:100%;height:30px;padding:10px;}
+#orderby>.title>.title_name{font-family:Microsoft YaHei;font-size:20px;font-weight:700;}
+#orderby>.line{position:relative;width:100%;height:1px;background:black;}
+#orderby>.contain{position:relative;width:86%;height:160px;padding:0 7%;}
+#orderby>.contain>.item{position:relative;width:75%;margin:25px auto;}
+#orderby>.contain>.item>.select{width:150px;}
+#orderby>.footer{position:relative;width:86%;	height:30px;padding:0 7%;}
+#orderby>.footer>button{background-color:black;border:1px solid black;color:white;width:100px;height:30px;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius: 5px;margin:0 10px;font-weight:bold;}
+/* ==========================================================================
+个人配置
+========================================================================== */
+#config{visibility:hidden;top:100px;left:50%;margin-left:-310px;width:620px;height:280px;position: fixed;z-index: 101;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;}
+#config .close-reveal-modal {font-size:22px;line-height:.5;position:absolute;top:8px;right: 11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor: pointer;} 
+#config>.title{position:relative;width:100%;height:30px;padding:10px;}
+#config>.title>.title_name{font-family:Microsoft YaHei;font-size:20px;font-weight:700;}
+#config>.line{position:relative;width:100%;height:1px;background:black;}
+#config>.contain{position:relative;width:100%;height:160px;padding:0;border:0}
+#config>.contain>.tab>.item{position:relative;height:25px;margin:15px auto 0;}
+#config>.contain>.tab>.item>button{position:absolute;bottom:0;right:0;background-color:black;border:1px solid black;color:white;width:100px;height:30px;-moz-border-radius:5px;-webkit-border-radius: 5px;border-radius:5px;font-weight:bold;}
+#config>.contain>.tab>.item>select{width:300px}
+/* ==========================================================================
+更新框
+========================================================================== */
+.update_frame{visibility:hidden;position:fixed;z-index:101;top:100px;left:50%;margin-left:-340px;width:680px;height:430px;/*border:2px solid black;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;overflow:auto;}
+.update_frame>.title{position:relative;width:100%;height:40px;padding:5px 0;}
+.update_frame>.title>span{font-family:Microsoft YaHei;font-size:1.5em;font-weight:700;display:inline-block;:box-sizing:border-box;padding:5px 20px}
+.update_frame .close-update-frame{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer}
+.update_frame>.line{position:relative;width:100%;height:3px;background:black}
+.update_frame>.content{position:relative;width:680px;height:280px;padding:20px 0}
+.update_frame>.foot{position:relative;width:680px;height:30px;padding:5px 0}
+.update_frame>.content>form>label{font-size:1em;padding:10px 20px 5px 0;width:80px;text-align:right}
+.update_frame>.content>form>input{width:200px;height:20px;font-size:1em;margin:5px 0}
+.update_frame>.content>form>input.short{width:150px}
+.update_frame>.content>form>input.button{background-color:black;color:white;width:50px;height:25px;line-height:1;border:none;-moz-border-top-right-radius:5px;-webkit-border-top-right-radius:5px;border-top-right-radius:5px;-moz-border-bottom-right-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-right-radius:5px;margin:5px 0;font-size:1.2em;text-align:center;vertical-align:middle}
+.update_frame>.content>form>select{width:206px;height:26px;font-size:1em;margin:5px 0;text-algin:center}
+.update_frame>.content>form>textarea{width:526px;height:100px;font-size:1em;margin:5px 0}
+.update_frame>.foot>button{background-color:black;display:block;border:1px solid black;color:white;width:100px;height:30px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin:0 70px;font-weight:bold}
+/* ==========================================================================
+lov框
+========================================================================== */
+.lov_frame{visibility:hidden;position:fixed;z-index:103;top:150px;left:50%;margin-left:-250px;min-width:500px;min-height:450px;display:inline-block;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;background-color:white;overflow:auto}
+.lov_frame .close-lov{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer}
+.lov_frame>.lov_title{width:100%;height:50px}
+.lov_frame>.lov_title>h1{display:block;height:50px;margin:0 20px;font-size:20px;line-height:50px}
+.lov_frame>.blackline{width:100%;height:3px;background-color:black}
+.lov_frame>.querybox{width:450px;height:30px;margin:10px auto;padding:10px 10px;border:2px solid black;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px}
+.lov_frame>.querybox>select{min-width:100px;margin:0 5px}
+.lov_frame>.querybox>.lov_button{width:15px;height:26px;padding:3px 5px}
+.lov_frame>.contentbox{min-width:460px;min-height:280px;padding:0 20px}
+.lov_frame>.footer{width:100%;height:50px}
+.lov_frame>.contentbox>table>tbody>tr>th{border-style:solid;border-width:1px 0 0 1px;border-color:#e6e6e6;background-color:#f2f2f2;min-width:100px;max-width:180px;height:30px}
+.lov_frame>.contentbox>table>tbody>tr>td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#7a7a7a;background-color:#f9f9f9;text-align:center;min-width:100px;max-width:180px;height:20px;cursor:pointer}
+.lov_frame>.contentbox>table>tbody>tr:hover{background-color:#7a7a7a;color:#f9f9f9}
+.lov_frame>.contentbox>table>tbody>tr:hover>td{background-color:transparent;color:#f9f9f9}
+.lov_frame>.contentbox>table>tbody>tr:hover>th{color:black }
+#lov_page_no{width:20px;text-align:center}
+.lov-modal-bg{position:fixed;height:100%;width:100%;background:#000;background:rgba(0,0,0,.8);z-index:102;display:none;top:0;left:0}

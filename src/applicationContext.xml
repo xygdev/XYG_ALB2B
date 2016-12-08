@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"   
+       xmlns:task="http://www.springframework.org/schema/task"   
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-4.1.xsd
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+            http://www.springframework.org/schema/task
+            http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+            
+    <context:property-placeholder location="classpath:jdbc.properties" />
+    
+    <context:component-scan base-package="com.xinyiglass.springSample">
+    	<!-- 防止SpringMVC和SpringIOC对同一个对象的管理重合 -->
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    	<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    	<context:exclude-filter type="regex" expression="com.xinyiglass.springSample.websocket.*"/>
+    </context:component-scan>
+    
+    <!-- 配置数据库连接池 Bean -->    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- Connection Pooling Info -->
+		<property name="initialSize" value="${proxool.initialSize}" />
+		<property name="maxActive" value="${proxool.maxActive}" /><!-- 最大连接数据库连接数，设置为0时，表示没有限制 -->
+		<property name="maxIdle" value="${proxool.maxIdle}" /><!-- 最大等待连接中的数量，设置为0时，表示没有限制 -->
+		<property name="minIdle" value="${proxool.minIdle}" />
+		<property name="maxWait" value="${proxool.maxWait}" /><!-- 最大等待秒数，单位为毫秒， 超过时间会报出错误信息 -->
+		<property name="poolPreparedStatements" value="false" />
+    </bean>
+    <bean id="abstractDao" abstract="true"><property name="dataSource" ref="dataSource"/></bean>
+    <!-- 为 JdbcTemplate 装配本地原生的 JDBC 对象抽取器 -->
+    <bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" lazy-init="true"/>
+    
+    <!-- 配置 工厂 Bean -->
+    <bean id="FuncPermVO" class="com.xinyiglass.springSample.entity.FuncPermVO"/>
+    <bean id="OnhandPermVO" class="com.xinyiglass.springSample.entity.OnhandPermVO"/>
+    <bean id="OnhandSetVO" class="com.xinyiglass.springSample.entity.OnhandSetVO"/>
+    <bean id="UserCustVO" class="com.xinyiglass.springSample.entity.UserCustVO"/>
+    <bean id="UserVO" class="com.xinyiglass.springSample.entity.UserVO"/>
+    <bean id="RespVO" class="com.xinyiglass.springSample.entity.RespVO"/>
+    <bean id="MenuHeaderVO" class="com.xinyiglass.springSample.entity.MenuHeaderVO"/>
+    <bean id="MenuLineVO" class="com.xinyiglass.springSample.entity.MenuLineVO"/>
+    <bean id="GroupHeaderVO" class="com.xinyiglass.springSample.entity.GroupHeaderVO"/>
+    <bean id="GroupLineVO" class="com.xinyiglass.springSample.entity.GroupLineVO"/>
+    <bean id="FuncVO" class="com.xinyiglass.springSample.entity.FuncVO"/>
+    <!-- 配置 DAO -->
+    <bean id="MailDao" class="com.xinyiglass.springSample.dao.impl.MailDaoImpl" parent="abstractDao">
+    	<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
+    </bean>
+    <bean id="ApDao" class="com.xinyiglass.springSample.dao.impl.ApDaoImpl" parent="abstractDao"/>
+    <bean id="LoginDao" class="com.xinyiglass.springSample.dao.impl.LoginDaoImpl" parent="abstractDao"/>
+    <bean id="FuncPermVODao" class="com.xinyiglass.springSample.dao.impl.FuncPermVODaoImpl" parent="abstractDao"/>
+    <bean id="OnhandSetVODao" class="com.xinyiglass.springSample.dao.impl.OnhandSetVODaoImpl" parent="abstractDao"/>
+    <bean id="OnhandPermVODao" class="com.xinyiglass.springSample.dao.impl.OnhandPermVODaoImpl" parent="abstractDao"/>
+    <bean id="CustGroupDao" class="com.xinyiglass.springSample.dao.impl.CustGroupDaoImpl" parent="abstractDao"/>
+    <bean id="UserCustVODao" class="com.xinyiglass.springSample.dao.impl.UserCustVODaoImpl" parent="abstractDao"/>
+    <bean id="UserVODao" class="com.xinyiglass.springSample.dao.impl.UserVODaoImpl" parent="abstractDao"/>
+    <bean id="RespVODao" class="com.xinyiglass.springSample.dao.impl.RespVODaoImpl" parent="abstractDao"/>
+    <bean id="MenuHeaderVODao" class="com.xinyiglass.springSample.dao.impl.MenuHeaderVODaoImpl" parent="abstractDao"/>
+    <bean id="MenuLineVODao" class="com.xinyiglass.springSample.dao.impl.MenuLineVODaoImpl" parent="abstractDao"/>
+    <bean id="GroupLineVODao" class="com.xinyiglass.springSample.dao.impl.GroupLineVODaoImpl" parent="abstractDao"/>
+    <bean id="GroupHeaderVODao" class="com.xinyiglass.springSample.dao.impl.GroupHeaderVODaoImpl" parent="abstractDao"/>
+    <bean id="FuncVODao" class="com.xinyiglass.springSample.dao.impl.FuncVODaoImpl" parent="abstractDao"/>
+    <bean id="PagePub" class="xygdev.commons.page.PagePub" parent="abstractDao"/>
+    <bean id="InteractPub" class="xygdev.commons.interact.InteractPub" parent="abstractDao"/>
+    <!-- 配置 事务 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" parent="abstractDao"/>
+    <!-- 采用@Transactional注解方式使用事务  -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+	 <!-- 支持异步方法执行 -->
+    <task:executor id="myexecutor" pool-size="5"  />  
+    <task:annotation-driven executor="myexecutor"/> 
+</beans>

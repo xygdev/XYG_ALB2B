@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>请输入任意消息</title>
+<script type="text/javascript" src="jQuery/jQuery-2.1.4.min.js"></script>	
+<script src="js/sockjs-0.3.min.js"></script>
+<!--TEST ONLY: <script src="http://192.168.88.123:8080/web08Spring/plugin/js/webSocket.js"></script> -->
+<script type="text/javascript">
+var ws = null;
+var basePath = "ws://192.168.88.123:8080/web08Spring/";
+$(function () {
+	if ('WebSocket' in window) {
+    	 ws = new WebSocket(basePath+'webSocketServer'); 
+	} 
+	else if ('MozWebSocket' in window) {
+		ws = new MozWebSocket(basePath+"webSocketServer");
+	} 
+	else {
+		ws = new SockJS(basePath+"webSocketServer");
+	}
+    ws.onopen = function () {
+        
+    };
+    ws.onmessage = function (event) {
+    	
+    };
+    ws.onclose = function (event) {
+    	 
+    };
+});
+function stop(){
+	var message = $("#message").val();
+	ws.send(message);
+	alert('开始!');
+}
+</script>
+</head>
+<body class="keBody">
+请输入提示信息: <br /><textarea id="message"></textarea><br />
+<input type="button"  onclick="stop()" value="开始" />
+</body>
+</html>

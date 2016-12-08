@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:p="http://www.springframework.org/schema/p" 
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xmlns:websocket="http://www.springframework.org/schema/websocket"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/util
+      http://www.springframework.org/schema/util/spring-util.xsd
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd" 
+      default-autowire="byName">
+	<!-- @Autowired等注解驱动 -->
+	<context:annotation-config />
+
+    <!-- 使用默认的注解映射 --> 
+    <mvc:annotation-driven/>
+    
+    
+
+    <!-- 自动扫描controller包中的控制器 -->
+    <context:component-scan base-package="com.xinyiglass.springSample">
+    	<!-- 防止SpringMVC和SpringIOC对同一个对象的管理重合 -->
+    	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    	<context:include-filter type="regex" expression="com.xinyiglass.springSample.websocket.*"/>
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
+    
+    
+
+    <!-- 视图解析路径配置 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+       <property name="contentType" value="text/html"/>        
+       <property name="prefix" value="/WEB-INF/page/"/>
+       <property name="suffix" value=".jsp"/>
+    </bean>     
+    
+    <!-- 配置静态资源(JS、CSS、图片等)的访问路径 -->
+    <mvc:resources location="/plugin/" mapping="/plugin/**"/>
+</beans>

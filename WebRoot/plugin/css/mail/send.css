@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+/* ==========================================================================
+详情框
+========================================================================== */
+.detail_frame{visibility:hidden;position:fixed;z-index:101;top:100px;left:50%;margin-left:-340px;width:680px;height:485px;/*border:2px solid black;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;overflow:hidden;}
+.detail_frame>.title{position:relative;width:100%;height:40px;padding:5px 0;}
+.detail_frame>.title>span{font-family:Microsoft YaHei;font-size:1.5em;font-weight:700;display:inline-block;:box-sizing:border-box;padding:5px 20px}
+.detail_frame .close-detail-frame{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer}
+.detail_frame>.line{position:relative;width:100%;height:3px;background:black}
+.detail_frame>.content{position:relative;width:680px;height:380px;padding:20px 20px;box-sizing:border-box;}
+.detail_frame .short{width:30%}
+.detail_frame .long{widh:40%}
+.detail_frame label.rec{font-size:1em;width:10%;padding:10px 10px 5px 0;text-align:right}
+.detail_frame input.rec{height:20px;font-size:1em;width:80%;margin:8px 10px 2px}
+.detail_frame label.mail_title{font-size:1em;width:10%;padding:8px 10px 5px 0;text-align:right}
+.detail_frame input.mail_title{height:20px;font-size:1em;width:80%;margin:4px 10px 5px}
+.detail_frame .textarea{width:92%;height:270px;font-size:1em;margin:10px 20px;border:1px solid #CCCCCC;padding:2px;overflow-x:hidden;overflow-y:auto}
+.detail_frame textarea{width:92%;height:270px;font-size:1em;margin:10px 20px;resize:none}
+/* ==========================================================================
+发件框
+========================================================================== */
+.send_frame{visibility:hidden;position:fixed;z-index:101;top:60px;left:50%;margin-left:-340px;width:680px;height:510px;/*border:2px solid black;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;overflow-x:hidden;overflow-y:auto}
+.send_frame>.title{position:relative;width:100%;height:40px;padding:5px 0;}
+.send_frame>.title>span{font-family:Microsoft YaHei;font-size:1.5em;font-weight:700;display:inline-block;:box-sizing:border-box;padding:5px 20px}
+.send_frame .close-send-frame{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer}
+.send_frame>.line{position:relative;width:100%;height:3px;background:black}
+.send_frame>.content{position:relative;width:680px;height:400px;padding:20px 20px;box-sizing:border-box}
+.send_frame>.content form{position:relative}
+.send_frame>.content label.rec{width:64px;font-size:1em;margin-right:10px;margin-top:8px}
+.send_frame>.content i{position:absolute;right:25px;font-size:1.4em;margin:8px 5px}
+.send_frame>.content label.invert{width:64px;font-size:1em;margin-right:10px;margin-top:8px;text-align:right}
+.send_frame>.content input.invert{margin:12px 2px}
+.send_frame>.content label.mail_title{width:64px;font-size:1em;margin-right:10px;margin-top:8px;text-align:right}
+.send_frame>.content input.mail_title{height:20px;font-size:1em;width:486px;padding:4px;margin:2px}
+.send_frame>.content textarea{width:92%;height:250px;font-size:1em;margin:10px 20px;resize:none}
+.send_frame>.foot{position:relative;width:680px;height:30px;padding:10px 0}
+.send_frame>.foot>button{background-color:black;display:block;border:1px solid black;color:white;width:100px;height:30px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin:0 50px;font-weight:bold}
+/* ==========================================================================
+查询框
+========================================================================== */
+.query_frame{visibility:hidden;position:fixed;z-index:101;top:100px;left:50%;margin-left:-340px;width:680px;height:235px;/*border:2px solid black;*/-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius: 5px;background-color:white;overflow:auto;}
+.query_frame>.title{position:relative;width:100%;height:40px;padding:5px 0;}
+.query_frame>.title>span{font-family:Microsoft YaHei;font-size:1.5em;font-weight:700;display:inline-block;:box-sizing:border-box;padding:5px 20px}
+.query_frame .close-query-frame{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#aaa;text-shadow:0 -1px 1px rbga(0,0,0,.6);font-weight:bold;cursor:pointer}
+.query_frame>.line{position:relative;width:100%;height:3px;background:black}
+.query_frame>.content{position:relative;width:680px;height:130px;padding:20px 20px;box-sizing:border-box;}
+.query_frame>.content>form>label{font-size:1em;padding:10px 10px 5px 0;text-align:right}
+.query_frame>.content>form>label.long{width:100px}
+.query_frame>.content>form>label.mid{width:75px}
+.query_frame>.content>form>label.short{width:50px}
+.query_frame>.content>form>input{height:20px;font-size:1em;margin:7px 10px}
+.query_frame>.content>form>input.maxlong{width:525px}
+.query_frame>.content>form>input.long{width:250px}
+.query_frame>.content>form>input.mid{width:150px;margin:5px 0 5px 10px}
+.query_frame>.content>form>input.short{width:100px;margin:5px 0 5px 10px}
+.query_frame>.content>form>input.button{background-color:black;color:white;width:50px;height:25px;line-height:1;border:none;-moz-border-top-right-radius:5px;-webkit-border-top-right-radius:5px;border-top-right-radius:5px;-moz-border-bottom-right-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-right-radius:5px;margin:5px 0;font-size:1.2em;text-align:center;vertical-align:middle}
+.query_frame>.content>form>select{width:206px;height:26px;font-size:1em;margin:5px 0;text-algin:center}
+.query_frame>.content>form>textarea{width:526px;height:100px;font-size:1em;margin:5px 0}
+.query_frame>.foot{position:relative;width:680px;height:30px;padding:5px 0}
+.query_frame>.foot>button{background-color:black;display:block;border:1px solid black;color:white;width:100px;height:30px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;margin:0 50px;font-weight:bold}
