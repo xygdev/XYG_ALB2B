@@ -18,6 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="plugin/css/cutpic.css" type="text/css" />
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>	
   </head> 
   
   <body>
@@ -131,7 +134,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class='left long' readonly="readonly"/>
             <br style="clear:both"/>
             <label for='AP_DATE' class='left mid'>对账单时间</label>
-            <input type='text' id='AP_DATE' name='AP_DATE' data-update="db" required='required' class='left long'/>
+            <input type='text' id='AP_DATE' name='AP_DATE' data-update="db" required='required' data-datatype="date" class='left long'/>
           </form>
         </div>
         <div class='foot'>             
@@ -156,6 +159,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
     		$().revealListener(); 		
+    		
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  format:"Y-m",      //格式化日期
+				  formatDate:"Y-m",
+				  timepicker:false,    //启用时间选项
+				  showOnClick: true,
+				  closeOnDateSelect:true
+			});
 
     		//报表提交
         	$('#report').on('click',function(){	 

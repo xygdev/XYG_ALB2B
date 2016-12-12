@@ -20,7 +20,10 @@
     <script type="text/javascript" src="plugin/js/jquery.marcopolo.min.js"></script>
     <script type="text/javascript" src="plugin/js/jquery.manifest.js"></script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
-	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<script src="plugin/jQuery/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>	
   </head> 
   <body>
     <div id="container">
@@ -147,8 +150,8 @@
             <input type="text" id="SEND_TITLE_Q" name="SEND_TITLE" class="left maxlong"/>
             <br style="clear:both"/>
             <label for='SEND_DATE_F' class='left mid'>发件时间:</label> 
-            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long" placeholder="起始发件时间"/>
-            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long" placeholder="截止发件时间"/>
+            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long" data-datatype="date" placeholder="起始发件时间"/>
+            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long" data-datatype="date" placeholder="截止发件时间"/>
             <br style="clear:both"/>
           </form>
         </div>
@@ -283,7 +286,22 @@
                 });              
                 $('.mf_list li').remove();
         	}); 
-        			
+    		//默认值
+    		//$('#SEND_DATE_F').val(new Date().addMonths(-2).format('yyyy-MM-dd hh:mm:ss'));
+    		//$('#SEND_DATE_T').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		//日期选择2016.12.8 by sam.t
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true
+			});
+        	$('#SEND_DATE_F').on('blur',function(){
+        		if(!$('#SEND_DATE_T').val()&&$('#SEND_DATE_F').val()){
+        			$('#SEND_DATE_T').val($('#SEND_DATE_F').val());
+        		}
+        	});
         });
         
         jQuery.json={

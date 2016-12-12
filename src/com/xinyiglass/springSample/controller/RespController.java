@@ -103,9 +103,7 @@ public class RespController {
 		Long respId = TypeConvert.str2Long(req.getParameter("RESP_ID"));
 		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
 		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
-		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
-		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, menuId, respId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy));
+		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, menuId, respId, startDate_F, startDate_T, orderBy));
 	}  
 }

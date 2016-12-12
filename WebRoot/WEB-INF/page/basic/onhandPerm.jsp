@@ -16,6 +16,9 @@
 	<link rel="stylesheet" type="text/css" href="plugin/css/basic/onhandPerm.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>
   </head> 
   <body>
     <div id="container">
@@ -65,7 +68,7 @@
           <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增库存权限" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert();"></i>
+          <i class="fa fa-plus-circle pointer" title="新增库存权限" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert();" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -136,9 +139,9 @@
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' data-update="db" required='required' class='left' readonly="readonly"/>
             <br style="clear:both"/>
             <label for='START_DATE' class='left'>启用日期</label>
-            <input type='text' id='START_DATE' name='START_DATE' data-update="db" required='required' class='left'/>
+            <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
             <label for='END_DATE' class='left'>失效日期</label>
-            <input type='text' id='END_DATE' name='END_DATE' data-update="db" class='left'/>  
+            <input type='text' id='END_DATE' name='END_DATE' data-update="db" data-datatype="date" class='left'/>  
           </form>
         </div>
         <div class='foot'>       
@@ -171,12 +174,12 @@
             <input type='text' id='ORGANIZATION_NAME_Q' name='ORGANIZATION_NAME' data-update="db" class='left long' readonly="readonly"/>           
             <br style="clear:both"/>
             <label for="START_DATE_F" class="left mid">启用日期:</label>
-            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" placeholder="起始启用日期"/>
-            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" placeholder="截止启用日期"/>
+            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" data-datatype="date" placeholder="起始启用日期"/>
+            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" data-datatype="date" placeholder="截止启用日期"/>
             <br style="clear:both"/>
             <label for="END_DATE_F" class="left mid">失效日期:</label>
-            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" placeholder="起始失效日期"/>
-            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" placeholder="截止失效日期"/>
+            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" data-datatype="date" placeholder="起始失效日期"/>
+            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" data-datatype="date" placeholder="截止失效日期"/>
           </form>
         </div>
         <div class='foot'>             
@@ -196,10 +199,21 @@
             //设置拖拽
             $("#ui").draggable({handle: ".title"});
     		$("#query").draggable({handle: ".title"});
+			$.fn.afterReveal = function(){
+    		    $('#START_DATE').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		    //$('label[for="USER_NAME"]').click();
+    		}
 
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
-    		$().revealListener();    	 		
+    		$().revealListener();    	 
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true
+			});		
         });
         
         $.fn.beforeInsert = function(){

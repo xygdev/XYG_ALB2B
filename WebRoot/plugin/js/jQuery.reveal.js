@@ -112,6 +112,10 @@
 						unlockModal()				
 					}
 				}
+				/****执行打开界面之后的匿名函数****/
+				if(options.revealfunc!=null||options.revealfunc!=''){
+					eval(options.revealfunc);
+				}
 				/****终止打开弹出框函数****/
 				modal.unbind('reveal:open');
 			}); 	

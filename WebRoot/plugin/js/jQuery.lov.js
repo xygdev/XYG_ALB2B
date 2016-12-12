@@ -141,60 +141,66 @@
     	return this.each(function() { 
     		if(options.modify==true){
     			input=$(this);
-    			param=$(this).val();
-    			param=options.param+'='+param;
-    			$('#'+options.pageframe).draggable('disable');
-    			$.ajax({
-					type:'post', 
-					data:param,
-					url:options.validurl,
-					dataType:'json',
-					success: function (data) {
-						if(data.rows[0].COUNT==0){
-							input.val('');
-							result=confirm("输入的值不存在，是否通过值列表选取");	
-							if(result==true){
-								$('#'+options.pageframe).draggable('enable');
-								for(n=0;n<options.hiddenid.length;n++){
-									$('#'+options.hiddenid[n]).val('');
-								}
-								$('#'+options.lovbtn).click();
-							}else{
-								for(n=0;n<options.hiddenid.length;n++){
-									$('#'+options.hiddenid[n]).val('');
-								}
-								$('#'+options.pageframe).draggable('enable');
-								return;
-							}					
-						}else if(data.rows[0].COUNT==1){
-							$('#'+options.pageframe).draggable('enable');
-							$.ajax({
-								type:'post', 
-								data:param,
-								url:options.queryurl,
-								dataType:'json',
-								success: function (data) {
-									if(data.rows!=null){
-										for(m=0;m<options.hiddenid.length;m++){
-											$('#'+options.hiddenid[m]).val(data.rows[0][options.hiddenval[m]]);
-										}
-									}else{
-										alert('返回数据为空，请联系IT部门人员');
-									}
-								},
-								error: function () {
-									alert("获取Json数据失败");
-								}
-							});
-							return;
-						}else{
-							alert('程序错误，返回值不能为0或1之外的值');
-						}
-					},
-					error: function () {
-						alert("获取Json数据失败");
+    			var value=$(this).val();
+    			if(value){
+    				param=options.param+'='+value;
+        			$('#'+options.pageframe).draggable('disable');
+        			$.ajax({
+    					type:'post', 
+    					data:param,
+    					url:options.validurl,
+    					dataType:'json',
+    					success: function (data) {
+    						if(data.rows[0].COUNT==0){
+    							input.val('');
+    							result=confirm("输入的值不存在，是否通过值列表选取");	
+    							if(result==true){
+    								$('#'+options.pageframe).draggable('enable');
+    								for(n=0;n<options.hiddenid.length;n++){
+    									$('#'+options.hiddenid[n]).val('');
+    								}
+    								$('#'+options.lovbtn).click();
+    							}else{
+    								for(n=0;n<options.hiddenid.length;n++){
+    									$('#'+options.hiddenid[n]).val('');
+    								}
+    								$('#'+options.pageframe).draggable('enable');
+    								return;
+    							}			
+    						}else if(data.rows[0].COUNT==1){
+    							$('#'+options.pageframe).draggable('enable');
+    							$.ajax({
+    								type:'post', 
+    								data:param,
+    								url:options.queryurl,
+    								dataType:'json',
+    								success: function (data) {
+    									if(data.rows!=null){
+    										for(m=0;m<options.hiddenid.length;m++){
+    											$('#'+options.hiddenid[m]).val(data.rows[0][options.hiddenval[m]]);
+    										}
+    									}else{
+    										alert('返回数据为空，请联系IT部门人员');
+    									}
+    								},
+    								error: function () {
+    									alert("获取Json数据失败");
+    								}
+    							});
+    							return;
+    						}else{
+    							alert('程序错误，返回值不能为0或1之外的值');
+    						}
+    					},
+    					error: function () {
+    						alert("获取Json数据失败");
+    					}
+    				});  	
+    			}else{
+    				for(n=0;n<options.hiddenid.length;n++){
+						$('#'+options.hiddenid[n]).val('');
 					}
-				});     					
+    			}    			  		
     		}else{
     			return;
     		}

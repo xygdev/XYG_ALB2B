@@ -17,6 +17,9 @@
 	<link rel="stylesheet" href="plugin/css/cutpic.css" type="text/css" />
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>	
   </head> 
   <body>
     <div id="container">
@@ -31,7 +34,7 @@
         <table id="user" data-table="User">
           <tr>
             <th class="USER_NAME" data-column="db">用户账号</th>
-            <th class="DESCRIPTION" data-column="db">用户名</th>
+            <th class="DESCRIPTION" data-column="db">用户名称</th>
      	    <th class="START_DATE" data-column="db">启用日期</th>
      	    <th class="END_DATE" data-column="db">失效日期</th>
      	    <th class="RESP_NAME" data-column="db">职责</th>
@@ -78,7 +81,7 @@
           <i class="fa fa-search pointer" data-reveal-id="query" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-user-plus pointer" data-reveal-id="ui" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().setInsertPWD();" ></i>
+          <i class="fa fa-user-plus pointer" data-reveal-id="ui" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert(); " data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -138,7 +141,7 @@
             <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
             <input type='hidden' id='USER_ID_Q' name='USER_ID'/>
             <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
-            <label for='DESCRIPTION_Q' class='left mid'>用户名:</label> 
+            <label for='DESCRIPTION_Q' class='left mid'>用户名称:</label> 
             <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/>  
             <label for='RESP_NAME_Q' class='left mid'>职责:</label> 
             <input type='text' id='RESP_NAME_Q' name='RESP_NAME' data-update="db" class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validRespName.do' data-queryurl='lov/getRespId.do' data-lovbtn='RESP_LOV' data-hiddenid=["RESP_ID_Q"] data-hiddenval=["RESP_ID"] data-param="respname"/>
@@ -148,12 +151,12 @@
             <select class='left long' id='USER_TYPE_Q' name='USER_TYPE' data-update="db" required='required' data-notnull="true" data-listurl="list/getUserType.do"></select> 
             <br style="clear:both"/>
             <label for="START_DATE_F" class="left mid">启用日期:</label>
-            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" placeholder="起始启用日期"/>
-            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" placeholder="截止启用日期"/>
+            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" data-datatype="date" placeholder="起始启用日期"/>
+            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" data-datatype="date" placeholder="截止启用日期"/>
             <br style="clear:both"/>
             <label for="END_DATE_F" class="left mid">失效日期:</label>
-            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" placeholder="起始失效日期"/>
-            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" placeholder="截止失效日期"/>
+            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" data-datatype="date" placeholder="起始失效日期"/>
+            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" data-datatype="date" placeholder="截止失效日期"/>
           </form> 
         </div>
         <div class='foot'>             
@@ -174,16 +177,16 @@
           <form id='updateData'>
             <input type='hidden' id='U_ID' name="U_ID" data-update="db"/>
             <label for='USER_NAME' class='left'>用户账号</label>
-            <input type='text' id='USER_NAME' name='USER_NAME' data-update="db" required='required' class='left'/>
+            <input type='text' id='USER_NAME' name='USER_NAME' data-update="db" required='required' class='left' />
             <br style="clear:both"/>
-            <label for='DESC' class='left'>用户名</label>
+            <label for='DESC' class='left'>用户名称</label>
             <input type='text' id='DESC' name='DESC' data-update="db" required='required' class='left'/>
             <label for='USER_TYPE' class='left'>用户类型</label>
             <select class='left long' id='USER_TYPE' name='USER_TYPE' data-update="db" required='required' data-notnull="true" data-listurl="list/getUserType.do"></select> 
             <label for='START_DATE' class='left'>启用日期</label>
-            <input type='text' id='START_DATE' name='START_DATE' data-update="db" required='required' class='left'/>
+            <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
             <label for='END_DATE' class='left'>失效日期</label>
-            <input type='text' id='END_DATE' name='END_DATE' data-update="db" class='left'/>
+            <input type='text' id='END_DATE' name='END_DATE' data-update="db" data-datatype="date" class='left'/>
             <label for='PASSWORD' class='left'>密码</label>
             <input type='password' id='PASSWORD' name='PASSWORD' data-update="db" class='left password'/>
             <i class="fa fa-eye-slash pointer left" data-pwd="show"></i>
@@ -307,9 +310,9 @@
             <input type="hidden" id="ORG_ID" name="ORG_ID" data-update="db" readonly="readonly"/>
              <br style="clear:both"/>
             <label for='START_DATE_DETAIL' class='left'>启用日期</label>
-            <input type='text' id='START_DATE_DETAIL' name='START_DATE' data-update="db" required='required' class='left'/>
+            <input type='text' id='START_DATE_DETAIL' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
             <label for='END_DATE_DETAIL' class='left'>失效日期</label>
-            <input type='text' id='END_DATE_DETAIL' name='END_DATE' data-update="db" class='left'/>
+            <input type='text' id='END_DATE_DETAIL' name='END_DATE' data-update="db" data-datatype="date" class='left'/>
           </form>
         </div>
         <div class='foot'>       
@@ -370,9 +373,14 @@
     			});
     		}
     		
-    		$.fn.setInsertPWD = function(){
+    		$.fn.beforeInsert = function(){
     		    $('#PASSWORD').attr('required','required');
     		    $('#USER_NAME').removeAttr('readonly');
+    		}
+    		
+    		$.fn.afterReveal = function(){
+    		    $('#START_DATE').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		    $('label[for="USER_NAME"]').click();
     		}
     		
     		$.fn.setUpdatePWD = function(){
@@ -423,6 +431,17 @@
     		    $('#START_DATE_DETAIL').attr('readonly','readonly');
     		    $('#PARTY_NAME_LOV').attr('disabled','disabled');
     		}
+    		//默认值
+    		$('#START_DATE_F').val(new Date().addMonths(-2).format('yyyy-MM-dd hh:mm:ss'));
+    		$('#START_DATE_T').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		//日期选择2016.12.8 by sam.t
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true
+			});
         });
         
         jQuery.json={

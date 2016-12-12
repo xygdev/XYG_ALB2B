@@ -48,14 +48,13 @@ public class RespVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,Long respId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,Long respId,Date startDate_F,Date startDate_T,String orderBy) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_RESPONSIBILITY_V A WHERE 1=1");
 		sqlBuff.append(SqlStmtPub.getAndStmt("MENU_ID",menuId,paramMap));
 		sqlBuff.append(SqlStmtPub.getAndStmt("RESP_ID",respId,paramMap));
 		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",startDate_F,startDate_T,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",endDate_F,endDate_T,paramMap));
 		sqlBuff.append(" ORDER BY "+orderBy);
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}

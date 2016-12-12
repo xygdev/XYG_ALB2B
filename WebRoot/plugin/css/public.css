@@ -18,7 +18,7 @@ input[type=password]::-ms-reveal { display: none; }
 /* 无效 */
 input:required:invalid,input:focus:invalid,select:required:invalid,select:focus:invalid, textarea[required]:invalid, textarea:focus:invalid{box-shadow:none;}
 /* 有效 */
-/*input:required:valid{background-color:yellow}*/
+input:required,select:required{background-color:#FFFFCC}
 .reveal-modal-bg { position: fixed; height: 100%;width:100%;background:#000;background:rgba(0,0,0,.8);z-index:100;display:none;top:0;left:0;}
 /* ==========================================================================
 全局色彩

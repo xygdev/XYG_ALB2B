@@ -16,6 +16,9 @@
 	<link rel="stylesheet" type="text/css" href="plugin/css/mail/receive.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>	
   </head> 
   <body>
     <div id="container">
@@ -86,7 +89,7 @@
           <input type="hidden" data-type="number" id="page_no" value="1"/>
           <input type="hidden" data-type="orderby" id="ORDER_BY" value="SEND_DATE DESC"/> 
           <input type="hidden" data-type="cond"/>
-          <input type="hidden" data-type="autoquery" value="Y"/>
+          <input type="hidden" data-type="autoquery" value="N"/>
           <input type="hidden" data-type="url" value="mail/getRecMail.do"/>
           <input type="hidden" data-type="jsontype" value="table"/> 
         </div>
@@ -149,12 +152,12 @@
             <input type="text" id="MAIL_TITLE_Q" name="MAIL_TITLE" class="left long_x2"/>
             <br style="clear:both"/>
             <label for='SEND_DATE_F' class='left mid'>发件时间:</label> 
-            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long_x1" placeholder="起始发件时间"/>
-            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long_x1" placeholder="截止发件时间"/>
+            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long_x1" data-datatype="date" placeholder="起始发件时间"/>
+            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long_x1" data-datatype="date" placeholder="截止发件时间"/>
             <br style="clear:both"/>
             <label for='READ_DATE_F' class='left mid'>阅件时间:</label> 
-            <input type="text" id="READ_DATE_F" name="READ_DATE_F" class="left long_x1" placeholder="起始阅件时间"/>
-            <input type="text" id="READ_DATE_T" name="READ_DATE_T" class="left long_x1" placeholder="截止阅件时间"/>
+            <input type="text" id="READ_DATE_F" name="READ_DATE_F" class="left long_x1" data-datatype="date" placeholder="起始阅件时间"/>
+            <input type="text" id="READ_DATE_T" name="READ_DATE_T" class="left long_x1" data-datatype="date" placeholder="截止阅件时间"/>
           </form>
         </div>
         <div class='foot'>             
@@ -175,6 +178,9 @@
             //设置拖拽
     		$("#detail").draggable({ handle: ".title" });
     		$("#query").draggable({ handle: ".title" });  
+    		//初始化CRUD和LOV条件查询
+    		$().crudListener();	
+    		$().revealListener(); 
     		
     		$.fn.apResult = function(){
         	    $('#output').off('click');
@@ -192,7 +198,15 @@
                         content: [href, 'yes'] //iframe的url，no代表不显示滚动条
                     });
         	    });
-        	}	 		
+        	}	 
+    		//日期选择2016.12.8 by sam.t
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true
+			});
         });
         
         jQuery.json={

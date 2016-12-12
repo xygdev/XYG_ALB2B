@@ -48,7 +48,7 @@ public class MenuController {
     public void getPersonalMenu() throws Exception{
     	Long respId = (Long)sess.getAttribute("RESP_ID");
     	Long menuId = rvs.findMenuId(respId);
-    	System.out.println("MENU="+mhvs.findPersonalMenuById(menuId));
+    	//System.out.println("MENU="+mhvs.findPersonalMenuById(menuId));
     	res.getWriter().print(mhvs.findPersonalMenuById(menuId));
     }
     
@@ -87,7 +87,7 @@ public class MenuController {
     public void preUpdateMenuHeader() throws Exception
     {
     	Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
-    	System.out.println(menuId);
+    	//System.out.println(menuId);
     	MenuHeaderVO menuVO = mhvs.findForMenuVOById(menuId);
     	sess.setAttribute("lockMenuHeaderVO", menuVO);//记录在session变量
     	res.getWriter().print(mhvs.findMenuByIdForJSON(menuId));

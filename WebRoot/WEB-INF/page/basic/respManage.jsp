@@ -16,6 +16,9 @@
 	<link rel="stylesheet" type="text/css" href="plugin/css/basic/resp.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>	
   </head> 
   <body>
     <div id="container">
@@ -67,7 +70,7 @@
           <i class="fa fa-search pointer" data-reveal-id="query" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" data-reveal-id="ui" title="新增职责" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" data-reveal-id="ui" title="新增职责" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -136,9 +139,9 @@
             <input type='button' id="MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE"] data-recid=["#MENU_ID","#MENU_CODE"] value="···"/>
             <br style="clear:both"/>
             <label for='START_DATE' class='left'>启用日期</label>
-            <input type='text' id='START_DATE' name='START_DATE' data-update="db" required='required' class='left'/>
+            <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
             <label for='END_DATE' class='left'>失效日期</label>
-            <input type='text' id='END_DATE' name='END_DATE' data-update="db" class='left'/>  
+            <input type='text' id='END_DATE' name='END_DATE' data-update="db" data-datatype="date" class='left'/>  
           </form>
         </div>
         <div class='foot'>       
@@ -168,12 +171,9 @@
             <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_NAME_Q"] value="···"/>
             <br style="clear:both"/>
             <label for="START_DATE_F" class="left mid">启用日期:</label>
-            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" placeholder="起始启用日期"/>
-            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" placeholder="截止启用日期"/>
+            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" data-datatype="date" placeholder="起始启用日期"/>
+            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" data-datatype="date" placeholder="截止启用日期"/>
             <br style="clear:both"/>
-            <label for="END_DATE_F" class="left mid">失效日期:</label>
-            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" placeholder="起始失效日期"/>
-            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" placeholder="截止失效日期"/>
           </form>
         </div>
         <div class='foot'>             
@@ -195,7 +195,19 @@
     		$("#query").draggable({ handle: ".title" });
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
-    		$().revealListener(); 	 		
+    		$().revealListener(); 	 	
+    		$.fn.afterReveal = function(){
+    		    $('#START_DATE').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		    $('label[for="RESP_CODE"]').click();
+    		}
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true,
+				  allowBlank:true
+			});
         });
         
         jQuery.json={
