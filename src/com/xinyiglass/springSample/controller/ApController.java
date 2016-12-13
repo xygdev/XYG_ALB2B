@@ -1,10 +1,15 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.xinyiglass.springSample.service.ApService;
+import com.xinyiglass.springSample.util.IterateFtpDir;
+import com.xinyiglass.springSample.util.Constant;
 
 import xygdev.commons.util.TypeConvert;
 
@@ -37,7 +44,7 @@ public class ApController {
     
     @RequestMapping("/apQuery.do")
 	public String listApQuery(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
+    	if(!TypeConvert.isNullValue(sess.getAttribute("USER_ID"))){
 			return "ap/apQuery";
 		}else{
 			return "error/sessionTimeout";
@@ -54,7 +61,7 @@ public class ApController {
     }
     
     @RequestMapping(value = "/getApHistory.do", method = RequestMethod.POST)
-   	public void getOnhandPerm() throws Exception
+   	public void getApHistory() throws Exception
    	{   	
    		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
    		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
@@ -63,5 +70,63 @@ public class ApController {
    		Long userId = (Long)sess.getAttribute("USER_ID");
    		res.getWriter().print(as.findForPage(pageSize, pageNo, goLastPage, userId, orderBy));
    	}
-    
+
+    @RequestMapping(value = "/getApOutput.do")
+   	public void getApOutput() throws Exception
+   	{   
+    	//System.out.println("sess.getAttribute(USER_ID)3:"+sess.getAttribute("USER_ID"));
+    	if(TypeConvert.isNullValue(sess.getAttribute("USER_ID"))){//以后要改在Fiter里面统一监控。
+    		req.getRequestDispatcher("/WEB-INF/page/error/sessionTimeout.jsp").forward(req,res);
+    	}else{
+       		int requestId=Integer.parseInt(req.getParameter("REQUEST_ID"));
+    		String filePath = Constant.CONC_OUT;
+    		String fileName=requestId+".pdf";
+    		String fileDownload=filePath+Constant.DIR_SEP+fileName;
+    		if (fileDownload!=null&&fileDownload.trim().length()!=0){
+    			//System.out.println("fileName:"+fileName+",fileDownload:"+fileDownload);
+    	   		res.setContentType("application/pdf");
+    			String agent = req.getHeader("USER-AGENT");
+				if (agent!=null&&agent.toUpperCase().indexOf("MSIE") != -1) {//IE内核浏览器
+					fileName = URLEncoder.encode(fileName, "UTF-8");
+					fileName = fileName.replace("+", "%20");//处理IE文件名中有空格会变成+"的问题;
+				} else {
+					fileName = URLDecoder.decode(fileName,"UTF-8");
+					Base64 b64=new Base64();//火狐文件名空格被截断问题
+					fileName = "=?UTF-8?B?" + (new String (b64.encode(fileName.getBytes("UTF-8")))) + "?="; 
+				}
+    			res.addHeader("Content-Disposition", "inline;filename="+fileName);//inline(打开),attachment下载
+    			java.io.OutputStream outp=null;
+    			java.io.FileInputStream in = null;
+    			java.io.InputStream ips = null;
+    			IterateFtpDir ftp=null;
+    			try{
+    				outp=res.getOutputStream();
+    				byte[] b=new byte[1024];
+    				int i=0;
+    				ftp=new IterateFtpDir(false);
+    				ftp.getFtp();
+    				ftp.getFtp().setFileType(FTPClient.BINARY_FILE_TYPE);  
+    				ftp.getFtp().enterLocalPassiveMode();  
+    				ips = ftp.getFtp().retrieveFileStream(IterateFtpDir.str2FtpCharset(fileDownload)); 
+    				if(ips!=null){
+        				while((i=ips.read(b))>0){
+        					outp.write(b,0,i);
+        				}
+    				}else{
+    					throw new RuntimeException("文件不存在！该请求"+requestId+"可能执行失败，或者输出文件被清理！");
+    				}
+    				outp.flush();
+    				outp.close();
+    			}finally{
+    				if(in!=null)in.close();
+    				if(outp!=null)outp.close();
+    				if(ips!=null)ips.close();
+    				if(ftp!=null)ftp.disConnection();
+    				//System.out.println("close .");
+    			}
+    		}else{
+    			throw new RuntimeException("fileDownload path is null!");
+    		}
+    	}
+   	}
 }

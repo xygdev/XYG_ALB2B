@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	    <td class="ACTUAL_COMPLETION_DATE" data-column="db"></td>
      	    <td class="COMPLETION_TEXT" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-eye fa-fw pointer hidden" title="点击查看结果详情" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame"></i>
+     	      <i class="fa fa-eye fa-fw pointer hidden show_output" title="点击查看结果详情" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame"></i>
      	    </td>
      	    <td class="REQUEST_LOG_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="STATUS_CODE" style="display:none" data-column="hidden">&nbsp;</td>
@@ -186,7 +186,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});	
         	});
         	
-        	
+        	//重新看报表结果 2016.12.12 new Add by Sam.T
+    		$.fn.outputShow = function(){
+    		    $('.show_output').off('click');
+    		    $('.show_output').on('click',function(){
+    		    	var requestId=parseInt($(this).parent().parent().find('.REQUEST_ID').html());
+    		        if(requestId&&requestId>0){
+	        	        var href = 'ap/getApOutput.do?REQUEST_ID='+requestId;
+	        	        //alert(href);
+	        	        layer.open({
+	                        type: 2,
+	                        title: '对账单详情',
+	                        shadeClose: true,
+	                        maxmin: true, //开启最大化最小化按钮
+	                        area: ['893px', '600px'],
+	                        anim: 2,
+	                        content: [href, 'yes'] //iframe的url，no代表不显示滚动条
+	                    });
+    		        }else{
+    		        	layer.alert("报表请求ID不存在！");
+    		        	return false;
+    		        }
+    		    });
+    		} 	
         }); 
         
         jQuery.json={
@@ -208,6 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     	}
                 	}
                 	$().crudListener();
+                	$().outputShow();
                 	$().revealListener(); 
         	    }else if(JSONtype=='cust'){
         	        if(pageMaxRow==0&&pageMinRow==0){
