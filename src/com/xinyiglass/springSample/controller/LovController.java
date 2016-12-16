@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import xygdev.commons.util.TypeConvert;
+
 import com.xinyiglass.springSample.service.LovService;
 
 @Controller
@@ -298,6 +300,20 @@ public class LovController {
   		Long userId = (Long)sess.getAttribute("USER_ID");
   		String glassIndustry = "FF";
   		res.getWriter().print(lovService.findUserOrganForPage(pageSize, pageNo, goLastPage, userId, organCode, organName, glassIndustry));
+  	}
+  	
+  	//物料值列表
+  	@RequestMapping(value = "/getItemPage.do", method = RequestMethod.POST)
+  	public void getItemPage() throws Exception
+  	{
+  		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
+  		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
+  		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
+  		Long thickness = TypeConvert.str2Long(req.getParameter("THICKNESS"));
+  		Long organizationId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
+  		String coatingCode = req.getParameter("COATING_CODE");
+  		String itemNumber = req.getParameter("itemNumber");
+  		res.getWriter().print(lovService.findItemForPage(pageSize, pageNo, goLastPage, thickness, coatingCode, organizationId, itemNumber));
   	}
   	
     //从LOOKUP_VALUES获取Coating值列表

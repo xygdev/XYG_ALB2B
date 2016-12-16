@@ -164,11 +164,11 @@ public class PermController {
     	}else{
     		fp.setFinalApproveFlag("N");
     	}
-    	String downloadFlag=req.getParameter("DOWNLOAD_FLAG");
+    	String downloadFlag=req.getParameter("DELETE_FLAG");
     	if(downloadFlag!=null&&downloadFlag.equals("on")){
-    		fp.setDownloadFlag("Y");
+    		fp.setDeleteFlag("Y");
     	}else{
-    		fp.setDownloadFlag("N");
+    		fp.setDeleteFlag("N");
     	}
     	fp.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	fp.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
@@ -215,11 +215,11 @@ public class PermController {
     	}else{
     		fp.setFinalApproveFlag("N");
     	}
-    	String downloadFlag=req.getParameter("DOWNLOAD_FLAG");
+    	String downloadFlag=req.getParameter("DELETE_FLAG");
     	if(downloadFlag!=null&&downloadFlag.equals("on")){
-    		fp.setDownloadFlag("Y");
+    		fp.setDeleteFlag("Y");
     	}else{
-    		fp.setDownloadFlag("N");
+    		fp.setDeleteFlag("N");
     	}
     	fp.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	fp.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));

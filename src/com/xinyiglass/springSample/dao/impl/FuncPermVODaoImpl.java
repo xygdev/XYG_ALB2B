@@ -61,7 +61,7 @@ public class FuncPermVODaoImpl extends DevJdbcDaoSupport implements FuncPermVODa
 		paramMap.put("5", fp.getUpdateFlag());
 		paramMap.put("6", fp.getApproveFlag());
 		paramMap.put("7", fp.getFinalApproveFlag());
-		paramMap.put("8", fp.getDownloadFlag());
+		paramMap.put("8", fp.getDeleteFlag());
 		paramMap.put("9", TypeConvert.u2tDate(fp.getStartDate()));
 		paramMap.put("10", TypeConvert.u2tDate(fp.getEndDate()));
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
@@ -95,7 +95,7 @@ public class FuncPermVODaoImpl extends DevJdbcDaoSupport implements FuncPermVODa
 		paramMap.put("5", fp.getUpdateFlag());
 		paramMap.put("6", fp.getApproveFlag());
 		paramMap.put("7", fp.getFinalApproveFlag());
-		paramMap.put("8", fp.getDownloadFlag());
+		paramMap.put("8", fp.getDeleteFlag());
 		paramMap.put("9", TypeConvert.u2tDate(fp.getStartDate()));
 		paramMap.put("10", TypeConvert.u2tDate(fp.getEndDate()));
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);

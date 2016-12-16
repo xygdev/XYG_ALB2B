@@ -14,6 +14,7 @@
         </div>  
         <select data-type="select" class="left"></select>  
         <input type="text" data-type="query_val" class="left" >
+        <input type="hidden" data-type="extend_param"/>
         <div class="left lov_button">
           <i class="fa fa-search pointer" data-crudtype="lovquery" data-pageframe="lov"></i>
         </div>

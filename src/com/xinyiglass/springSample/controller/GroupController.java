@@ -105,7 +105,7 @@ public class GroupController {
 	}
     
     @RequestMapping(value = "/preUpdateGroupHeader.do", method = RequestMethod.POST)
-    public void preUpdateMenuHeader() throws Exception
+    public void preUpdateGroupHeader() throws Exception
     {
     	Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
     	GroupHeaderVO groupVO = ghvs.findForGroupVOById(groupId);

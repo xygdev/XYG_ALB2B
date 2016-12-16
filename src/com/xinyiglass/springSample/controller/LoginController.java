@@ -80,7 +80,11 @@ public class LoginController {
 
 	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String getLogin(){
-		return "redirect:/";
+		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
+			return "redirect:/";
+		}else{
+			return "error/sessionTimeout";
+		}
 	}
 
 	@RequestMapping(value="/logout.do",method=RequestMethod.POST)

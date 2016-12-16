@@ -167,6 +167,12 @@
 									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').css('display','none');
 									$('#'+options.pageframe+' i[data-pagetype="nextpage"]').css('display','none');
 									$('#'+options.pageframe+' span[data-type="row"]').text('');
+									$('td',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
+									blank_tr=$('tr:eq(1)',$('table[data-table="'+tablename+'"]'));
+									$('td',$('table[data-table="'+tablename+'"]')).parent().remove();
+									for(j=1;j<=pageSize;j++){
+										$('tr:eq(0)',$('table[data-table="'+tablename+'"]')).parent().append(blank_tr.clone());
+									}
 								}else{
 									alert("当前页无数据,即将自动跳转到最后一页");
 									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();

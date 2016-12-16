@@ -38,6 +38,12 @@ public class FuncController {
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
     }
+    
+    @RequestMapping("/setFuncId.do")
+	public void setFuncId(){
+    	Long funcId = TypeConvert.str2Long(req.getParameter("FUNC_ID"));
+    	sess.setAttribute("FUNC_ID", funcId);
+    }
 	
 	@RequestMapping("/funcManage.do")
 	public String listFuncVO(){

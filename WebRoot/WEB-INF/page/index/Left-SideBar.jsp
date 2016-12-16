@@ -15,7 +15,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script>
         $(function(){
       		var menu_url = 'menu/getPersonalMenu.do';
-      	    $().menu(menu_url);   
+      		var set_funcid_url = 'func/setFuncId.do'; 
+      	    $().menu(menu_url,set_funcid_url);   
       	    
       	    //动态生成面包屑
       	    

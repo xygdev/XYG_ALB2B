@@ -32,7 +32,7 @@
     	});
     }
 
-	$.fn.menu=function(menu_url){
+	$.fn.menu=function(menu_url,set_funcid_url){
 		$.ajax({
 			type:'post', 
 			url:menu_url,
@@ -45,7 +45,7 @@
 						if(data[i].FUNC==null||data[i].FUNC==''){
 							$('.'+data[i].PREV_CODE+' ul:first').append("<li class=\"treeview "+data[i].CODE+"\"><a href=\"#\"><i class=\""+data[i].ICON+"\"></i><span>"+data[i].NAME+"</span><i class=\"fa fa-angle-left pull-right\"></i></a><ul class=\"treeview-menu\"></ul></li>");
 						}else if(data[i].FUNC!=null||data[i].FUNC!=''){
-							$('.'+data[i].PREV_CODE+' ul:first').append("<li><a href=\"#\" data-href=\""+data[i].HREF+"\"><i class=\""+data[i].ICON+"\"></i>"+data[i].FUNC+"</a></li>");
+							$('.'+data[i].PREV_CODE+' ul:first').append("<li><a href=\"#\" data-href=\""+data[i].HREF+"\" data-funcid=\""+data[i].FUNC_ID+"\"><i class=\""+data[i].ICON+"\"></i>"+data[i].FUNC+"</a></li>");
 						}else{
 							alert("Error");
 						}
@@ -54,6 +54,15 @@
 				$('a[data-href]').on('click', function(e) {
 					e.preventDefault();//阻止<a>标签默认的点击事件（超链接跳转）
 				    value=$(this).data().href;	
+				    /****modify by bird 2016.12.12****/
+				    var func_id=$(this).data().funcid;
+				    var param='FUNC_ID='+func_id;
+				    $.ajax({
+				    	type:'post', 
+				    	data:param,
+				    	url:set_funcid_url				    	
+				    });
+				    /****modify by bird 2016.12.12****/
 				    $("#mainframe").attr("src",value);
 				    $('section.content-header h1').text($(this).text());
 					$('ol.breadcrumb li').remove();

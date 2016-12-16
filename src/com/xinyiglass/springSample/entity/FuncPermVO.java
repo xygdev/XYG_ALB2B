@@ -20,7 +20,7 @@ public class FuncPermVO implements FactoryBean,RowMapper<FuncPermVO>, Cloneable 
 	   private String updateFlag;
 	   private String approveFlag;
 	   private String finalApproveFlag;
-	   private String downloadFlag;
+	   private String deleteFlag;
 	   private java.util.Date startDate;
 	   private java.util.Date endDate;
 	   private Long createdBy;
@@ -102,11 +102,11 @@ public class FuncPermVO implements FactoryBean,RowMapper<FuncPermVO>, Cloneable 
 	   public void setFinalApproveFlag(String finalApproveFlag) {
 	      this.finalApproveFlag = finalApproveFlag;
 	   }
-	   public String getDownloadFlag() {
-	      return downloadFlag;
+	   public String getDeleteFlag() {
+	      return deleteFlag;
 	   }
-	   public void setDownloadFlag(String downloadFlag) {
-	      this.downloadFlag = downloadFlag;
+	   public void setDeleteFlag(String deleteFlag) {
+	      this.deleteFlag = deleteFlag;
 	   }
 	   public java.util.Date getStartDate() {
 	      return startDate;
@@ -177,7 +177,7 @@ public class FuncPermVO implements FactoryBean,RowMapper<FuncPermVO>, Cloneable 
 		   fp.setUpdateFlag(rs.getString("update_flag"));
 		   fp.setApproveFlag(rs.getString("approve_flag"));
 		   fp.setFinalApproveFlag(rs.getString("final_approve_flag"));
-		   fp.setDownloadFlag(rs.getString("download_flag"));
+		   fp.setDeleteFlag(rs.getString("delete_flag"));
 		   fp.setStartDate(rs.getDate("start_date"));
 		   fp.setEndDate(rs.getObject("end_date")==null?null:rs.getDate("end_date"));
 		   fp.setCreatedBy(rs.getLong("created_by"));

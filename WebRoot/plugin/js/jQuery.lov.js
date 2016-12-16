@@ -77,7 +77,10 @@
             				$(options.recid[k]).click();
             			}   			
             		}
-            		$('#'+options.pageframe+' .'+options.dismissmodalclass).click();
+            		if(options.clickfunc!=null||options.clickfunc!=''){
+        				eval(options.clickfunc);
+        			}
+            		$('#'+options.pageframe+' .'+options.dismissmodalclass).click();	
             	});
         	}     
         	$('#'+options.pageframe+' h1[data-type="title"]').text(options.lovname);
@@ -104,6 +107,10 @@
         	}
         	$('#'+options.pageframe+' select[data-type="select"]').html('');
         	$('#'+options.pageframe+' input[data-type="query_val"]').val('');
+        	$('#'+options.pageframe+' input[data-type="extend_param"]').val('');
+        	if(options.func!=null||options.func!=''){
+				eval(options.func);
+			}
         	for(j=0;j!=-1;j++){
         		if(options.selectname[j]!=null&&options.selectvalue[j]!=null){
         			$('#'+options.pageframe+' select[data-type="select"]').append('<option value='+options.selectvalue[j]+'>'+options.selectname[j]+'</option>');

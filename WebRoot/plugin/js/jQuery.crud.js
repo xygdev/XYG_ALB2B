@@ -106,7 +106,6 @@
 					if(input[i].value==''||input[i].value==null){
 						id=input[i].id;		
 						label=$('#'+options.pageframe+' label[for="'+id+'"]').text();
-						//alert('提交失败!错误信息:'+label+'不能为空！');
 						layer.alert('提交失败!错误信息:'+label+'不能为空！',{title:'警告',offset:[150]});
 						input[i].focus();
 						validate_flag=false;
@@ -125,7 +124,6 @@
 				col=tr.children('.'+options.col).text();
 				result=confirm(options.delmsg+col+'?');
 				if(result==true){
-					$(options.load).show();/****显示加载动画****/
 					param=options.delparam[0]+'='+tr.children(options.delparam[1]).text();
 					$.ajax({
 						type:'post', 
@@ -133,7 +131,12 @@
 						url:options.delurl,
 						dataType:'json',
 						success: function (data) {
-							$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/	
+							if(data.retcode=="0"){
+								layer.msg("删除成功!");
+				    			$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/	
+				    		}else{
+				    			layer.alert("删除失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
+				    		}	
 						},
 						error: function () {
 							alert("获取Json数据失败");
@@ -291,6 +294,10 @@
 				pageNo=parseInt(1);
 				$('#'+options.pageframe+' input[data-type="number"]').val(pageNo);
 				param=param+'&pageSize='+pageSize+'&pageNo='+pageNo;
+				extendParam = $('#'+options.pageframe+' input[data-type="extend_param"]').val();
+				if(extendParam!=null||extendParam!=''){
+					param = param + extendParam;
+				}
 				queryurl=$('#'+options.pageframe+' input[data-type="url"]').val();
 				$.ajax({
 					type:'post', 
@@ -364,6 +371,25 @@
 			}     
         });
     }
+    
+    $.fn.validateRequired = function(pageframe){
+    	var input=$('#'+pageframe+' [required="required"]');
+   		validate_flag=true;
+		for(i=0;i<input.length;i++){
+			if(input[i].value==''||input[i].value==null){
+				id=input[i].id;		
+				label=$('#'+pageframe+' label[for="'+id+'"]').text();
+				layer.alert('提交失败!错误信息:'+label+'不能为空！',{title:'警告',offset:[150]});
+				input[i].focus();
+				validate_flag=false;
+				return validate_flag;
+			}else{
+				continue;
+			}
+		}
+		return validate_flag;
+    }
+    
 })(jQuery);
 
 /*****************************插件配置说明*****************************

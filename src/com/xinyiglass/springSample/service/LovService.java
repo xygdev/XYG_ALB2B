@@ -102,9 +102,19 @@ public class LovService {
 			sqlBuf.append(" ORDER BY CUSTOMER_ID");
 		}else if(userType.equals("CUSTOMER")){
 			paramMap.put("1", userId);
-			sqlBuf.append("SELECT * FROM XYG_ALB2B_USER_CUSTOMER_V");		
-			sqlBuf.append(" WHERE 1 = 1");
-			sqlBuf.append(" AND USER_ID=:1");
+			//sqlBuf.append("SELECT * FROM XYG_ALB2B_USER_CUSTOMER_V");		
+			//sqlBuf.append(" WHERE 1 = 1");
+			sqlBuf.append("SELECT XAUC.*,XAOT.ORGANIZATION_ID,XAOT.ORGANIZATION_NAME");
+			sqlBuf.append("  FROM XYG_ALB2B_USER_CUSTOMER_V XAUC");
+			sqlBuf.append("      ,(SELECT OPERATING_UNIT,MAX(ORGANIZATION_ID) ORGANIZATION_ID");
+			sqlBuf.append("          FROM XYG_ALI_ORGANIZATION");
+			sqlBuf.append("         GROUP BY OPERATING_UNIT) XAO");
+			sqlBuf.append("      ,XYG_ALI_ORGANIZATION_TL XAOT");
+			sqlBuf.append(" WHERE USER_ID = :1");
+			sqlBuf.append("   AND XAUC.ORG_ID = XAO.OPERATING_UNIT");
+			sqlBuf.append("   AND XAOT.ORGANIZATION_ID=XAO.ORGANIZATION_ID");
+			sqlBuf.append("   AND XAOT.LANGUAGE = USERENV ('LANG')");
+			//sqlBuf.append(" AND USER_ID=:1");
 			sqlBuf.append(SqlStmtPub.getAndStmt("ACCOUNT_NUMBER",accountNumber,paramMap));
 			sqlBuf.append(SqlStmtPub.getAndStmt("PARTY_NAME", partyName,paramMap));
 			sqlBuf.append(" ORDER BY CUSTOMER_ID");
@@ -269,6 +279,22 @@ public class LovService {
 		sqlBuf.append(SqlStmtPub.getAndStmt("ORGANIZATION_CODE",organCode,paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("ORGANIZATION_NAME", organName,paramMap));
 		sqlBuf.append(" ORDER BY ORGANIZATION_ID");
+		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
+	}
+	
+	/***物料LOV***/
+	public String findItemForPage(int pageSize,int pageNo,boolean goLastPage,Long thickness,String coatingCode,Long organizationId,String itemNumber) throws Exception{
+		StringBuffer sqlBuf=new StringBuffer();
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("1", thickness);
+		paramMap.put("2", coatingCode);
+		paramMap.put("3", organizationId);
+		sqlBuf.append("SELECT INVENTORY_ITEM_ID,ITEM_NUMBER,DESCRIPTION,LONG_DESCRIPTION FROM XYG_ALI_ITEMS_VL");
+		sqlBuf.append(" WHERE THICKNESS = :1");
+		sqlBuf.append(" AND COATING_TYPE = :2");
+		sqlBuf.append(" AND ORGANIZATION_ID = :3");
+		sqlBuf.append(SqlStmtPub.getAndStmt("ITEM_NUMBER",itemNumber,paramMap));
+		sqlBuf.append(" ORDER BY INVENTORY_ITEM_ID");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

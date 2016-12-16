@@ -180,7 +180,7 @@
           <br style="clear:both"/>
         </div>
         
-        <!-- 菜单明细表格区域 start -->
+        <!-- PO明细表格区域 start -->
         <div class='detail_table'>
           <table id="mLine" data-table="MenuLine">
             <tr>
@@ -220,12 +220,12 @@
             <i id='sub_refresh' class="fa fa-refresh pointer" data-pagetype='refresh' data-pageframe="sub_table" data-func="$().setParam();"></i>
           </div>
           <div>
-            <!-- 菜单明细分页按钮区域 start -->
+            <!-- PO明细分页按钮区域 start -->
             <jsp:include page="../public/pageArrow.jsp" >
 			  <jsp:param name="pageframe" value="sub_table" />
 			  <jsp:param name="func" value="$().setParam();" />
 		    </jsp:include>
-            <!-- 菜单明细分页按钮区域 end -->
+            <!-- PO明细分页按钮区域 end -->
             <input type="hidden" data-type="size" value="5"/>
             <input type="hidden" data-type="number" value="1"/>
             <input type="hidden" data-type="orderby" value="MENU_SEQUENCE ASC"/> 
@@ -317,12 +317,12 @@
     		} 	
     		
     		$.fn.autoAddSeq = function(){
-    		    menuId = $('#MENU_ID_LINES').val();
-    		    param = 'MENU_ID='+menuId;
+    		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
+    		    param = 'PO_HEADER_ID='+poHeaderId;
     		    $.ajax({
 				    type:'post', 
 				    data:param,
-				    url:'menu/getAutoAddSeq.do',
+				    url:'po/getAutoAddSeq.do',
 				    dataType:'json',
 				    success: function (data) {
 				        $('#MENU_ID_DETAIL').val(menuId);

@@ -47,6 +47,8 @@
     <bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" lazy-init="true"/>
     
     <!-- 配置 工厂 Bean -->
+    <bean id="PoHeaderVO" class="com.xinyiglass.springSample.entity.PoHeaderVO"/>
+    <bean id="PoLineVO" class="com.xinyiglass.springSample.entity.PoLineVO"/>
     <bean id="FuncPermVO" class="com.xinyiglass.springSample.entity.FuncPermVO"/>
     <bean id="OnhandPermVO" class="com.xinyiglass.springSample.entity.OnhandPermVO"/>
     <bean id="OnhandSetVO" class="com.xinyiglass.springSample.entity.OnhandSetVO"/>
@@ -62,6 +64,8 @@
     <bean id="MailDao" class="com.xinyiglass.springSample.dao.impl.MailDaoImpl" parent="abstractDao">
     	<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
     </bean>
+    <bean id="PoHeaderDao" class="com.xinyiglass.springSample.dao.impl.PoHeaderVODaoImpl" parent="abstractDao"/>
+    <bean id="PoLineDao" class="com.xinyiglass.springSample.dao.impl.PoLineVODaoImpl" parent="abstractDao"/>
     <bean id="ApDao" class="com.xinyiglass.springSample.dao.impl.ApDaoImpl" parent="abstractDao"/>
     <bean id="LoginDao" class="com.xinyiglass.springSample.dao.impl.LoginDaoImpl" parent="abstractDao"/>
     <bean id="FuncPermVODao" class="com.xinyiglass.springSample.dao.impl.FuncPermVODaoImpl" parent="abstractDao"/>

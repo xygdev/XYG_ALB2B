@@ -40,7 +40,7 @@
      	    <th class="UPDATE_FLAG" data-column="db">更新</th>
      	    <th class="APPROVE_FLAG" data-column="db">审批</th>
      	    <th class="FINAL_APPROVE_FLAG" data-column="db">终审</th>
-     	    <th class="DOWNLOAD_FLAG" data-column="db">下载</th>
+     	    <th class="DELETE_FLAG" data-column="db">删除</th>
      	    <th class="START_DATE" data-column="db">启用日期</th>
      	    <th class="END_DATE" data-column="db">失效日期</th>
      	    <th class="ACTION" data-column="normal">操作</th> 
@@ -55,7 +55,7 @@
      	    <td class="UPDATE_FLAG" data-column="db"></td>
      	    <td class="APPROVE_FLAG" data-column="db"></td>
      	    <td class="FINAL_APPROVE_FLAG" data-column="db"></td>
-     	    <td class="DOWNLOAD_FLAG" data-column="db"></td>
+     	    <td class="DELETE_FLAG" data-column="db"></td>
      	    <td class="START_DATE" data-column="db"></td>
      	    <td class="END_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
@@ -159,8 +159,8 @@
             <input type="checkbox" id="APPROVE_FLAG" name="APPROVE_FLAG" class="left checkbox"/>
             <label for="FINAL_APPROVE_FLAG" class='left checkbox'>终审</label>
             <input type="checkbox" id="FINAL_APPROVE_FLAG" name="FINAL_APPROVE_FLAG" class="left checkbox"/>
-            <label for="DOWNLOAD_FLAG" class='left checkbox'>下载</label>
-            <input type="checkbox" id="DOWNLOAD_FLAG" name="DOWNLOAD_FLAG" class="left checkbox"/>
+            <label for="DELETE_FLAG" class='left checkbox'>删除</label>
+            <input type="checkbox" id="DELETE_FLAG" name="DELETE_FLAG" class="left checkbox"/>
           </form>
         </div>
         <div class='foot'>       
@@ -264,10 +264,10 @@
                     	}else{
                     	    $('.FINAL_APPROVE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	}
-                    	if(data.rows[i].DOWNLOAD_FLAG=='Y'){
-                    	    $('.DOWNLOAD_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	if(data.rows[i].DELETE_FLAG=='Y'){
+                    	    $('.DELETE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.DOWNLOAD_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.DELETE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	} 
                     	$('.START_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
                     	$('.END_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
@@ -330,8 +330,8 @@
        	        if(data.rows[0].FINAL_APPROVE_FLAG=='Y'){
        	            $('#FINAL_APPROVE_FLAG').prop('checked',true);
        	        } 
-       	        if(data.rows[0].DOWNLOAD_FLAG=='Y'){
-       	            $('#DOWNLOAD_FLAG').prop('checked',true);
+       	        if(data.rows[0].DELETE_FLAG=='Y'){
+       	            $('#DELETE_FLAG').prop('checked',true);
        	        } 
        	    },
        	    getMSG:function(data){

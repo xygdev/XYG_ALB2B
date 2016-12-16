@@ -172,18 +172,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		//报表提交
         	$('#report').on('click',function(){	 
         		param = $('#query form').serialize();
-        	    $.ajax({
-				    type:'post', 
-				    data:param,
-				    url:'ap/reqApQuery.do',
-				    success: function () {
-				        $('#query a[data-type="close"]').click();
-				        layer.msg("报表请求已提交，报表生成后将以邮件的形式发送到收件箱，请注意查收");        
-				    },error: function () {
-				        $('#query a[data-type="close"]').click();
-				        layer.alert("报表请求错误");
-				    }
-				});	
+        		var validate_flag=$().validateRequired('query');
+        		if(validate_flag==true){
+        		    $.ajax({
+				    	type:'post', 
+				    	data:param,
+				    	url:'ap/reqApQuery.do',
+				    	success: function () {
+				        	$('#query a[data-type="close"]').click();
+				        	layer.msg("报表请求已提交，报表生成后将以邮件的形式发送到收件箱，请注意查收");        
+				    	},error: function () {
+				        	$('#query a[data-type="close"]').click();
+				        	layer.alert("报表请求错误");
+				    	}
+				    });	
+        		}
+        	    
         	});
         	
         	//重新看报表结果 2016.12.12 new Add by Sam.T
