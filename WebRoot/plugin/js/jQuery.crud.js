@@ -390,6 +390,14 @@
 		return validate_flag;
     }
     
+    //栏位清除按钮
+    $('i[data-eraser]').on('click',function(){
+	    eraser=$(this).data('eraser');
+	    for(m=0;m<eraser.length;m++){
+	        $('#'+eraser[m]).val('');
+	    }
+	});	
+    
 })(jQuery);
 
 /*****************************插件配置说明*****************************

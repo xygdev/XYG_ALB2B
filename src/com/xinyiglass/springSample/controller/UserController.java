@@ -141,6 +141,7 @@ public class UserController {
     	//System.out.println(basePath);
     	//String path=basePath+"plugin\\img\\user\\";
     	//设置Tomcat本地文件服务器地址
+    	//String path="/ebs/data/image/user/";
     	String path="E:\\image\\user\\";
     	Base64Convert.base64ToIo(strBase64, path, fileName);
         res.getWriter().print(UVS.updateImgUrl(fileName, userId).toJsonStr());

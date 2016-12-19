@@ -190,12 +190,6 @@
     		    param = 'CUST_ACCOUNT_ID='+tr.children('.CUST_ACCOUNT_ID').text()+'&';
     		}	 	
     		
-    		$('i[data-eraser]').on('click',function(){
-    		    eraser=$(this).data('eraser');
-    		    for(m=0;m<eraser.length;m++){
-    		        $('#'+eraser[m]).val('');
-    		    }
-    		});
         });
         
         jQuery.json={

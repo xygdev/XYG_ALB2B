@@ -58,7 +58,11 @@ public class PoController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String orderBy=req.getParameter("orderby");
 		Long userId = (Long)sess.getAttribute("USER_ID");
-		res.getWriter().print(phvs.findForPage(pageSize, pageNo, goLastPage, userId, orderBy));
+		String custContractNumber = req.getParameter("CUSTOMER_CONTRACT_NUMBER");
+		String poNumber = req.getParameter("PO_NUMBER");
+		String status = req.getParameter("STATUS");
+		Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
+		res.getWriter().print(phvs.findForPage(pageSize, pageNo, goLastPage, userId, poNumber, custContractNumber, status, custId, orderBy));
 	} 
     
     @RequestMapping("/preUpdatePoHeader.do")

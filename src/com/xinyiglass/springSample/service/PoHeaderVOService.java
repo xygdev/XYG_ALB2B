@@ -14,6 +14,7 @@ import com.xinyiglass.springSample.entity.PoHeaderVO;
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.page.PagePub;
 import xygdev.commons.springjdbc.DevJdbcSubProcess;
+import xygdev.commons.sqlStmt.SqlStmtPub;
 
 @Service
 @Transactional(rollbackFor=Exception.class)//指定checked的异常Exception也要回滚！
@@ -25,13 +26,14 @@ public class PoHeaderVOService {
 	PoHeaderVODao phvDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String poNumber,String custContractNumber,String status,Long custId,String orderBy) throws Exception{
+		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT *");
 		sqlBuff.append("  FROM XYG_ALB2B_LG_PO_HEADERS_V");
-		sqlBuff.append(" WHERE (CUSTOMER_ID IN (SELECT CUSTOMER_ID");
+		sqlBuff.append(" WHERE ((CUSTOMER_ID IN (SELECT CUSTOMER_ID");
 		sqlBuff.append("                          FROM XYG_ALB2B_USER_CUSTOMER");
 		sqlBuff.append("                         WHERE USER_ID = :1)");
 		sqlBuff.append("       AND (SELECT USER_TYPE");
@@ -54,7 +56,11 @@ public class PoHeaderVOService {
 		sqlBuff.append("                                            WHERE USER_ID = :1)");
 		sqlBuff.append("       AND (SELECT USER_TYPE");
 		sqlBuff.append("              FROM XYG_ALB2B_USER");
-		sqlBuff.append("             WHERE USER_ID = :1) = 'EMP'))");
+		sqlBuff.append("             WHERE USER_ID = :1) = 'EMP')))");
+		sqlBuff.append(SqlStmtPub.getAndStmt("PO_NUMBER",poNumber,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_CONTRACT_NUMBER",custContractNumber,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("STATUS",status,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",custId,paramMap));
 		sqlBuff.append(" ORDER BY "+orderBy);
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}

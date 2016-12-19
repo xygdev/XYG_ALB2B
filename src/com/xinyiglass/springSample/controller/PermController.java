@@ -175,6 +175,14 @@ public class PermController {
     	res.getWriter().print(fpvs.insert(fp).toJsonStr());
 	}
     
+    @RequestMapping(value = "/getUserFuncPerm.do", method = RequestMethod.POST)
+    public void getUserFuncPerm() throws Exception
+    {
+    	Long userId = (Long)sess.getAttribute("USER_ID");
+    	Long funcId = (Long)sess.getAttribute("FUNC_ID");
+    	res.getWriter().print(fpvs.findFuncPermByUserAndFunc(userId, funcId));
+    }
+    
     @RequestMapping(value = "/preUpdateFP.do", method = RequestMethod.POST)
     public void preUpdateFP() throws Exception
     {

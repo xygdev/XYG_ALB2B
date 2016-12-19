@@ -317,12 +317,12 @@
     		} 	
     		
     		$.fn.autoAddSeq = function(){
-    		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
-    		    param = 'PO_HEADER_ID='+poHeaderId;
+    		    menuId = $('#MENU_ID_LINES').val();
+    		    param = 'MENU_ID='+menuId;
     		    $.ajax({
 				    type:'post', 
 				    data:param,
-				    url:'po/getAutoAddSeq.do',
+				    url:'menu/getAutoAddSeq.do',
 				    dataType:'json',
 				    success: function (data) {
 				        $('#MENU_ID_DETAIL').val(menuId);

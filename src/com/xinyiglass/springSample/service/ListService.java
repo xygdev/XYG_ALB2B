@@ -41,4 +41,16 @@ public class ListService {
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		return pagePub.qSqlForJson(sql, paramMap);
 	}
+	
+	public String findForPoStatus() throws Exception{
+		String sql = "SELECT MEANING DISPLAY,LOOKUP_CODE VALUE"
+				+ " FROM XYG_ALD_LOOKUP_VALUES  "
+				+ " WHERE LOOKUP_TYPE = 'XYG_LG_PO_STATUS' "
+				+ " AND LANGUAGE = 'ZHS' "
+				+ " AND ENABLED_FLAG='Y' "
+				+ " AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1) "
+				+ " ORDER BY LOOKUP_CODE";
+		Map<String,Object> paramMap=new  HashMap<String,Object>();
+		return pagePub.qSqlForJson(sql, paramMap);
+	}
 }

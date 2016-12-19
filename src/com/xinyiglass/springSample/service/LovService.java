@@ -293,18 +293,22 @@ public class LovService {
 		sqlBuf.append(" WHERE THICKNESS = :1");
 		sqlBuf.append(" AND COATING_TYPE = :2");
 		sqlBuf.append(" AND ORGANIZATION_ID = :3");
+		sqlBuf.append(" AND PRODUCT_FINANCE_TYPE IN ('204001','204002','204003','204004','204005','204006','204014')");
 		sqlBuf.append(SqlStmtPub.getAndStmt("ITEM_NUMBER",itemNumber,paramMap));
 		sqlBuf.append(" ORDER BY INVENTORY_ITEM_ID");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
 	/***LOOKUP VALUE LOV***/
+	//新增过滤条件 MODIFY　BY BIRD --2016.12.19
 	public String findLookupForPage(int pageSize,int pageNo,boolean goLastPage,String lookupType,String lookupCode,String meaning) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", lookupType);
 		sqlBuf.append("SELECT * FROM XYG_ALD_LOOKUP_VALUES");
 		sqlBuf.append(" WHERE 1 = 1 AND LOOKUP_TYPE=:1");
+		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
+		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
 		sqlBuf.append(SqlStmtPub.getAndStmt("LOOKUP_CODE",lookupCode,paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("MEANING", meaning,paramMap));
 		sqlBuf.append(" ORDER BY LOOKUP_CODE");
@@ -312,19 +316,31 @@ public class LovService {
 	}
 	
 	public String countByLookupMeaning(String meaning,String lookupType) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALD_LOOKUP_VALUES WHERE MEANING = :1 AND LOOKUP_TYPE=:2";
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		paramMap.put("1", meaning);
 		paramMap.put("2", lookupType);
-		return pagePub.qSqlForJson(sql, paramMap);
+		StringBuffer sqlBuf=new StringBuffer();
+		sqlBuf.append("SELECT COUNT(*) COUNT FROM XYG_ALD_LOOKUP_VALUES");
+		sqlBuf.append(" WHERE 1 = 1");
+		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
+		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
+		sqlBuf.append("   AND MEANING = :1");
+		sqlBuf.append("   AND LOOKUP_TYPE=:2");
+		return pagePub.qSqlForJson(sqlBuf.toString(), paramMap);
 	}
 	
 	public String findForLookupCode(String meaning,String lookupType) throws Exception{
-		String sql = "SELECT LOOKUP_CODE FROM XYG_ALD_LOOKUP_VALUES WHERE MEANING = :1 AND LOOKUP_TYPE=:2";
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		paramMap.put("1", meaning);
 		paramMap.put("2", lookupType);
-		return pagePub.qSqlForJson(sql, paramMap);
+		StringBuffer sqlBuf=new StringBuffer();
+		sqlBuf.append("SELECT LOOKUP_CODE FROM XYG_ALD_LOOKUP_VALUES");
+		sqlBuf.append(" WHERE 1 = 1");
+		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
+		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
+		sqlBuf.append("   AND MEANING = :1");
+		sqlBuf.append("   AND LOOKUP_TYPE=:2");
+		return pagePub.qSqlForJson(sqlBuf.toString(), paramMap);
 	}
 	
 

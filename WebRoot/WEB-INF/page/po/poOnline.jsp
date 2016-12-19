@@ -184,18 +184,24 @@
       <!-- 条件查询区域 start -->
       <div id='query' class='query_frame'>     
         <div class='title pointer'>      
-          <span><i class="fa fa-th-list"></i>&nbsp;菜单查询</span>
+          <span><i class="fa fa-th-list"></i>&nbsp;PO单查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
         <div class='content'>
           <form>
-            <label for='MENU_CODE_Q' class='left mid'>菜单编码:</label> 
-            <input type="text" id="MENU_CODE_Q" name="MENU_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="MENU_LOV_Q" data-hiddenid=["MENU_ID_Q","MENU_NAME_Q","MENU_CODE_Q"] data-hiddenval=["MENU_ID","MENU_NAME","MENU_CODE"] data-param="menucode"/>
-            <input type='hidden' id='MENU_ID_Q' name='MENU_ID' data-update="db"/>
-            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_CODE_Q","#MENU_NAME_Q"] value="···"/>
-            <label for="MENU_NAME_Q" class='left mid'>菜单名称:</label>
-            <input type="text" id="MENU_NAME_Q" name="MENU_NAME"  class="left long"/>
+            <label for='PO_NUMBER_Q' class='left mid'>PO单号:</label> 
+            <input type="text" id="PO_NUMBER_Q" name="PO_NUMBER" class="left long"/>
+            <label for="CUSTOMER_CONTRACT_NUMBER_Q" class='left mid'>客订单号:</label>
+            <input type="text" id="CUSTOMER_CONTRACT_NUMBER_Q" name="CUSTOMER_CONTRACT_NUMBER"  class="left long"/>
+            <br style="clear:both"/>
+            <label for="STATUS_Q" class="left mid">订单状态:</label> 
+            <select class='left long' id='STATUS_Q' name='STATUS' data-notnull="false" data-listurl="list/getPoStatus.do"></select>
+            <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
+            <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" readonly="readonly"/>
+            <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
+            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
+            <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q"]></i>
           </form>
         </div>
         <div class='foot'>             
@@ -387,35 +393,41 @@
     		$().crudListener();	
     		$().revealListener(); 
     		
-    		$.fn.setParam = function(){
-    		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
-    		    param = param + '&PO_HEADER_ID='+poHeaderId;
-    		}	
+    		//功能权限前端验证
+    		$(function() {
+    		    $.ajax({
+				    type:'post',  
+				    url:'perm/getUserFuncPerm.do',
+				    dataType:'json',
+				    success: function (data) {
+				       var insertFlag = data.rows[0].INSERT_FLAG;
+				       var updateFlag = data.rows[0].UPDATE_FLAG;
+				       var checkFlag = data.rows[0].APPROVE_FLAG;
+				       var approvedFlag = data.rows[0].FINAL_APPROVE_FLAG;
+				       var deleteFlag = data.rows[0].DELETE_FLAG;
+				       if(insertFlag == 'N'){
+				           $('i[data-crudtype="pre-insert"]').parent().css('display','none');
+				       };
+				       if(updateFlag == 'N'){
+				           $('i[data-crudtype="pre-update"]').css('display','none');
+				       };
+				       if(checkFlag == 'N'){
+				           $('i[data-statustype="CHECKED"]').css('display','none');
+				       };
+				       if(approvedFlag == 'N'){
+				           $('i[data-statustype="APPROVED"]').css('display','none');
+				       };
+				       if(deleteFlag == 'N'){
+				           $('i[data-crudtype="del"]').css('display','none');
+				       };
+				    },
+				    error: function () {
+				    	layer.alert('获取数据失败',{title:'警告',offset:[150]});
+				    }
+				});
+    		});
     		
-    		$.fn.detailShow = function(){
-    		    $('.show_detail').off('click');
-    		    $('.show_detail').on('click',function(){
-    		        tr = $(this).parent().parent();
-    		        poHeaderId = tr.children('.PO_HEADER_ID').text();
-    		    	poNumber = tr.children('.PO_NUMBER').text();
-    		    	customerContractNo = tr.children('.CUSTOMER_CONTRACT_NUMBER').text();
-    		    	organizationName = tr.children('.ORGANIZATION_NAME').text();
-    		    	organizationId = tr.children('.SHIP_FROM_ORG_ID').text();
-    		    	status = tr.children('.STATUS').text();
-    		    	statusDesc = tr.children('.STATUS_DESC').text();
-    		    	$('.detail_header input').val('');
-    		    	$('#sub_table input[data-type="number"]').val('1');
-    		    	$('#PO_HEADER_ID_LINES').val(poHeaderId);
-    		    	$('#PO_NUMBER_LINES').val(poNumber);
-    		    	$('#CUSTOMER_CONTRACT_NUMBER_LINES').val(customerContractNo);
-    		    	$('#ORGANIZATION_NAME_LINES').val(organizationName);
-    		    	$('#ORGANIZATION_ID_LINES').val(organizationId);
-    		    	$('#STATUS_LINES').val(status);
-    		    	$('#STATUS_DESC_LINES').val(statusDesc);
-    		    	$('#sub_refresh').click();
-    		    });    		   
-    		} 	
-    		
+    		//状态变更按钮绑定
     		$('i[data-statustype]').on('click',function(){
     		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
     		    poNumber = $('#PO_NUMBER_LINES').val();
@@ -447,7 +459,78 @@
 				    	layer.alert('获取数据失败',{title:'警告',offset:[150]});
 				    }	
 				});      
-    		});    	
+    		});  
+    		
+    		//绑定清空栏位
+    		$('#detail_ui .clean_item').on('input',function(){
+    		    $('#ITEM_D').val('');
+    		    $('#ITEM_ID_D').val('');
+    		});
+    		
+    		//总金额自动计算逻辑
+    		$('#detail_ui .amount_calc').on('input',function(){
+    		    sqm = $('#SQM_D').val();
+    		    if(sqm==null||sqm==''){
+    		        sqm = 0;
+    		    }
+    		    sqm_price = $('#SQM_UNIT_PRICE_D').val();
+    		    if(sqm_price==null||sqm_price==''){
+    		        return;
+    		    }
+    		    amount = parseInt(sqm) * parseInt(sqm_price);
+    		    $('#AMOUNT_D').val(amount);
+    		});
+    		
+    		//平米数自动计算逻辑
+    		$('#detail_ui .sqm_calc').on('input',function(){
+    		    width = $('#WIDTH_D').val();
+    		    if(width==null||width==''){
+    		        width = 0;
+    		    }
+    		    height = $('#HEIGHT_D').val()
+    		    if(height==null||height==''){
+    		        height = 0;
+    		    }
+    		    pie = $('#PIE_QUANTITY_D').val();
+    		    if(pie==null||pie==''){
+    		        pie = 0;
+    		    }
+    		    sqm = (parseInt(width)/1000) * (parseInt(height)/1000) * parseInt(pie);
+    		    if(sqm==0){
+    		        sqm = null;
+    		    }
+    		    $('#SQM_D').val(sqm);
+    		});
+    		
+    		/******匿名函数区域Start******/
+    		$.fn.setParam = function(){
+    		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
+    		    param = param + '&PO_HEADER_ID='+poHeaderId;
+    		}	
+    		
+    		$.fn.detailShow = function(){
+    		    $('.show_detail').off('click');
+    		    $('.show_detail').on('click',function(){
+    		        tr = $(this).parent().parent();
+    		        poHeaderId = tr.children('.PO_HEADER_ID').text();
+    		    	poNumber = tr.children('.PO_NUMBER').text();
+    		    	customerContractNo = tr.children('.CUSTOMER_CONTRACT_NUMBER').text();
+    		    	organizationName = tr.children('.ORGANIZATION_NAME').text();
+    		    	organizationId = tr.children('.SHIP_FROM_ORG_ID').text();
+    		    	status = tr.children('.STATUS').text();
+    		    	statusDesc = tr.children('.STATUS_DESC').text();
+    		    	$('.detail_header input').val('');
+    		    	$('#sub_table input[data-type="number"]').val('1');
+    		    	$('#PO_HEADER_ID_LINES').val(poHeaderId);
+    		    	$('#PO_NUMBER_LINES').val(poNumber);
+    		    	$('#CUSTOMER_CONTRACT_NUMBER_LINES').val(customerContractNo);
+    		    	$('#ORGANIZATION_NAME_LINES').val(organizationName);
+    		    	$('#ORGANIZATION_ID_LINES').val(organizationId);
+    		    	$('#STATUS_LINES').val(status);
+    		    	$('#STATUS_DESC_LINES').val(statusDesc);
+    		    	$('#sub_refresh').click();
+    		    });    		   
+    		} 	  	
     		
     		$.fn.autoAddSeq = function(){
     		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
@@ -493,51 +576,8 @@
     		        $('label[for="AMOUNT_D"]').css('display','');
     		        $('#AMOUNT_D').css('display','');
     		    }
-    		}
-    		
-    		$('#detail_ui .clean_item').on('input',function(){
-    		    $('#ITEM_D').val('');
-    		    $('#ITEM_ID_D').val('');
-    		});
-    		
-    		$('#detail_ui .amount_calc').on('input',function(){
-    		    sqm = $('#SQM_D').val();
-    		    if(sqm==null||sqm==''){
-    		        sqm = 0;
-    		    }
-    		    sqm_price = $('#SQM_UNIT_PRICE_D').val();
-    		    if(sqm_price==null||sqm_price==''){
-    		        return;
-    		    }
-    		    amount = parseInt(sqm) * parseInt(sqm_price);
-    		    $('#AMOUNT_D').val(amount);
-    		});
-    		
-    		$('#detail_ui .sqm_calc').on('input',function(){
-    		    width = $('#WIDTH_D').val();
-    		    if(width==null||width==''){
-    		        width = 0;
-    		    }
-    		    height = $('#HEIGHT_D').val()
-    		    if(height==null||height==''){
-    		        height = 0;
-    		    }
-    		    pie = $('#PIE_QUANTITY_D').val();
-    		    if(pie==null||pie==''){
-    		        pie = 0;
-    		    }
-    		    sqm = (parseInt(width)/1000) * (parseInt(height)/1000) * parseInt(pie);
-    		    if(sqm==0){
-    		        sqm = null;
-    		    }
-    		    $('#SQM_D').val(sqm);
-    		});
-    		
-    		$.fn.getMenuId = function(){
-    		    menuId = $('#MENU_ID_LINES').val();
-    		    param = 'MENU_ID='+menuId+'&';
-    		}
-    		
+    		}    		
+    		/******匿名函数区域end******/
         });
         
         jQuery.json={
@@ -598,6 +638,18 @@
        	            	    $('td:eq(4)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME); 
        	            	    $('td:eq(5)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
        	            	    $('td:eq(6)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME); 
+       	            	} 
+        	       	}       	            	    
+        	    }else if(JSONtype=='cust_q'){
+        	        if(pageMaxRow==0&&pageMinRow==0){
+        	            console.log('no data');
+        	        }else{
+        	            for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
+        	                $('td:eq(0)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ORG_ID);   	               	        
+       	            	    $('td:eq(1)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME); 
+       	            	    $('td:eq(2)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].CUSTOMER_ID);  
+       	            	    $('td:eq(3)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME);     	                    
+       	            	    $('td:eq(4)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER); 
        	            	} 
         	       	}       	            	    
         	    }else if(JSONtype=='organ'){

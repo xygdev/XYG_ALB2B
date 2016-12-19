@@ -46,4 +46,10 @@ public class ListController {
 	{
 		res.getWriter().print(listService.findForUserType());
 	}
+	
+	@RequestMapping(value = "/getPoStatus.do", method = RequestMethod.POST)
+	public void getPoStatus() throws Exception
+	{
+		res.getWriter().print(listService.findForPoStatus());
+	}
 }

@@ -33,6 +33,14 @@ public class FuncPermVODaoImpl extends DevJdbcDaoSupport implements FuncPermVODa
 		return this.getDevJdbcTemplate().queryForResultSet(sql, paramMap);
 	}
 	
+	public SqlResultSet findByUserAndFuncForJSON(Long userId,Long funcId) throws Exception{
+		Map<String,Object> paramMap=new  HashMap<String,Object>();
+		String sql = "SELECT * from XYG_ALB2B_FUNC_PERM_V WHERE USER_ID = :1 AND FUNCTION_ID = :2";
+		paramMap.put("1", userId);
+		paramMap.put("2", funcId);
+		return this.getDevJdbcTemplate().queryForResultSet(sql, paramMap);
+	}
+	
 	//insert
 	public PlsqlRetValue insert(FuncPermVO fp) throws Exception{
 		String sql ="Declare "

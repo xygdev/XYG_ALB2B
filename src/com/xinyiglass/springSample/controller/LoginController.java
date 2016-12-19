@@ -77,7 +77,8 @@ public class LoginController {
 		 }
 		return mv;
 	}
-
+    
+	/*
 	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String getLogin(){
 		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
@@ -86,6 +87,7 @@ public class LoginController {
 			return "error/sessionTimeout";
 		}
 	}
+	*/
 
 	@RequestMapping(value="/logout.do",method=RequestMethod.POST)
 	public ModelAndView getLogout(){

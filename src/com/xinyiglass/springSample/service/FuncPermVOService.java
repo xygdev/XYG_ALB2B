@@ -48,6 +48,11 @@ public class FuncPermVOService {
 		return "{\"rows\":"+fpDao.findByIdForJSON(pId).toJsonStr()+"}";
 	}
 	
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public String findFuncPermByUserAndFunc(Long userId,Long funcId) throws Exception{
+		return "{\"rows\":"+fpDao.findByUserAndFuncForJSON(userId, funcId).toJsonStr()+"}";
+	}
+	
 	public PlsqlRetValue insert(FuncPermVO fp) throws Exception{
 		PlsqlRetValue ret=fpDao.insert(fp);
 		System.out.println("Retcode:"+ret.toString());
