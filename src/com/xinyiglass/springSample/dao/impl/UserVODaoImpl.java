@@ -51,6 +51,8 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 		paramMap.put("9", u.getUserType());
 		paramMap.put("10", u.getUserGroupId());
 		paramMap.put("11", u.getImgUrl());
+		//xygdev.commons.util.Constant.LINE_SEPARATOR="\\r\\n";//System.getProperty("line.separator");
+		//log("xygdev.commons.util.Constant.LINE_SEPARATOR:"+xygdev.commons.util.Constant.LINE_SEPARATOR);
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	
