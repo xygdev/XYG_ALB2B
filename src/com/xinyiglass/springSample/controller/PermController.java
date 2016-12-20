@@ -45,11 +45,7 @@ public class PermController {
     
     @RequestMapping("/onhandPerm.do")
 	public String listOnhandPermVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/onhandPerm";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/onhandPerm";
 	}
     
     @RequestMapping(value = "/getOnhandPerm.do", method = RequestMethod.POST)
@@ -111,11 +107,7 @@ public class PermController {
     
     @RequestMapping("/funcPerm.do")
 	public String listFuncPermVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/funcPerm";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/funcPerm";
 	}
     
     @RequestMapping(value = "/getFuncPerm.do", method = RequestMethod.POST)

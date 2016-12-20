@@ -7,7 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">    
+    <base id="base_id" href="<%=basePath%>">    
     <title>信义玻璃B2B平台</title>
 	<meta http-equiv="content-type" content="text/html;charset=gb2312">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- 私有样式表 -->
     <link rel="stylesheet" href="plugin/css/index/index.css"> 
     <!-- Websocket -->
-    <script src="http://192.168.88.41:8080/B2B_Demo_Version01/plugin/js/webSocket.js"></script>
+    <script src="plugin/js/webSocket.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

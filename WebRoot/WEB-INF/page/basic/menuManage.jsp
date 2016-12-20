@@ -86,7 +86,7 @@
           <!-- 分页按钮区域 end -->
           <input type="hidden" data-type="size" value="10"/>
           <input type="hidden" data-type="number" value="1"/>
-          <input type="hidden" data-type="orderby" value="MENU_ID ASC"/> 
+          <input type="hidden" data-type="orderby" id="ORDER_BY" value="MENU_ID ASC"/> 
           <input type="hidden" data-type="cond"/>
           <input type="hidden" data-type="url" value="menu/getMenuHeaderPage.do"/>
           <input type="hidden" data-type="jsontype" value="table"/> 

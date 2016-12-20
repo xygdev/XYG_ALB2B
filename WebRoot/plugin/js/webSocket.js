@@ -1,8 +1,14 @@
-document.write("<script language=javascript src='http://192.168.88.41:8080/B2B_Demo_Version01/plugin/jQuery/jQuery-2.1.4.min.js'></script>");
-document.write("<script language=javascript src='http://192.168.88.41:8080/B2B_Demo_Version01/plugin/layer/layer.js'></script>");
-document.write("<script language=javascript src='http://192.168.88.41:8080/B2B_Demo_Version01/plugin/js/sockjs-0.3.min.js'></script>");
-	var ws = null;
-	var basePath = "ws://192.168.88.41:8080/B2B_Demo_Version01/";
+    var path = document.getElementsByTagName("base")[0].href;  
+    console.log(path);
+    document.write("<script language=javascript src='"+path+"plugin/jQuery/jQuery-2.1.4.min.js'></script>");
+    document.write("<script language=javascript src='"+path+"plugin/layer/layer.js'></script>");
+    document.write("<script language=javascript src='"+path+"plugin/js/sockjs-0.3.min.js'></script>");
+    
+
+    var ws = null;
+    var basePath = 'ws://'+path.split('://')[1];
+    console.log(basePath);
+    //var basePath = "ws://192.168.88.41:8080/B2B_Demo_Version01/";
 	if ('WebSocket' in window) {
     	 ws = new WebSocket(basePath+'webSocketServer'); 
 	} 

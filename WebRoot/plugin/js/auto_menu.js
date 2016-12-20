@@ -24,6 +24,10 @@
 		    value=$(this).data().iframehref;	
 		    $("#mainframe").attr("src",value);
 		    $('ol.breadcrumb li[data-hrefflag="N"]').remove();
+		    /****modify by bird 2016.12.20****/
+		    $('a[data-funcid]').css('text-shadow','');
+		    $('a[data-funcid]').css('color','');
+		    /****modify by bird 2016.12.20****/
 		    if($(this).data().title){
 		    	$('section.content-header h1').text($(this).data().title);
 		    }else{
@@ -63,6 +67,14 @@
 				    	url:set_funcid_url				    	
 				    });
 				    /****modify by bird 2016.12.12****/
+				    
+				    /****modify by bird 2016.12.20****/
+				    $('a[data-funcid]').css('text-shadow','');
+				    $('a[data-funcid]').css('color','');
+				    $(this).css('text-shadow','#fff 1px 1px 5px');
+				    $(this).css('color','#fff');
+				    /****modify by bird 2016.12.20****/
+				    
 				    $("#mainframe").attr("src",value);
 				    $('section.content-header h1').text($(this).text());
 					$('ol.breadcrumb li').remove();

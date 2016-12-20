@@ -47,11 +47,7 @@ public class FuncController {
 	
 	@RequestMapping("/funcManage.do")
 	public String listFuncVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/funcManage";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/funcManage";
 	}
 	
 	@RequestMapping(value = "/getFuncPage.do", method = RequestMethod.POST)

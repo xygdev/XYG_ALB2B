@@ -23,4 +23,10 @@ public class LoginService {
 		return ret;    	
     }
     
+    @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+    public PlsqlRetValue logout(Long loginId) throws Exception{ 
+    	PlsqlRetValue ret=loginDao.logout(loginId);
+    	return ret;
+    }
+    
 }

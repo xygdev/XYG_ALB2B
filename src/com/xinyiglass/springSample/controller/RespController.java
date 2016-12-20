@@ -41,11 +41,7 @@ public class RespController {
     
     @RequestMapping("/respManage.do")
 	public String listRespVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/respManage";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/respManage";
 	}
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)

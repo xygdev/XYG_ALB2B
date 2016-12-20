@@ -48,11 +48,7 @@ public class GroupController {
     /************************客户组分配页码方法************************/
     @RequestMapping("/groupMatch.do")
 	public String listGroupMatch(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/groupMatch";
-		}else{
-			return "error/sessionTimeout";
-		}
+    	return "basic/groupMatch";
 	}
     
     @RequestMapping(value = "/getMatchPage.do", method = RequestMethod.POST)
@@ -86,11 +82,7 @@ public class GroupController {
     
     @RequestMapping("/groupManage.do")
 	public String listGroupManage(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/groupManage";
-		}else{
-			return "redirect:/";
-		}
+		return "basic/groupManage";
 	}
     
     @RequestMapping(value = "/getGroupHeaderPage.do", method = RequestMethod.POST)

@@ -97,11 +97,7 @@ public class UserController {
     
     @RequestMapping("/userManage.do")
 	public String listEmpVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/userManage";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/userManage";
 	}
     
     @RequestMapping(value = "/getUserPage.do", method = RequestMethod.POST)
@@ -158,9 +154,9 @@ public class UserController {
     	PlsqlRetValue ret=UVS.updatePWD(userId, oldPassword, newPassword);
 		int retCode = ret.getRetcode();
         if(retCode==0){
-            mv.setViewName("index/index");
+            mv.setViewName("redirect:/index.do");
         }else if(retCode==2){
-        	mv.setViewName("index/modifyPWD");
+        	mv.setViewName("redirect:/modifyPWD.do");
 			sess.setAttribute("errorMsg", ret.getErrbuf());
         }
         return mv;

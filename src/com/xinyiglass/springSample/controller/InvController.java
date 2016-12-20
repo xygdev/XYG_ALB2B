@@ -48,11 +48,7 @@ public class InvController {
     
     @RequestMapping("/lgInvQuery.do")
 	public String listLgInv(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "inv/lgInvQuery";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "inv/lgInvQuery";
 	}
     
     @RequestMapping(value = "/getLgInvPage.do", method = RequestMethod.POST)
@@ -72,11 +68,7 @@ public class InvController {
     
     @RequestMapping("/ffInvQuery.do")
 	public String listFfInv(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "inv/ffInvQuery";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "inv/ffInvQuery";
 	}
     
     @RequestMapping(value = "/getFfInvPage.do", method = RequestMethod.POST)
@@ -98,11 +90,7 @@ public class InvController {
     
     @RequestMapping("/resnInvQuery.do")
 	public String listResnInv(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "inv/resnInvQuery";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "inv/resnInvQuery";
 	}
     
     @RequestMapping(value = "/getResnInvPage.do", method = RequestMethod.POST)
@@ -122,11 +110,7 @@ public class InvController {
     
     @RequestMapping("/onhandSet.do")
 	public String listOnhandSet(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/onhandSet";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/onhandSet";
 	}    
 
 	@RequestMapping(value = "/getOnhandSetPage.do", method = RequestMethod.POST)

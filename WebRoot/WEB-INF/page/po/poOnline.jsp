@@ -114,7 +114,7 @@
           <!-- 分页按钮区域 end -->
           <input type="hidden" data-type="size" value="10"/>
           <input type="hidden" data-type="number" value="1"/>
-          <input type="hidden" data-type="orderby" value="PO_HEADER_ID ASC"/> 
+          <input type="hidden" data-type="orderby" id="ORDER_BY" value="PO_HEADER_ID ASC"/> 
           <input type="hidden" data-type="cond"/>
           <input type="hidden" data-type="url" value="po/getPoPage.do"/>
           <input type="hidden" data-type="jsontype" value="table"/> 
@@ -412,10 +412,10 @@
 				           $('i[data-crudtype="pre-update"]').css('display','none');
 				       };
 				       if(checkFlag == 'N'){
-				           $('i[data-statustype="CHECKED"]').css('display','none');
+				           $('i[data-statustype="CHECKED"]').parent().css('display','none');
 				       };
 				       if(approvedFlag == 'N'){
-				           $('i[data-statustype="APPROVED"]').css('display','none');
+				           $('i[data-statustype="APPROVED"]').parent().css('display','none');
 				       };
 				       if(deleteFlag == 'N'){
 				           $('i[data-crudtype="del"]').css('display','none');
@@ -452,7 +452,13 @@
 				            }
 				    		$('#refresh').click();				    	    
 				    	}else{
-				    		layer.alert("登记失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
+				    	    if(status=='BOOK'){
+				                layer.alert("登记失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
+				            }else if(status=='CHECKED'){
+				                layer.alert("审核失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
+				            }else if(status=='APPROVED'){
+				                layer.alert("终审失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
+				            }
 				    	} 
 				    },
 				    error: function () {

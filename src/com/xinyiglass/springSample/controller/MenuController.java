@@ -54,11 +54,7 @@ public class MenuController {
     
     @RequestMapping("/menuManage.do")
 	public String listMenuHeaderVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "basic/menuManage";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "basic/menuManage";
 	}
     
     @RequestMapping("/getMenuHeaderPage.do")

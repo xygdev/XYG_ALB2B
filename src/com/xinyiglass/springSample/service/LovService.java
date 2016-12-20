@@ -78,8 +78,15 @@ public class LovService {
 	public String findCustForPage(int pageSize,int pageNo,boolean goLastPage,String accountNumber,String partyName) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		sqlBuf.append("SELECT * FROM XYG_ALFR_CUST_ACCOUNT_V");
-		sqlBuf.append(" WHERE STATUS='A'");
+		sqlBuf.append("SELECT *");
+		sqlBuf.append("  FROM (SELECT OPERATING_UNIT");
+		sqlBuf.append("          FROM XYG_ALI_ORGANIZATION_VL");
+		sqlBuf.append("         WHERE GLASS_INDUSTRY IN('FF','GF','JB')");
+		sqlBuf.append("         GROUP BY OPERATING_UNIT) XAO,");
+		sqlBuf.append("       XYG_ALFR_CUST_ACCOUNT_V XACA");
+		sqlBuf.append(" WHERE 1 = 1");
+		sqlBuf.append("   AND STATUS='A'");
+		sqlBuf.append("   AND XACA.ORG_ID=XAO.OPERATING_UNIT");
 		sqlBuf.append(SqlStmtPub.getAndStmt("ACCOUNT_NUMBER",accountNumber,paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("PARTY_NAME", partyName,paramMap));
 		sqlBuf.append(" ORDER BY CUST_ACCOUNT_ID");

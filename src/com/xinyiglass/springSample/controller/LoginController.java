@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import xygdev.commons.entity.PlsqlRetValue;
+import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.entity.UserVO;
 import com.xinyiglass.springSample.service.LoginService;
@@ -49,9 +50,6 @@ public class LoginController {
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
 	public ModelAndView postLogin(String username,String password,String lang) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("username",username);
-		mv.addObject("password",password);
-		mv.addObject("lang",lang);
 		PlsqlRetValue ret=ls.handleLogin(password, username, lang);
 		int retCode = ret.getRetcode();
 		if(retCode==2){
@@ -60,6 +58,7 @@ public class LoginController {
 			System.out.println(ret.getErrbuf());
 		 }else{
 			 UserVO user=uvos.findForUserVOByName(username);
+			 sess.setAttribute("LOGIN_ID",TypeConvert.str2Long(ret.getParam1()));
 			 sess.setAttribute("USER_ID", user.getUserId());
 			 sess.setAttribute("USER_NAME", user.getUserName());
 			 sess.setAttribute("DESC", user.getDescription());
@@ -67,49 +66,53 @@ public class LoginController {
 			 sess.setAttribute("RESP_ID", user.getRespId());
 			 sess.setAttribute("RESP", user.getRespName());
 			 sess.setAttribute("USER_TYPE", user.getUserType());
+			 System.out.println("Login_ID:"+ret.getParam1());
 			 if(retCode==1){
-				 mv.setViewName("index/modifyPWD");
+				 mv.setViewName("redirect:/modifyPWD.do");
 				 sess.setAttribute("errorMsg", ret.getErrbuf());
 				 System.out.println(ret.getErrbuf());
-			 }else if(retCode==0){
-				 mv.setViewName("index/index");
+			 }else if(retCode==0){				 
+				 mv.setViewName("redirect:/index.do"); 
 			 }
 		 }
 		return mv;
 	}
-    
-	/*
+
 	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String getLogin(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "redirect:/";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "redirect:/";
 	}
-	*/
+	
+	@RequestMapping(value="/index.do")
+	public void listIndex() throws Exception{
+		req.getRequestDispatcher("/WEB-INF/page/index/index.jsp").forward(req,res);	
+	}
+	
+	@RequestMapping(value="/modifyPWD.do")
+	public void listModifyPWD() throws Exception{
+		req.getRequestDispatcher("/WEB-INF/page/index/modifyPWD.jsp").forward(req,res);	
+	}	
 
 	@RequestMapping(value="/logout.do",method=RequestMethod.POST)
-	public ModelAndView getLogout(){
+	public ModelAndView getLogout() throws Exception{
 		ModelAndView mv = new ModelAndView();
-		sess.setAttribute("USER_ID", null);
-		sess.setAttribute("errorMsg",null);
+		Long loginId = (Long)sess.getAttribute("LOGIN_ID");
+		PlsqlRetValue ret=ls.logout(loginId);
+		if(ret.getRetcode()!=0){
+			System.out.println("Error:"+ret.getErrbuf());
+		}	
+		sess.invalidate();
 		mv.setViewName("login-ch");
 		return mv;
 	}
 	
 	@RequestMapping(value="/home.do")
 	public String listHome(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "home/home";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "home/home";
 	}
 	
 	@RequestMapping(value="/404.do")
 	public String pageNotFonud(){
 		return "error/404notFound";
-	}
-	
+	}	
 }

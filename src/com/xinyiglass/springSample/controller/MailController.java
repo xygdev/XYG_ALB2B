@@ -53,20 +53,12 @@ public class MailController {
     
     @RequestMapping("/RecMail.do")
 	public String RecMailBox(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "mail/receive";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "mail/receive";
 	}
     
     @RequestMapping("/SendMail.do")
 	public String SendMailBox(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "mail/send";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "mail/send";
 	}
     
     @RequestMapping(value = "/getRecMail.do", method = RequestMethod.POST)

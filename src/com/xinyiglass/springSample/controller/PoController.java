@@ -43,11 +43,7 @@ public class PoController {
     
     @RequestMapping("/poOnline.do")
 	public String listPoHeaderVO(){
-		if(sess.getAttribute("USER_ID")!=null&&sess.getAttribute("USER_ID").toString().length()>0){
-			return "po/poOnline";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "po/poOnline";
 	}
     
     @RequestMapping("/getPoPage.do")

@@ -82,7 +82,7 @@
           <!-- 分页按钮区域 end -->
           <input type="hidden" data-type="size" value="10"/>
           <input type="hidden" data-type="number" value="1"/>
-          <input type="hidden" data-type="orderby" value="GROUP_ID ASC"/> 
+          <input type="hidden" data-type="orderby" id="ORDER_BY" value="GROUP_ID ASC"/> 
           <input type="hidden" data-type="cond"/>
           <input type="hidden" data-type="url" value="group/getGroupHeaderPage.do"/>
           <input type="hidden" data-type="jsontype" value="table"/> 

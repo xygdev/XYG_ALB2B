@@ -28,6 +28,12 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:applicationContext.xml</param-value>
   </context-param>
+  <!-- Session 验证Filter -->
+  <filter>    
+    <filter-name>SecurityServlet</filter-name>    
+    <filter-class>com.xinyiglass.springSample.util.SecurityServlet</filter-class>    
+  </filter> 
+  <!-- 字符编码Filter -->
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -36,8 +42,14 @@
       <param-value>utf-8</param-value>
     </init-param>
   </filter>
+  <!-- Session 验证Filter Mapping -->
+  <filter-mapping>    
+    <filter-name>SecurityServlet</filter-name>    
+    <url-pattern>*.do</url-pattern>    
+  </filter-mapping>   
+  <!-- 字符编码Filter Mapping-->
   <filter-mapping>
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>   
 </web-app>

@@ -211,7 +211,7 @@
         </div>
         <div class='foot'>       
           <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="user/update.do" data-func="$().validateUserType();">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="user/insert.do">新增</button>
+          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="user/insert.do" data-func="$().validateUserType();">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -432,8 +432,8 @@
     		    $('#PARTY_NAME_LOV').attr('disabled','disabled');
     		}
     		//默认值
-    		$('#START_DATE_F').val(new Date().addMonths(-2).format('yyyy-MM-dd hh:mm:ss'));
-    		$('#START_DATE_T').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
+    		//$('#START_DATE_F').val(new Date().addMonths(-2).format('yyyy-MM-dd hh:mm:ss'));
+    		//$('#START_DATE_T').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
     		//日期选择2016.12.8 by sam.t
     		$('input[data-datatype="date"]').datetimepicker({
 				  lang:"ch",           //语言选择中文

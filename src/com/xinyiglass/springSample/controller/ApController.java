@@ -44,11 +44,7 @@ public class ApController {
     
     @RequestMapping("/apQuery.do")
 	public String listApQuery(){
-    	if(!TypeConvert.isNullValue(sess.getAttribute("USER_ID"))){
-			return "ap/apQuery";
-		}else{
-			return "error/sessionTimeout";
-		}
+		return "ap/apQuery";
 	}
     
     @RequestMapping("/reqApQuery.do")
