@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,16 @@ public class OnhandSetVOService {
 	PagePub pagePub;
 	@Autowired
 	OnhandSetVODao onhandDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long organId,String orderBy) throws Exception{
@@ -46,7 +58,6 @@ public class OnhandSetVOService {
 	
 	public PlsqlRetValue insert(OnhandSetVO os) throws Exception{
 		PlsqlRetValue ret=onhandDao.insert(os);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -56,7 +67,6 @@ public class OnhandSetVOService {
 	public PlsqlRetValue update(OnhandSetVO lockOsVO,OnhandSetVO updateOsVO) throws Exception
 	{ 
 		PlsqlRetValue ret=onhandDao.lock(lockOsVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=onhandDao.update(updateOsVO);
 		}else{

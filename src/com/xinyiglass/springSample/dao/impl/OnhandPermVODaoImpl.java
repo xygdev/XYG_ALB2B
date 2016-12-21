@@ -10,15 +10,9 @@ import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.dao.OnhandPermVODao;
 import com.xinyiglass.springSample.entity.OnhandPermVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class OnhandPermVODaoImpl extends DevJdbcDaoSupport implements OnhandPermVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public SqlResultSet findByIdForJSON(Long pId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "SELECT * FROM XYG_ALB2B_ONHAND_PERM_V WHERE P_ID = :1";
@@ -72,7 +66,6 @@ public class OnhandPermVODaoImpl extends DevJdbcDaoSupport implements OnhandPerm
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("LOCK P ID:"+op.getPId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", op.getPId());
 		paramMap.put("2", op.getUserId());

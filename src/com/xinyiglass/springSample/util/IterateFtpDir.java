@@ -134,7 +134,7 @@ public class IterateFtpDir {
 	public boolean uploadFile(String pathname,String fileName,InputStream input) throws IOException{
 		boolean ret=true;
         if(!this.ftp.changeWorkingDirectory(str2FtpCharset(pathname))){
-        	System.out.print("upload无法切换到FTP对应的工作目录pathname！");
+        	LogUtil.log("upload无法切换到FTP对应的工作目录pathname！");
         	return false;
         }; 
 		this.ftp.setBufferSize(1024);

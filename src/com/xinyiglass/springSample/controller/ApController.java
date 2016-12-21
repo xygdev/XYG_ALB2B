@@ -40,6 +40,7 @@ public class ApController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		as.setSess(sess);
     }
     
     @RequestMapping("/apQuery.do")
@@ -70,7 +71,7 @@ public class ApController {
     @RequestMapping(value = "/getApOutput.do")
    	public void getApOutput() throws Exception
    	{   
-    	//System.out.println("sess.getAttribute(USER_ID)3:"+sess.getAttribute("USER_ID"));
+    	//LogUtil.log("sess.getAttribute(USER_ID)3:"+sess.getAttribute("USER_ID"));
     	if(TypeConvert.isNullValue(sess.getAttribute("USER_ID"))){//以后要改在Fiter里面统一监控。
     		req.getRequestDispatcher("/WEB-INF/page/error/sessionTimeout.jsp").forward(req,res);
     	}else{
@@ -79,7 +80,7 @@ public class ApController {
     		String fileName=requestId+".pdf";
     		String fileDownload=filePath+Constant.DIR_SEP+fileName;
     		if (fileDownload!=null&&fileDownload.trim().length()!=0){
-    			//System.out.println("fileName:"+fileName+",fileDownload:"+fileDownload);
+    			//LogUtil.log("fileName:"+fileName+",fileDownload:"+fileDownload);
     	   		res.setContentType("application/pdf");
     			String agent = req.getHeader("USER-AGENT");
 				if (agent!=null&&agent.toUpperCase().indexOf("MSIE") != -1) {//IE内核浏览器

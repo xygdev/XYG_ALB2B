@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,16 @@ public class MenuHeaderVOService {
 	MenuHeaderVODao menuDao;
 	@Autowired
 	PagePub pagePub;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findPersonalMenuById(Long menuId) throws Exception{
@@ -42,7 +54,6 @@ public class MenuHeaderVOService {
 	
 	public PlsqlRetValue insert(MenuHeaderVO m) throws Exception{
 		PlsqlRetValue ret=menuDao.insert(m);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -52,7 +63,6 @@ public class MenuHeaderVOService {
 	public PlsqlRetValue update(MenuHeaderVO lockMenuVO,MenuHeaderVO updateMenuVO) throws Exception
 	{ 
 		PlsqlRetValue ret=menuDao.lock(lockMenuVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=menuDao.update(updateMenuVO);
 		}else{

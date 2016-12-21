@@ -9,14 +9,8 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.FuncVODao;
 import com.xinyiglass.springSample.entity.FuncVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class FuncVODaoImpl extends DevJdbcDaoSupport implements FuncVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
 	
 	//insert
 	public PlsqlRetValue insert(FuncVO f) throws Exception{
@@ -60,7 +54,6 @@ public class FuncVODaoImpl extends DevJdbcDaoSupport implements FuncVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("LOCK Func ID:"+f.getFunctionId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", f.getFunctionId());
 		paramMap.put("2", f.getFunctionCode());

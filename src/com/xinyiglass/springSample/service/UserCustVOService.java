@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,6 +24,16 @@ public class UserCustVOService {
 	PagePub pagePub;
 	@Autowired
 	UserCustVODao ucDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long userId) throws Exception{
@@ -33,7 +45,6 @@ public class UserCustVOService {
 	
 	public PlsqlRetValue insert(UserCustVO u) throws Exception{
 		PlsqlRetValue ret=ucDao.insert(u);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -43,7 +54,6 @@ public class UserCustVOService {
 	public PlsqlRetValue update(UserCustVO u) throws Exception
 	{ 
 		PlsqlRetValue ret=ucDao.update(u);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}

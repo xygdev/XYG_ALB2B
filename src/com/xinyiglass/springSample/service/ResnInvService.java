@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,6 +18,16 @@ import xygdev.commons.sqlStmt.SqlStmtPub;
 public class ResnInvService {
 	@Autowired
 	PagePub pagePub;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long custId,Long width,Long height,String coatingType,String packCode) throws Exception{

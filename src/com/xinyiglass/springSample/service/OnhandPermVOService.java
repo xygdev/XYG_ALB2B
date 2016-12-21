@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,16 @@ public class OnhandPermVOService {
 	PagePub pagePub;
 	@Autowired
 	OnhandPermVODao onhandDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long organId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy) throws Exception{
@@ -50,7 +62,6 @@ public class OnhandPermVOService {
 	
 	public PlsqlRetValue insert(OnhandPermVO op) throws Exception{
 		PlsqlRetValue ret=onhandDao.insert(op);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -60,7 +71,6 @@ public class OnhandPermVOService {
 	public PlsqlRetValue update(OnhandPermVO lockOpVO,OnhandPermVO updateOpVO) throws Exception
 	{ 
 		PlsqlRetValue ret=onhandDao.lock(lockOpVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=onhandDao.update(updateOpVO);
 		}else{

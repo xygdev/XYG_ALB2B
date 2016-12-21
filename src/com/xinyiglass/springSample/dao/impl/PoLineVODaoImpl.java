@@ -10,14 +10,8 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.PoLineVODao;
 import com.xinyiglass.springSample.entity.PoLineVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
 	
 	//自动序号递增，每次递增量为addCount
 	public Long autoAddSequence(Long poHeaderId) throws Exception{
@@ -73,7 +67,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", pl.getPoLineId());
 		paramMap.put("2", pl.getPoHeaderId());
@@ -115,7 +108,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", pl.getPoLineId());
 		paramMap.put("2", pl.getPoHeaderId());
@@ -159,7 +151,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", pl.getPoLineId());
 		paramMap.put("2", pl.getPoHeaderId());
@@ -191,7 +182,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", poLineId);	
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);

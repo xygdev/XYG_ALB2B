@@ -6,19 +6,13 @@ import java.util.Map;
 
 import com.xinyiglass.springSample.dao.MenuLineVODao;
 import com.xinyiglass.springSample.entity.MenuLineVO;
-import com.xinyiglass.springSample.util.Constant;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.entity.SqlResultSet;
 import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 public class MenuLineVODaoImpl extends DevJdbcDaoSupport implements MenuLineVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	//自动序号递增，每次递增量为addCount
 	public Long autoAddSequence(Long menuId) throws Exception{
 		String addCount = "10";

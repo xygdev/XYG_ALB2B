@@ -15,6 +15,7 @@ import org.springframework.web.socket.TextMessage;
 
 import xygdev.commons.entity.PlsqlRetValue;
 
+import com.xinyiglass.springSample.util.LogUtil;
 import com.xinyiglass.springSample.websocket.SystemWebSocketHandler;
 
 /**
@@ -50,7 +51,7 @@ public class AdminController {
 	@RequestMapping("/auditing.do")
     public void auditing() throws Exception{
         PlsqlRetValue rs=new PlsqlRetValue();
-        System.out.println("user_id:"+req.getParameter("USER_IDS"));
+        LogUtil.log("user_id:"+req.getParameter("USER_IDS"));
         if(req.getParameter("USER_IDS")==null||req.getParameter("MESSAGE")==null){
             rs.setRetcode(2);
             rs.setErrbuf("接收人或者消息都不允许为空！");
@@ -58,7 +59,7 @@ public class AdminController {
             ArrayList<Long> userIdList=new ArrayList<Long>();
             for(String userIdStr:req.getParameter("USER_IDS").split(",")){
             	userIdList.add(Long.parseLong(userIdStr));
-                System.out.println("user_id:"+Long.parseLong(userIdStr));
+            	LogUtil.log("user_id:"+Long.parseLong(userIdStr));
             }
             String message=req.getParameter("MESSAGE");
             systemWebSocketHandler().sendMessageToUsers(userIdList, new TextMessage(message));

@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,16 @@ public class GroupLineVOService {
 	PagePub pagePub;
 	@Autowired
 	GroupLineVODao groupDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long groupId) throws Exception{
@@ -35,7 +47,6 @@ public class GroupLineVOService {
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findAutoAddSequence(Long groupId) throws Exception{
 		Long Seq = groupDao.autoAddSequence(groupId);
-		System.out.println(Seq);
 		return "{\"rows\":[{\"MENU_SEQUENCE\":\""+Seq+"\"}]}";
 	}
 	
@@ -51,7 +62,6 @@ public class GroupLineVOService {
 	
 	public PlsqlRetValue insert(GroupLineVO g) throws Exception{
 		PlsqlRetValue ret=groupDao.insert(g);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -61,7 +71,6 @@ public class GroupLineVOService {
 	public PlsqlRetValue update(GroupLineVO lockGroupLineVO,GroupLineVO updateGroupVO) throws Exception
 	{ 
 		PlsqlRetValue ret=groupDao.lock(lockGroupLineVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=groupDao.update(updateGroupVO);
 		}else{

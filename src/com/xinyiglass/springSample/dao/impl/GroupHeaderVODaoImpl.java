@@ -9,15 +9,9 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.GroupHeaderVODao;
 import com.xinyiglass.springSample.entity.GroupHeaderVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class GroupHeaderVODaoImpl extends DevJdbcDaoSupport implements GroupHeaderVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public SqlResultSet findByIdForJSON(Long groupId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "SELECT * FROM XYG_ALB2B_GROUP_HEADERS_V WHERE GROUP_ID = :1";
@@ -68,7 +62,6 @@ public class GroupHeaderVODaoImpl extends DevJdbcDaoSupport implements GroupHead
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("LOCK GROUP ID:"+g.getGroupId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", g.getGroupId());
 		paramMap.put("2", g.getGroupCode());

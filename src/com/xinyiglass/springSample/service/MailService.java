@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,7 +26,16 @@ public class MailService {
 	PagePub pagePub;
 	@Autowired
 	MailDao mDao;
+    
+	private HttpSession sess;
 	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForRecMail(int pageSize,int pageNo,boolean goLastPage,String orderBy,Long userId,Long sendId,String mailTitle,Date sendDate_F,Date sendDate_T,Date readDate_F,Date readDate_T) throws Exception{

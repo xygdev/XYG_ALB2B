@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,10 +26,19 @@ public class PoHeaderVOService {
 	PagePub pagePub;
 	@Autowired
 	PoHeaderVODao phvDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String poNumber,String custContractNumber,String status,Long custId,String orderBy) throws Exception{
-		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		StringBuffer sqlBuff = new StringBuffer();
@@ -78,7 +89,6 @@ public class PoHeaderVOService {
 	//insert
 	public PlsqlRetValue insert(PoHeaderVO ph,Long funcId) throws Exception{
 		PlsqlRetValue ret = phvDao.insert(ph, funcId);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -89,7 +99,6 @@ public class PoHeaderVOService {
 	public PlsqlRetValue update(PoHeaderVO lockPoHeaderVO,PoHeaderVO updatePoHeaderVO,Long userId,Long funcId) throws Exception
 	{ 
 		PlsqlRetValue ret=phvDao.lock(lockPoHeaderVO, userId, funcId);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=phvDao.update(updatePoHeaderVO);
 		}else{
@@ -101,7 +110,6 @@ public class PoHeaderVOService {
 	//delete
 	public PlsqlRetValue delete(Long poHeaderId) throws Exception{
 		PlsqlRetValue ret = phvDao.delete(poHeaderId);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -111,7 +119,6 @@ public class PoHeaderVOService {
 	//changeStatus
 	public PlsqlRetValue changeStatus(Long poHeaderId,String status,Long userId) throws Exception{
 		PlsqlRetValue ret = phvDao.changeStatus(poHeaderId, status,userId);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}

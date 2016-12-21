@@ -9,14 +9,16 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.xinyiglass.springSample.util.LogUtil;
+
 public class SystemWebSocketHandler extends  TextWebSocketHandler {
 	 
     private static final ArrayList<WebSocketSession> users = new ArrayList<WebSocketSession>();;
  
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    	System.out.println("ConnectionEstablished");
+    	//LogUtil.log("ConnectionEstablished");
         users.add(session);
-        System.out.println("当前总在线用户数:"+users.size()+",当前用户ID:"+session.getAttributes().get("USER_ID"));
+        LogUtil.log("当前总在线用户数:"+users.size()+",当前用户ID:"+session.getAttributes().get("USER_ID"));
     }
     
     /**

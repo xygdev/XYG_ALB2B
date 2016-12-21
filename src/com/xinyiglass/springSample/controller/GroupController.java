@@ -43,6 +43,9 @@ public class GroupController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		gvs.setSess(sess);
+		ghvs.setSess(sess);
+		glvs.setSess(sess);
     }
     
     /************************客户组分配页码方法************************/

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xinyiglass.springSample.dao.UserVODao;
 import com.xinyiglass.springSample.entity.UserVO;
+import com.xinyiglass.springSample.util.LogUtil;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.page.PagePub;
@@ -26,9 +29,18 @@ public class UserVOService {
 	@Autowired
 	PagePub pagePub;
 	
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
+	
 	public PlsqlRetValue insert(UserVO u) throws Exception{
 		PlsqlRetValue ret=userDao.insert(u);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -83,6 +95,11 @@ public class UserVOService {
 		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",startDate_F,startDate_T,paramMap));
 		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",endDate_F,endDate_T,paramMap));
 		sqlBuff.append(" ORDER BY "+orderBy);
+		//测试会话初始化功能
+		Long sid=pagePub.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
+		Long longId=pagePub.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");
+		LogUtil.log("当前SESS会话:"+sess.getId()+" 对应的数据库sid:"+sid+",longId:"+longId);
+		//Thread.sleep(10000);//模拟等待10秒，经过测试，确实会用另外一个会话ID。
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}		
 	
@@ -100,5 +117,4 @@ public class UserVOService {
 	public String findOtherUsers(Long userId) throws Exception{
 		return userDao.findOtherUsers(userId);
 	}
-	
 }

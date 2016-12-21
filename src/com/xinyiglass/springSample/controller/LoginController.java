@@ -1,6 +1,7 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,8 @@ import xygdev.commons.util.TypeConvert;
 import com.xinyiglass.springSample.entity.UserVO;
 import com.xinyiglass.springSample.service.LoginService;
 import com.xinyiglass.springSample.service.UserVOService;
+import com.xinyiglass.springSample.util.Alb2bInit;
+import com.xinyiglass.springSample.util.LogUtil;
 
 @Controller
 public class LoginController {
@@ -40,6 +43,8 @@ public class LoginController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		uvos.setSess(sess);//设定service的会话对象
+		ls.setSess(sess);
     } 
 	
 	@RequestMapping("/")
@@ -49,13 +54,18 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
 	public ModelAndView postLogin(String username,String password,String lang) throws Exception{
+		//这里全局初始化。例如启用调试等
+		Alb2bInit.init();
+		//---正式处理
 		ModelAndView mv = new ModelAndView();
-		PlsqlRetValue ret=ls.handleLogin(password, username, lang);
+		String ipAddress = getIp(req);
+		LogUtil.log("ipAddress:"+ipAddress);
+		username=username.toUpperCase();//用户名大小写都可以登录
+		PlsqlRetValue ret=ls.handleLogin(password, username, lang,ipAddress);
 		int retCode = ret.getRetcode();
 		if(retCode==2){
 			mv.setViewName("login-ch");
 			sess.setAttribute("errorMsg", ret.getErrbuf());
-			System.out.println(ret.getErrbuf());
 		 }else{
 			 UserVO user=uvos.findForUserVOByName(username);
 			 sess.setAttribute("LOGIN_ID",TypeConvert.str2Long(ret.getParam1()));
@@ -66,14 +76,14 @@ public class LoginController {
 			 sess.setAttribute("RESP_ID", user.getRespId());
 			 sess.setAttribute("RESP", user.getRespName());
 			 sess.setAttribute("USER_TYPE", user.getUserType());
-			 System.out.println("Login_ID:"+ret.getParam1());
+			 //LogUtil.log("Login_ID:"+ret.getParam1());
 			 if(retCode==1){
 				 mv.setViewName("redirect:/modifyPWD.do");
 				 sess.setAttribute("errorMsg", ret.getErrbuf());
-				 System.out.println(ret.getErrbuf());
 			 }else if(retCode==0){				 
 				 mv.setViewName("redirect:/index.do"); 
 			 }
+			 LogUtil.log("成功登录!-->当前SESS会话"+sess.getId()+" 匹配的longId:"+TypeConvert.str2Long(ret.getParam1()));
 		 }
 		return mv;
 	}
@@ -99,9 +109,14 @@ public class LoginController {
 		Long loginId = (Long)sess.getAttribute("LOGIN_ID");
 		PlsqlRetValue ret=ls.logout(loginId);
 		if(ret.getRetcode()!=0){
-			System.out.println("Error:"+ret.getErrbuf());
+			LogUtil.log("Error:"+ret.getErrbuf());
 		}	
-		sess.invalidate();
+		//sess.invalidate();//用这个->重新登录的时候当获取attribute会报错：getAttribute: Session already invalidated
+		Enumeration<String> sessionKeys = sess.getAttributeNames();
+		while(sessionKeys.hasMoreElements()){
+			sess.removeAttribute(sessionKeys.nextElement());
+		}
+		//LogUtil.log("TEST LOGIN_ID:"+sess.getAttribute("LOGIN_ID"));
 		mv.setViewName("login-ch");
 		return mv;
 	}
@@ -115,4 +130,34 @@ public class LoginController {
 	public String pageNotFonud(){
 		return "error/404notFound";
 	}	
+	
+	public static String getIp(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");     
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
+			ip = request.getHeader("Proxy-Client-IP");     
+		}     
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
+			ip = request.getHeader("WL-Proxy-Client-IP");     
+		}     
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {     
+			ip = request.getRemoteAddr();     
+		}     
+		return ip;
+		/*
+        String ip = request.getHeader("X-Forwarded-For");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            //多次反向代理后会有多个ip值，第一个ip才是真实ip
+            int index = ip.indexOf(",");
+            if(index != -1){
+                return ip.substring(0,index);
+            }else{
+                return ip;
+            }
+        }
+        ip = request.getHeader("X-Real-IP");
+        if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
+            return ip;
+        }
+        return request.getRemoteAddr();*/
+    }
 }

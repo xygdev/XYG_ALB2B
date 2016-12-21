@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.xinyiglass.springSample.dao.UserVODao;
 import com.xinyiglass.springSample.entity.UserVO;
-import com.xinyiglass.springSample.util.Constant;
+import com.xinyiglass.springSample.util.LogUtil;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.entity.SqlResultSet;
@@ -13,12 +13,6 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 import xygdev.commons.util.TypeConvert;
 
 public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
 	public PlsqlRetValue insert(UserVO u) throws Exception{
 		String sql ="Declare "
 				+ "     l_user_id number; "
@@ -77,7 +71,7 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("LOCK Emp ID:"+u.getUserId());
+		LogUtil.log("LOCK Emp ID:"+u.getUserId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", u.getUserId());
 		paramMap.put("2", u.getUserName());
@@ -115,7 +109,7 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("UPDATE Emp ID:"+u.getUserId());
+		LogUtil.log("UPDATE Emp ID:"+u.getUserId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", u.getUserId());
 		paramMap.put("2", u.getUserName());
@@ -129,6 +123,10 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 		paramMap.put("10", u.getUserGroupId());
 		paramMap.put("11", u.getImgUrl());
 		paramMap.put("12", TypeConvert.u2tDate(u.getPasswordDate()));
+		//测试会话初始化功能
+		/*Long sid=this.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
+		Long longId=this.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");
+		System.out.println("DAO sid:"+sid+",longId:"+longId);*/
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);	
 	}
 	
@@ -143,7 +141,7 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 				+ ",:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("UPDATE User ID:" + userId);
+		LogUtil.log("UPDATE User ID:" + userId);
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		paramMap.put("2", fileName);
@@ -162,7 +160,7 @@ public class UserVODaoImpl extends DevJdbcDaoSupport implements UserVODao{
 				+ ",:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("UPDATE User ID:" + userId);
+		LogUtil.log("UPDATE User ID:" + userId);
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		paramMap.put("2", oldPassword);

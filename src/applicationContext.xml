@@ -80,6 +80,7 @@
     <bean id="GroupLineVODao" class="com.xinyiglass.springSample.dao.impl.GroupLineVODaoImpl" parent="abstractDao"/>
     <bean id="GroupHeaderVODao" class="com.xinyiglass.springSample.dao.impl.GroupHeaderVODaoImpl" parent="abstractDao"/>
     <bean id="FuncVODao" class="com.xinyiglass.springSample.dao.impl.FuncVODaoImpl" parent="abstractDao"/>
+    <bean id="UtilDao" class="com.xinyiglass.springSample.dao.impl.UtilDaoImpl" parent="abstractDao"/>
     <bean id="PagePub" class="xygdev.commons.page.PagePub" parent="abstractDao"/>
     <bean id="InteractPub" class="xygdev.commons.interact.InteractPub" parent="abstractDao"/>
     <!-- 配置 事务 -->
@@ -89,4 +90,7 @@
 	 <!-- 支持异步方法执行 -->
     <task:executor id="myexecutor" pool-size="5"  />  
     <task:annotation-driven executor="myexecutor"/> 
+    <!-- AOP面向切面编程 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>  
+    <bean id="AopUtil" class="com.xinyiglass.springSample.util.AopUtil" /> 
 </beans>

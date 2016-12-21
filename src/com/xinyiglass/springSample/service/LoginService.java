@@ -1,5 +1,7 @@
 package com.xinyiglass.springSample.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,10 +18,20 @@ public class LoginService {
     @Autowired
     LoginDao loginDao;
     
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
+    
     @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-    public PlsqlRetValue handleLogin(String password,String userName,String lang) throws Exception{ 
+    public PlsqlRetValue handleLogin(String password,String userName,String lang,String ipAddress) throws Exception{ 
     	password = MD5Util.string2MD5(password);
-    	PlsqlRetValue ret=loginDao.handleLogin(lang, userName, password);
+    	PlsqlRetValue ret=loginDao.handleLogin(lang, userName, password,ipAddress);
 		return ret;    	
     }
     

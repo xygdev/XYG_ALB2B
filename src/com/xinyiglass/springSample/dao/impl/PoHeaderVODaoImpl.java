@@ -9,15 +9,9 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.PoHeaderVODao;
 import com.xinyiglass.springSample.entity.PoHeaderVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public SqlResultSet findByIdForJSON(Long poHeaderId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "SELECT * FROM XYG_ALB2B_LG_PO_HEADERS_V WHERE PO_HEADER_ID = :1";
@@ -135,7 +129,6 @@ public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODa
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		xygdev.commons.util.Constant.DEBUG_MODE=true;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", poHeaderId);	
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);

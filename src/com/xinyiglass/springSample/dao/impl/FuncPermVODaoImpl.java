@@ -10,15 +10,9 @@ import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.dao.FuncPermVODao;
 import com.xinyiglass.springSample.entity.FuncPermVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class FuncPermVODaoImpl extends DevJdbcDaoSupport implements FuncPermVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public FuncPermVO findByRespId(Long pId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "select * from XYG_ALB2B_FUNC_PERM_V WHERE P_ID = :1";

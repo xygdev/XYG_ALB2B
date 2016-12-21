@@ -16,6 +16,7 @@ import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.entity.UserCustVO;
 import com.xinyiglass.springSample.service.UserCustVOService;
+import com.xinyiglass.springSample.util.LogUtil;
 
 @Controller
 @RequestMapping("/cust")
@@ -36,6 +37,7 @@ public class CustController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		ucvs.setSess(sess);
     }
     
     @RequestMapping(value = "/getUserCustPage.do", method = RequestMethod.POST)
@@ -57,7 +59,7 @@ public class CustController {
     	u.setOrgId(TypeConvert.str2Long(req.getParameter("ORG_ID")));
     	u.setCustomerId(TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
     	u.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
-    	System.out.print("Time:"+req.getParameter("END_DATE"));
+    	LogUtil.log("Time:"+req.getParameter("END_DATE"));
     	u.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
     	res.getWriter().print(ucvs.insert(u).toJsonStr());
 	}

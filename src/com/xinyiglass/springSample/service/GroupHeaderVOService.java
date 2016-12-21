@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,16 @@ public class GroupHeaderVOService {
 	PagePub pagePub;
 	@Autowired
 	GroupHeaderVODao groupDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
     
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long groupId,String orderBy) throws Exception{
@@ -48,7 +60,6 @@ public class GroupHeaderVOService {
 	//insert
 	public PlsqlRetValue insert(GroupHeaderVO g) throws Exception{
 		PlsqlRetValue ret=groupDao.insert(g);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -59,7 +70,6 @@ public class GroupHeaderVOService {
 	public PlsqlRetValue update(GroupHeaderVO lockGroupVO,GroupHeaderVO updateGroupVO) throws Exception
 	{ 
 		PlsqlRetValue ret=groupDao.lock(lockGroupVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=groupDao.update(updateGroupVO);
 		}else{

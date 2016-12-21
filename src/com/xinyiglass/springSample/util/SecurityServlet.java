@@ -21,13 +21,12 @@ public class SecurityServlet extends HttpServlet implements Filter {
            HttpSession sess = req.getSession(true);       
            String user = (String)sess.getAttribute("USER_NAME");// 登录人  
            String resp = (String)sess.getAttribute("RESP");//登录人角色  
+           Long loginId = (Long)sess.getAttribute("LOGIN_ID");//登录ID
            String url=req.getRequestURI();  
-           System.out.println("/****fliter start*****/");
-           System.out.println("user:"+user);
+           /*System.out.println("user:"+user);
            System.out.println("resp:"+resp);
-           System.out.println("ReqURI:"+url);
-           System.out.println("/****fliter end*****/");
-           if(user==null || "".equals(user) || resp == null || "".equals(resp)) {        
+           System.out.println("ReqURI:"+url);*/
+           if(user==null || "".equals(user) || resp == null ||loginId==null|| "".equals(resp)) {        
                 //判断获取的路径不为空且不是访问登录页面或执行登录操作时跳转     
                 if(url!=null && !url.equals("") && (url.indexOf("login.do")<0 ) && (url.indexOf("404.do")<0) && (url.indexOf("logout.do")<0)) {     
                     //res.sendRedirect(req.getContextPath() + "/error/sessionTimeout");    

@@ -4,19 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xinyiglass.springSample.dao.ApDao;
-import com.xinyiglass.springSample.util.Constant;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 public class ApDaoImpl extends DevJdbcDaoSupport implements ApDao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
-	
+
 	public PlsqlRetValue apQuery(Long orgId,Long custId,String apDate) throws Exception{
 		String sql = "Declare "
 				+	"  L_REQUEST_ID NUMBER; "

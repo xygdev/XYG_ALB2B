@@ -5,19 +5,12 @@ import java.util.Map;
 
 import com.xinyiglass.springSample.dao.OnhandSetVODao;
 import com.xinyiglass.springSample.entity.OnhandSetVO;
-import com.xinyiglass.springSample.util.Constant;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.entity.SqlResultSet;
 import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 public class OnhandSetVODaoImpl extends DevJdbcDaoSupport implements  OnhandSetVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
 	public SqlResultSet findByIdForJSON(Long organizationId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "SELECT * FROM XYG_ALB2B_ONHAND_SET_V WHERE ORGANIZATION_ID = :1";

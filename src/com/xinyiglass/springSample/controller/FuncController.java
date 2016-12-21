@@ -37,6 +37,7 @@ public class FuncController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		fvs.setSess(sess);
     }
     
     @RequestMapping("/setFuncId.do")

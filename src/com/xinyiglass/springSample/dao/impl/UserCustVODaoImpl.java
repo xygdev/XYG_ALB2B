@@ -10,15 +10,8 @@ import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.dao.UserCustVODao;
 import com.xinyiglass.springSample.entity.UserCustVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class UserCustVODaoImpl extends DevJdbcDaoSupport implements UserCustVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
 	//insert
 	public PlsqlRetValue insert(UserCustVO u) throws Exception{
 		String sql ="Declare "

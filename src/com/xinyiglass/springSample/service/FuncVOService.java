@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,10 +25,19 @@ public class FuncVOService {
 	PagePub pagePub;
 	@Autowired
 	FuncVODao funcDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	public PlsqlRetValue insert(FuncVO f) throws Exception{
 		PlsqlRetValue ret=funcDao.insert(f);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -36,7 +47,6 @@ public class FuncVOService {
 	public PlsqlRetValue update(FuncVO lockFuncVO,FuncVO updateFuncVO) throws Exception
 	{ 
 		PlsqlRetValue ret=funcDao.lock(lockFuncVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=funcDao.update(updateFuncVO);
 		}else{

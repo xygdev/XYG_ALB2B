@@ -20,6 +20,7 @@ import xygdev.commons.util.TypeConvert;
 import com.xinyiglass.springSample.entity.UserVO;
 import com.xinyiglass.springSample.service.UserVOService;
 import com.xinyiglass.springSample.util.Base64Convert;
+import com.xinyiglass.springSample.util.Constant;
 import com.xinyiglass.springSample.util.MD5Util;
 
 @Controller
@@ -41,6 +42,7 @@ public class UserController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		UVS.setSess(sess);
     }
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
@@ -138,7 +140,7 @@ public class UserController {
     	//String path=basePath+"plugin\\img\\user\\";
     	//设置Tomcat本地文件服务器地址
     	//String path="/ebs/data/image/user/";
-    	String path="E:\\image\\user\\";
+    	String path=Constant.IMAGE_USER_PATH;
     	Base64Convert.base64ToIo(strBase64, path, fileName);
         res.getWriter().print(UVS.updateImgUrl(fileName, userId).toJsonStr());
     }

@@ -10,15 +10,9 @@ import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.GroupLineVODao;
 import com.xinyiglass.springSample.entity.GroupLineVO;
-import com.xinyiglass.springSample.util.Constant;
 
 public class GroupLineVODaoImpl extends DevJdbcDaoSupport implements GroupLineVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	//自动序号递增，每次递增量为addCount
 	public Long autoAddSequence(Long groupId) throws Exception{
 		String addCount = "10";

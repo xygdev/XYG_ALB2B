@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,16 @@ public class PoLineVOService {
 	PagePub pagePub;
 	@Autowired
 	PoLineVODao plvDao;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long poHeaderId) throws Exception{
@@ -35,7 +47,6 @@ public class PoLineVOService {
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public String findAutoAddSequence(Long poHeaderId) throws Exception{
 		Long Seq = plvDao.autoAddSequence(poHeaderId);
-		System.out.println(Seq);
 		return "{\"rows\":[{\"LINE_NUM\":\""+Seq+"\"}]}";
 	}
 	
@@ -52,7 +63,6 @@ public class PoLineVOService {
 	//insert
 	public PlsqlRetValue insert(PoLineVO pl,Long funcId) throws Exception{
 		PlsqlRetValue ret = plvDao.insert(pl, funcId);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -63,7 +73,6 @@ public class PoLineVOService {
 	public PlsqlRetValue update(PoLineVO lockPoLineVO,PoLineVO updatePoLineVO,String userType,Long funcId) throws Exception
 	{ 
 		PlsqlRetValue ret=plvDao.lock(lockPoLineVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=plvDao.update(updatePoLineVO,userType,funcId);
 		}else{
@@ -75,7 +84,6 @@ public class PoLineVOService {
 	//delete
 	public PlsqlRetValue delete(Long poLineId) throws Exception{
 		PlsqlRetValue ret = plvDao.delete(poLineId);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}

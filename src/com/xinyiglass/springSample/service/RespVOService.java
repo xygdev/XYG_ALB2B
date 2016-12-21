@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,10 +27,19 @@ public class RespVOService {
 	RespVODao respDao;
 	@Autowired
 	PagePub pagePub;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	public PlsqlRetValue insert(RespVO r) throws Exception{
 		PlsqlRetValue ret=respDao.insert(r);
-		System.out.println("Retcode:"+ret.toString());
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
@@ -38,7 +49,6 @@ public class RespVOService {
 	public PlsqlRetValue update(RespVO lockRespVO,RespVO updateRespVO) throws Exception
 	{ 
 		PlsqlRetValue ret=respDao.lock(lockRespVO);
-		System.out.println(ret);
 		if(ret.getRetcode()==0){
 			ret=respDao.update(updateRespVO);
 		}else{

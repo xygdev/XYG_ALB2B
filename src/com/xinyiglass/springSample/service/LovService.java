@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +23,16 @@ public class LovService {
 
 	@Autowired
 	PagePub pagePub;
+    
+	private HttpSession sess;
+	
+	public HttpSession getSess() {
+		return sess;
+	}
+
+	public void setSess(HttpSession sess) {
+		this.sess = sess;
+	}
 	
 	/***用户LOV***/
 	public String findUserForPage(int pageSize,int pageNo,boolean goLastPage,String userName,String userDesc) throws Exception{
@@ -126,7 +138,7 @@ public class LovService {
 			sqlBuf.append(SqlStmtPub.getAndStmt("PARTY_NAME", partyName,paramMap));
 			sqlBuf.append(" ORDER BY CUSTOMER_ID");
 		}else{
-			System.out.println("用户类型错误！");
+			throw new RuntimeException("用户类型错误！");
 		}
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}					

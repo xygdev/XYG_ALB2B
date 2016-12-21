@@ -42,13 +42,15 @@ public class MenuController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		rvs.setSess(sess);
+		mhvs.setSess(sess);
+		mlvs.setSess(sess);
     }
     
     @RequestMapping("/getPersonalMenu.do")
     public void getPersonalMenu() throws Exception{
     	Long respId = (Long)sess.getAttribute("RESP_ID");
     	Long menuId = rvs.findMenuId(respId);
-    	//System.out.println("MENU="+mhvs.findPersonalMenuById(menuId));
     	res.getWriter().print(mhvs.findPersonalMenuById(menuId));
     }
     

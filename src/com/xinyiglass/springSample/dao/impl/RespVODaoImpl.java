@@ -13,15 +13,9 @@ import xygdev.commons.util.TypeConvert;
 
 import com.xinyiglass.springSample.dao.RespVODao;
 import com.xinyiglass.springSample.entity.RespVO;
-import com.xinyiglass.springSample.util.Constant;
+import com.xinyiglass.springSample.util.LogUtil;
 
 public class RespVODaoImpl extends DevJdbcDaoSupport implements RespVODao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
 	//insert
 	public PlsqlRetValue insert(RespVO r) throws Exception{
 		String sql ="Declare "
@@ -67,7 +61,7 @@ public class RespVODaoImpl extends DevJdbcDaoSupport implements RespVODao{
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
 				+ "end;";
-		log("LOCK Resp ID:"+r.getRespId());
+		LogUtil.log("LOCK Resp ID:"+r.getRespId());
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", r.getRespId());
 		paramMap.put("2", r.getRespCode());

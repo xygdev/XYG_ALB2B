@@ -8,15 +8,9 @@ import xygdev.commons.entity.SqlResultSet;
 import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 import com.xinyiglass.springSample.dao.CustGroupDao;
-import com.xinyiglass.springSample.util.Constant;
 
 public class CustGroupDaoImpl extends DevJdbcDaoSupport implements CustGroupDao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public SqlResultSet findForCust(Long orgId,Long custId) throws Exception{
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		String sql = "SELECT * FROM XYG_ALFR_CUST_ACCOUNT_V A WHERE ORG_ID = :1 AND CUST_ACCOUNT_ID = :2";

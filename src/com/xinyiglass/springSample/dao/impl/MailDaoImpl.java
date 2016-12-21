@@ -3,23 +3,14 @@ package com.xinyiglass.springSample.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import com.xinyiglass.springSample.dao.MailDao;
-import com.xinyiglass.springSample.util.Constant;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.entity.SqlResultSet;
 import xygdev.commons.springjdbc.DevJdbcDaoSupport;
 
 public class MailDaoImpl  extends DevJdbcDaoSupport implements MailDao{
-	public void log(String log){
-		if (Constant.DEBUG_MODE){
-			System.out.println(log);
-		}
-	}
-	
+
 	public SqlResultSet findRecMailByIdForRS(Long sendid) throws Exception{
 		String sql = "SELECT * FROM XYG_ALB2B_RECEIVE_V WHERE SEND_ID = :1";
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
@@ -101,11 +92,8 @@ public class MailDaoImpl  extends DevJdbcDaoSupport implements MailDao{
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	
-	
-	
-	
-	
 	//测试专用
+	/*
 	@SuppressWarnings("resource")
 	public static void main(String[] args){
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -115,6 +103,6 @@ public class MailDaoImpl  extends DevJdbcDaoSupport implements MailDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

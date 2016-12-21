@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.xinyiglass.springSample.util.LogUtil;
+
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.interact.InteractPub;
 import xygdev.commons.util.TypeConvert;
@@ -35,7 +37,7 @@ public class IrrController {
         this.sess = request.getSession(); 
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
-		res.setContentType("text/html;charset=utf-8");  
+		res.setContentType("text/html;charset=utf-8"); 
     } 
 
 	@RequestMapping(value = "/getDefaultIrr.do", method = RequestMethod.POST)
@@ -74,7 +76,7 @@ public class IrrController {
 		//获取用户可用的所有IRR定义的头列表
 		Long userId=TypeConvert.str2Long((String)req.getParameter("USER_ID"));
 		String interactCode=(String)req.getParameter("INTERACT_CODE");
-		System.out.println("userId:"+userId); 
+		LogUtil.log("userId:"+userId); 
 		//根据用户和报表的名称获取默认打开的文件夹 
         res.getWriter().print(irrPub.getIrrHead(userId, interactCode)); 
 	}

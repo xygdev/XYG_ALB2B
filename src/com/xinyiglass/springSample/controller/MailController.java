@@ -44,6 +44,8 @@ public class MailController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
+		ms.setSess(sess);
+		uvs.setSess(sess);
     } 
     
     @Bean
