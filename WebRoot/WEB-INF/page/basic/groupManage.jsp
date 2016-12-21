@@ -189,7 +189,7 @@
               <td class="SUB_GROUP_NAME" data-column="db"></td>
      	      <td class="ENABLED" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupLine.do" data-type="update" data-updateparam=["GROUP_SEQUENCE",".GROUP_SEQUENCE"] data-func="$().getGroupId();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupLine.do" data-type="update" data-updateparam=["GROUP_SEQUENCE",".GROUP_SEQUENCE"] data-func="$().getGroupId();"></i>
      	      </td>
      	      <td class="GROUP_ID" style="display:none" data-column="hidden">&nbsp;</td>     	     
      	    </tr>

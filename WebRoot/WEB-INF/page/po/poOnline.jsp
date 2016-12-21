@@ -205,7 +205,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">菜单查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">PO单查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end --> 
@@ -267,8 +267,8 @@
      	      <td class="AMOUNT" data-column="db"></td>
      	      <td class="REMARK" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoLine.do" data-type="update" data-updateparam=["PO_LINE_ID",".PO_LINE_ID"] data-func="$().beforePreUpdateDetail();"></i>
-     	        <i class="fa fa fa-trash-o pointer" title="删除数据" data-crudtype="del" data-refresh="sub_refresh" data-delurl="po/deletePoLine.do" data-col="LINE_NUM" data-delmsg="是否删除PO明细行-" data-delparam=["PO_LINE_ID",".PO_LINE_ID"] ></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoLine.do" data-type="update" data-updateparam=["PO_LINE_ID",".PO_LINE_ID"] data-func="$().beforePreUpdateDetail();"></i>
+     	        <i class="fa fa fa-trash-o pointer" title="删除数据" data-show="true" data-crudtype="del" data-refresh="sub_refresh" data-delurl="po/deletePoLine.do" data-col="LINE_NUM" data-delmsg="是否删除PO明细行-" data-delparam=["PO_LINE_ID",".PO_LINE_ID"] ></i>
      	      </td>
      	      <td class="PO_LINE_ID" style="display:none" data-column="hidden">&nbsp;</td> 
      	    </tr>

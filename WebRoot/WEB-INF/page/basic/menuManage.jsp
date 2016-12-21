@@ -201,7 +201,7 @@
      	      <td class="FUNCTION_NAME" data-column="db"></td>
      	      <td class="ENABLED" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuLine.do" data-type="update" data-updateparam=["MENU_SEQUENCE",".MENU_SEQUENCE"] data-func="$().getMenuId();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuLine.do" data-type="update" data-updateparam=["MENU_SEQUENCE",".MENU_SEQUENCE"] data-func="$().getMenuId();"></i>
      	      </td>
      	      <td class="MENU_ID" style="display:none" data-column="hidden">&nbsp;</td>     	     
      	    </tr>

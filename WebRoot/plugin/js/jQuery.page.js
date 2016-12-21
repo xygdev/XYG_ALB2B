@@ -77,7 +77,8 @@
 				if(options.func!=null||options.func!=''){
 					eval(options.func);
 				}
-				$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','visible');
+				//$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','visible');
+				$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','inherit');//MODIFY BY BIRD 2016.12.21
        	        if(!value){
        	            param=null;
        	        }else{
@@ -89,7 +90,6 @@
        	            value=value.replace(/%/g,'%25');       
        	            param=param+'='+value;
        	        }	
-		    	//jQuery.json.setQueryParam();
 		    	/****如果为最后一页按钮，设置goLastPage参数为true,其余则为false****/
 		    	if(options.pagetype=='lastpage'){
 		    		param=param+'&pageSize='+pageSize+'&pageNo='+pageNo+'&goLastPage=true';
@@ -155,7 +155,7 @@
 							}
 						}else{
 							if(options.pagetype=='nextpage'){
-								alert("当前页无数据,即将自动跳转到最后一页");
+								layer.msg("当前页无数据,即将自动跳转到最后一页");
 								$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();
 							}
 							else if(options.pagetype=='refresh'){
@@ -167,14 +167,16 @@
 									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').css('display','none');
 									$('#'+options.pageframe+' i[data-pagetype="nextpage"]').css('display','none');
 									$('#'+options.pageframe+' span[data-type="row"]').text('');
-									$('td',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
+									$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','hidden');
+									//$('td',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
+									$('td[data-column="db"]',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
 									blank_tr=$('tr:eq(1)',$('table[data-table="'+tablename+'"]'));
 									$('td',$('table[data-table="'+tablename+'"]')).parent().remove();
 									for(j=1;j<=pageSize;j++){
 										$('tr:eq(0)',$('table[data-table="'+tablename+'"]')).parent().append(blank_tr.clone());
 									}
 								}else{
-									alert("当前页无数据,即将自动跳转到最后一页");
+									layer.msg("当前页无数据,即将自动跳转到最后一页");
 									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();
 								}
 							}
@@ -182,7 +184,7 @@
 						$(options.load).hide();/****隐藏加载动画****/
 					},
 					error: function () {
-						alert("获取Json数据失败");					
+						layer.alert('获取Json数据失败',{title:'警告',offset:[150]});				
 					}
 				});	
 		    }
@@ -192,7 +194,7 @@
         	$(options.load).show();/****显示加载数据加载动画****/
         	pageSize=parseInt($('#'+options.pageframe+' input[data-type="size"]').val());
             /****预查询****/
-			if(options.pagetype=='refresh'){				
+			if(options.pagetype=='refresh'){	
 				pageNo=parseInt($('#'+options.pageframe+' input[data-type="number"]').val());
 				$('td[data-column="db"]',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
 				blank_tr=$('tr:eq(1)',$('table[data-table="'+tablename+'"]'));
@@ -243,10 +245,3 @@
 		});
 	}
 })(jQuery);
-
-/*****************************插件配置说明*****************************
-@                              配置参数  
-@                           
-@                             暂无，待更新
-@
-******************************************************************/

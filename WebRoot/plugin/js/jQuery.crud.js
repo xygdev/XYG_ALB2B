@@ -139,7 +139,7 @@
 				    		}	
 						},
 						error: function () {
-							alert("获取Json数据失败");
+							layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 						}
 					}); 
 					return;			
@@ -197,15 +197,15 @@
 				    	dataType:'json',
 				    	success: function (data) {
 				    		if(data.retcode=="0"){
-				    			alert("更新成功!");
+				    			layer.msg("更新成功!");
 				    			$('#'+options.pageframe+' a[data-type="close"]').click();/****点击关闭更新框按钮****/
 				    			$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/
 				    		}else{
-				    			alert("更新处理失败！错误信息:"+data.errbuf);
+				    			layer.alert("更新处理失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
 				    		}						  
 				    	},
 				    	error: function () {
-				    		alert("获取数据失败");
+				    		layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 				    	}			
 				    });	
 				/*****************************************/
@@ -247,15 +247,15 @@
 				    	dataType:'json',
 				    	success: function (data) {
 				    		if(data.retcode=="0"){
-				    			alert("新增成功!");
+				    			layer.msg("新增成功!");
 				    			$('#'+options.pageframe+' a[data-type="close"]').click();/****点击关闭更新框按钮****/
 				    			$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/
 				    		}else{
-				    			alert("新增处理失败！错误信息:"+data.errbuf);
+				    			layer.alert("新增处理失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
 				    		}						  
 				    	},
 				    	error: function () {
-				    		alert("获取数据失败");
+				    		layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 				    	}			
 				    });	
 				/*****************************************/
@@ -318,7 +318,7 @@
 			        	$('#'+options.pageframe).css('margin-left',width);
 					},
 					error: function () {
-						alert("获取Json数据失败");
+						layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 					}
 				}); 
 			}
