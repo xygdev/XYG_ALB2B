@@ -94,9 +94,9 @@ public class PoHeaderVOService {
 	}
 	
 	//update
-	public PlsqlRetValue update(PoHeaderVO lockPoHeaderVO,PoHeaderVO updatePoHeaderVO,Long userId,Long funcId) throws Exception
+	public PlsqlRetValue update(PoHeaderVO lockPoHeaderVO,PoHeaderVO updatePoHeaderVO,Long funcId) throws Exception
 	{ 
-		PlsqlRetValue ret=phvDao.lock(lockPoHeaderVO, userId, funcId);
+		PlsqlRetValue ret=phvDao.lock(lockPoHeaderVO, funcId);
 		if(ret.getRetcode()==0){
 			ret=phvDao.update(updatePoHeaderVO);
 		}else{

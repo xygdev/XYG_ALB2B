@@ -58,26 +58,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    	    <div class="carousel-inner">
       	  <div class="item active bg-img bg1">
       	    <div class="img-desc">
-      	      <h1>东京晴空塔</h1>
-      	      <h3>外墙双银Low-E中空玻璃由信义玻璃提供</h3>
+      	      <!--  
+              <h1>深圳龙岗大运体育馆</h1>
+      	      <h3>外墙玻璃产品由信义玻璃提供</h3>
+      	       -->
       	    </div>
       	  </div>
       	  <div class="item bg-img bg2">
       	    <div class="img-desc">
-      	      <h1>澳门威尼斯人酒店</h1>
-      	      <h3>外墙双银Low-E中空玻璃由信义玻璃提供</h3>
+      	      <!--
+      	      <h1>深圳龙岗大运体育馆</h1>
+      	      <h3>外墙玻璃产品由信义玻璃提供</h3>
+      	       -->
       	    </div>
       	  </div>
       	  <div class="item bg-img bg3">
       	    <div class="img-desc">
+      	      <!--  
       	      <h1>深圳京基100大厦</h1>
       	      <h3>外墙双银Low-E中空玻璃由信义玻璃提供</h3>
+      	       -->
       	    </div>
       	  </div>
       	  <div class="item bg-img bg4">
       	    <div class="img-desc">
+      	      <!--
       	      <h1>北京数字大厦</h1>
       	      <h3>外墙双银Low-E中空玻璃由信义玻璃提供</h3>
+      	       -->
       	    </div>
       	  </div>
    	    </div>
@@ -139,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $("#welcome-page").css("display","none");
 	    $("#login-page").animate({"opacity":1});
 	    $('.start-btn')[0].click();
-	    layer.alert(errorMSG);
+	    layer.alert(errorMSG,{title:'警告',offset:[150]});
 	}
 	
 	$('.start-btn').on('click',function(){

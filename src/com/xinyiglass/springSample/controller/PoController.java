@@ -76,7 +76,6 @@ public class PoController {
 	public void insertPoHeader() throws Exception
 	{ 
     	PoHeaderVO ph = new PoHeaderVO();
-    	Long userId = (Long)sess.getAttribute("USER_ID");
     	Long funcId = (Long)sess.getAttribute("FUNC_ID");
     	ph.setPoNumber(req.getParameter("PO_NUMBER"));
     	ph.setCustomerContractNumber(req.getParameter("CUSTOMER_CONTRACT_NUMBER"));
@@ -86,7 +85,6 @@ public class PoController {
     	ph.setShipFromOrgId(TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
     	ph.setStatus("INPUT");
     	ph.setRemark(req.getParameter("REMARK")); 	
-    	ph.setCreatedBy(userId);
     	res.getWriter().print(phvs.insert(ph, funcId).toJsonStr());	
 	}
     
@@ -109,7 +107,6 @@ public class PoController {
    			throw new RuntimeException("更新的数据无法匹配!请重新查询!");
    		}
    		PoHeaderVO ph = new PoHeaderVO();
-   		Long userId = (Long)sess.getAttribute("USER_ID");
     	Long funcId = (Long)sess.getAttribute("FUNC_ID");
     	ph.setPoHeaderId(TypeConvert.str2Long(req.getParameter("PO_HEADER_ID")));
    		ph.setPoNumber(req.getParameter("PO_NUMBER"));
@@ -119,7 +116,7 @@ public class PoController {
     	ph.setSalesOrgId(TypeConvert.str2Long(req.getParameter("SALES_ORG_ID")));
     	ph.setStatus(req.getParameter("STATUS"));
     	ph.setRemark(req.getParameter("REMARK")); 	
-       	res.getWriter().print(phvs.update(lockPoHeaderVO, ph, userId, funcId).toJsonStr());
+       	res.getWriter().print(phvs.update(lockPoHeaderVO, ph, funcId).toJsonStr());
    	}
     
     @RequestMapping("/getPoLine.do")
@@ -144,7 +141,6 @@ public class PoController {
 	public void insertPoLine() throws Exception
 	{ 
     	PoLineVO pl = new PoLineVO();
-    	Long userId = (Long)sess.getAttribute("USER_ID");
     	Long funcId = (Long)sess.getAttribute("FUNC_ID");
     	pl.setPoHeaderId(TypeConvert.str2Long(req.getParameter("PO_HEADER_ID")));
     	pl.setShipFromOrgId(TypeConvert.str2Long(req.getParameter("SHIP_FROM_ORG_ID")));
@@ -157,7 +153,6 @@ public class PoController {
     	pl.setPieQuantity(TypeConvert.str2Long(req.getParameter("PIE_QUANTITY")));
     	pl.setStatus(req.getParameter("STATUS"));
     	pl.setRemark(req.getParameter("REMARK"));
-    	pl.setCreatedBy(userId);
     	res.getWriter().print(plvs.insert(pl, funcId).toJsonStr());
 	}
     
@@ -189,7 +184,6 @@ public class PoController {
    			throw new RuntimeException("更新的数据无法匹配!请重新查询!");
    		}
    		PoLineVO pl = new PoLineVO();
-    	Long userId = (Long)sess.getAttribute("USER_ID");
     	Long funcId = (Long)sess.getAttribute("FUNC_ID");
     	String userType = (String)sess.getAttribute("USER_TYPE");
     	pl.setPoLineId(poLineId);
@@ -205,7 +199,6 @@ public class PoController {
     	pl.setSqmUnitPrice(TypeConvert.str2Long(req.getParameter("SQM_UNIT_PRICE")));
     	pl.setStatus(req.getParameter("STATUS"));
     	pl.setRemark(req.getParameter("REMARK"));
-    	pl.setLastUpdatedBy(userId);
     	res.getWriter().print(plvs.update(lockPoLineVO, pl, userType, funcId).toJsonStr());
    	}
     

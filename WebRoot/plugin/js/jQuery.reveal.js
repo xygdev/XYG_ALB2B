@@ -174,10 +174,10 @@
 				});
 			}
 			/****设置键盘ESC键为关闭弹出框快捷键****/
-			//$('body').keyup(function(e) {
+			$('body').keyup(function(e) {
 				/****键盘代码27为ESC键****/
-        		//if(e.which===27){ modal.trigger('reveal:close'); } 
-			//});
+        		if(e.which===27){ modal.trigger('reveal:close'); } 
+			});
 			
 			
 	        /***************************
@@ -193,31 +193,3 @@
         });
     }
 })(jQuery);
-
-/*****************************插件配置说明*****************************
-@                              配置参数                             
-@    必需参数：														 
-@    data-reveal-id:
-@    data-raveal-id 为弹出框的id，属于必设参数属性
-@    非必需参数：
-@    data-animation:
-@    data-animation 为弹出框的动画特效类型，有'FadeAndPop','Fade','none'
-@    三种特效，'FadeAndPop'为渐显加弹出特效，'Fade'为渐显特效，'none'为无特效
-@    不设置此参数则默认为'none'类型
-@    data-animationspeed:
-@    data-animationspeed 为弹出框的弹出速度，单位为ms(毫秒)
-@    不设置此参数则默认为 300 (ms)
-@    data-closeonbackgroundclick:
-@    data-closeonbackgroundclick 为是否设置点击背景时关闭弹出框
-@    有true和false两个选项，true为点击背景可关闭弹出框,false则为点击背景不可关闭
-@    不设置此参数则默认为 true
-@    data-dismissmodalclass:
-@    data-dismissmodalclass 为设置弹出框关闭按钮标签的class
-@    不设置此参数则默认为 close-reveal-modal
-@    data-bg:
-@    data-bg 为设置弹出框的背景标签的class
-@    不设置此参数则默认为 reveal-modal-bg
-@
-@
-***********************************************************/
-        

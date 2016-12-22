@@ -62,7 +62,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
                 + " ,:11"
                 + " ,:12"
                 + " ,:13"
-                + " ,:14"
 				+ " ,:"+PlsqlRetValue.RETCODE
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
@@ -80,8 +79,7 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 		paramMap.put("10", pl.getPieQuantity());
 		paramMap.put("11", pl.getStatus());
 		paramMap.put("12", pl.getRemark());
-		paramMap.put("13", pl.getCreatedBy());
-		paramMap.put("14", funcId);	
+		paramMap.put("13", funcId);	
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	
@@ -146,7 +144,6 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
                 + " ,:13"
                 + " ,:14"
                 + " ,:15"
-                + " ,:16"
 				+ " ,:"+PlsqlRetValue.RETCODE
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
@@ -166,8 +163,7 @@ public class PoLineVODaoImpl extends DevJdbcDaoSupport implements PoLineVODao{
 		paramMap.put("12", pl.getStatus());
 		paramMap.put("13", pl.getRemark());
 		paramMap.put("14", userType);
-		paramMap.put("15", pl.getLastUpdatedBy());
-		paramMap.put("16", funcId);
+		paramMap.put("15", funcId);
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	

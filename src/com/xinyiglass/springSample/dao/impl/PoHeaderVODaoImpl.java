@@ -42,7 +42,6 @@ public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODa
                 + " ,:8"
                 + " ,:9"
                 + " ,:10"
-                + " ,:11"
 				+ " ,:"+PlsqlRetValue.RETCODE
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
@@ -57,13 +56,12 @@ public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODa
 		paramMap.put("7", ph.getShipFromOrgId());
 		paramMap.put("8", ph.getStatus());
 		paramMap.put("9", ph.getRemark());		
-		paramMap.put("10", ph.getCreatedBy());
-		paramMap.put("11", funcId);
+		paramMap.put("10", funcId);
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	
 	//lock
-	public PlsqlRetValue lock(PoHeaderVO ph,Long userId,Long funcId) throws Exception{
+	public PlsqlRetValue lock(PoHeaderVO ph,Long funcId) throws Exception{
 		String sql ="Declare "
 				+ "     l_po_header_id number; "
 				+ "  begin "
@@ -77,7 +75,6 @@ public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODa
                 + " ,:7"
                 + " ,:8"
                 + " ,:9"
-                + " ,:10"
 				+ " ,:"+PlsqlRetValue.RETCODE
 				+ " ,:"+PlsqlRetValue.ERRBUF
 				+ " ); "
@@ -91,8 +88,7 @@ public class PoHeaderVODaoImpl extends DevJdbcDaoSupport implements PoHeaderVODa
 		paramMap.put("6", ph.getSalesOrgId());
 		paramMap.put("7", ph.getStatus());
 		paramMap.put("8", ph.getRemark());		
-		paramMap.put("9", userId);
-		paramMap.put("10", funcId);
+		paramMap.put("9", funcId);
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	
