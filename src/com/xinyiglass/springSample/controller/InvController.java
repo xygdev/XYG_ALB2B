@@ -44,10 +44,10 @@ public class InvController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		lis.setSess(sess);
-		fis.setSess(sess);
-		ris.setSess(sess);
-		oss.setSess(sess);
+		lis.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		fis.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		ris.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		oss.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping("/lgInvQuery.do")

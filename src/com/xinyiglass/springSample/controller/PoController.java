@@ -39,8 +39,8 @@ public class PoController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		phvs.setSess(sess);
-		plvs.setSess(sess);
+		phvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		plvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping("/poOnline.do")

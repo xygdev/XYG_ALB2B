@@ -1,7 +1,6 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +42,8 @@ public class LoginController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		uvos.setSess(sess);//设定service的会话对象
-		ls.setSess(sess);
+		uvos.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		ls.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     } 
 	
 	@RequestMapping("/")
@@ -54,12 +53,8 @@ public class LoginController {
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
 	public ModelAndView postLogin(String username,String password,String lang) throws Exception{
-		//这里全局初始化。例如启用调试等
-		Alb2bInit.init();
-		//---正式处理
 		ModelAndView mv = new ModelAndView();
 		String ipAddress = getIp(req);
-		LogUtil.log("ipAddress:"+ipAddress);
 		username=username.toUpperCase();//用户名大小写都可以登录
 		PlsqlRetValue ret=ls.handleLogin(password, username, lang,ipAddress);
 		int retCode = ret.getRetcode();
@@ -76,14 +71,15 @@ public class LoginController {
 			 sess.setAttribute("RESP_ID", user.getRespId());
 			 sess.setAttribute("RESP", user.getRespName());
 			 sess.setAttribute("USER_TYPE", user.getUserType());
-			 //LogUtil.log("Login_ID:"+ret.getParam1());
 			 if(retCode==1){
 				 mv.setViewName("redirect:/modifyPWD.do");
 				 sess.setAttribute("errorMsg", ret.getErrbuf());
 			 }else if(retCode==0){				 
 				 mv.setViewName("redirect:/index.do"); 
 			 }
-			 LogUtil.log("成功登录!-->当前SESS会话"+sess.getId()+" 匹配的longId:"+TypeConvert.str2Long(ret.getParam1()));
+			 //这里全局初始化。例如启用调试等
+			 Alb2bInit.init();
+			 LogUtil.log("成功登录!-->当前SESS会话"+sess.getId()+" 匹配的longId:"+ret.getParam1());
 		 }
 		return mv;
 	}
@@ -111,11 +107,11 @@ public class LoginController {
 		if(ret.getRetcode()!=0){
 			LogUtil.log("Error:"+ret.getErrbuf());
 		}	
-		//sess.invalidate();//用这个->重新登录的时候当获取attribute会报错：getAttribute: Session already invalidated
-		Enumeration<String> sessionKeys = sess.getAttributeNames();
+		sess.invalidate();
+		/*Enumeration<String> sessionKeys = sess.getAttributeNames();
 		while(sessionKeys.hasMoreElements()){
 			sess.removeAttribute(sessionKeys.nextElement());
-		}
+		}*/
 		//LogUtil.log("TEST LOGIN_ID:"+sess.getAttribute("LOGIN_ID"));
 		mv.setViewName("login-ch");
 		return mv;

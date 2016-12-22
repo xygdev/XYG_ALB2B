@@ -35,7 +35,7 @@ public class LovController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		lovService.setSess(sess);
+		lovService.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     } 
 	
     //获取USER值列表

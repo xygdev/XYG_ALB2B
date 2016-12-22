@@ -37,7 +37,7 @@ public class CustController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		ucvs.setSess(sess);
+		ucvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping(value = "/getUserCustPage.do", method = RequestMethod.POST)

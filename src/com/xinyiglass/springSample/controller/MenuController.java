@@ -42,9 +42,9 @@ public class MenuController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		rvs.setSess(sess);
-		mhvs.setSess(sess);
-		mlvs.setSess(sess);
+		rvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		mhvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		mlvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping("/getPersonalMenu.do")

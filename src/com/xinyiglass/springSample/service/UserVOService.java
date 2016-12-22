@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,15 +26,15 @@ public class UserVOService {
 	UserVODao userDao;
 	@Autowired
 	PagePub pagePub;
-	
-	private HttpSession sess;
-	
-	public HttpSession getSess() {
-		return sess;
-	}
 
-	public void setSess(HttpSession sess) {
-		this.sess = sess;
+	private Long loginId;
+	
+	public Long getLoginId() {
+		return loginId;
+	}
+	
+	public void setLoginId(Long loginId) {
+		this.loginId = loginId;
 	}
 	
 	public PlsqlRetValue insert(UserVO u) throws Exception{
@@ -98,7 +96,7 @@ public class UserVOService {
 		//测试会话初始化功能
 		Long sid=pagePub.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
 		Long longId=pagePub.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");
-		LogUtil.log("当前SESS会话:"+sess.getId()+" 对应的数据库sid:"+sid+",longId:"+longId);
+		LogUtil.log("当前SESS登录id:"+this.getLoginId()+"-->对应的数据库sid:"+sid+",longId:"+longId);
 		//Thread.sleep(10000);//模拟等待10秒，经过测试，确实会用另外一个会话ID。
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}		

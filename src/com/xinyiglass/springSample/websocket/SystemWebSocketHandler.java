@@ -30,7 +30,7 @@ public class SystemWebSocketHandler extends  TextWebSocketHandler {
 			TextMessage message) throws Exception {
 		super.handleTextMessage(session, message);
 		ArrayList<Long> userIdList=new ArrayList<Long>();
-		userIdList.add(999L);//特定用户发送成功
+		//userIdList.add(999L);//特定用户发送成功
 		sendMessageToUsers(userIdList,message);
 	}
     @Override

@@ -40,7 +40,7 @@ public class ApController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		as.setSess(sess);
+		as.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping("/apQuery.do")

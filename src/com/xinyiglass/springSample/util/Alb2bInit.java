@@ -9,8 +9,8 @@ import org.apache.commons.net.ftp.FTP;
 public class Alb2bInit {  
     public static void init(){  
 		xygdev.commons.util.Constant.DEBUG_MODE=false;//common包的调试模式
-    	Constant.DEBUG_MODE = true;//b2b系统的调试模式
-    	Constant.IMAGE_USER_PATH = "E:\\image\\user\\";//"/ebs/data/image/user/"
+    	Constant.DEBUG_MODE = false;//b2b系统的调试模式
+    	Constant.IMAGE_USER_PATH = "/ebs/data/image/user/";//"/ebs/data/image/user/" E:\\image\\user\\
     	Constant.LOCAL_CHARSET = "GBK";
     	Constant.SERVER_CHARSET = FTP.DEFAULT_CONTROL_ENCODING;
     	Constant.DIR_SEP="/";//ftp和unix用：/    ；本地win系统用：\\\\

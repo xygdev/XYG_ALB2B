@@ -33,7 +33,7 @@ public class ListController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		listService.setSess(sess);
+		listService.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     } 
 	
 	@RequestMapping(value = "/getEnableFlag.do", method = RequestMethod.POST)

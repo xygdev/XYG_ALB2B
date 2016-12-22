@@ -42,7 +42,7 @@ public class UserController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		UVS.setSess(sess);
+		UVS.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)

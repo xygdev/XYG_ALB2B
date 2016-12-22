@@ -1,7 +1,5 @@
 package com.xinyiglass.springSample.util;
 
-import javax.servlet.http.HttpSession;
-
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -30,21 +28,18 @@ public class AopUtil {
      */  
 	@Before("execution(* com.xinyiglass.springSample.service..*.*(..))")  
     public void alb2bInit(JoinPoint joinPoint) throws Exception{
-        Method method = null;
+		Method method = null;
         Object target = null;
-        HttpSession sess=null;
-        String methodName = "getSess";
+        Long loginId=null;
+        String methodName = "getLoginId";
         target = joinPoint.getTarget();
         method = getMethodByClassAndName(target.getClass(), methodName);
         if(method!=null){
-            sess=(HttpSession) method.invoke(target);
-            if(sess!=null){
-            	Long loginId=(Long)sess.getAttribute("LOGIN_ID");
-            	//System.out.println("loginId:"+loginId);
-            	if(loginId!=null&&loginId>0){
-            		PlsqlRetValue ret =utilDao.alb2bInit(loginId);//初始化环境变量！
-                	if(ret!=null&&!TypeConvert.isNullValue(ret.getErrbuf())) LogUtil.log("ret:"+ret.toJsonStr());
-            	}
+        	loginId=(Long) method.invoke(target);
+            LogUtil.log("loginId:"+loginId);
+            if(loginId!=null&&loginId>0){
+        		PlsqlRetValue ret =utilDao.alb2bInit(loginId);//初始化环境变量！
+            	if(ret!=null&&!TypeConvert.isNullValue(ret.getErrbuf())) LogUtil.log("ret:"+ret.toJsonStr());
             }
         }
     }    
@@ -61,9 +56,6 @@ public class AopUtil {
 		}
 		return null;
 	}
-    // 测试主函数  
-    public static void main(String args[]) {  
-    }  
 }  
 
 

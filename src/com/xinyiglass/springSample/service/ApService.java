@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Async;
@@ -29,14 +27,14 @@ public class ApService {
 	@Autowired
 	PagePub pagePub;
     
-	private HttpSession sess;
+	private Long loginId;
 	
-	public HttpSession getSess() {
-		return sess;
+	public Long getLoginId() {
+		return loginId;
 	}
-
-	public void setSess(HttpSession sess) {
-		this.sess = sess;
+	
+	public void setLoginId(Long loginId) {
+		this.loginId = loginId;
 	}
 	
 	@Bean

@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,15 +24,15 @@ public class OnhandPermVOService {
 	PagePub pagePub;
 	@Autowired
 	OnhandPermVODao onhandDao;
-    
-	private HttpSession sess;
-	
-	public HttpSession getSess() {
-		return sess;
-	}
 
-	public void setSess(HttpSession sess) {
-		this.sess = sess;
+	private Long loginId;
+	
+	public Long getLoginId() {
+		return loginId;
+	}
+	
+	public void setLoginId(Long loginId) {
+		this.loginId = loginId;
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)

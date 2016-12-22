@@ -127,6 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- 登录页区域 end -->
 	
+  <script type="text/javascript" src="plugin/layer/layer.js"></script>
   <script>
   	$('#myCarousel').carousel({
   		interval: 5000
@@ -137,7 +138,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $("#welcome-page").animate({"opacity":0});
 	    $("#welcome-page").css("display","none");
 	    $("#login-page").animate({"opacity":1});
-	    alert(errorMSG);
+	    $('.start-btn')[0].click();
+	    layer.alert(errorMSG);
 	}
 	
 	$('.start-btn').on('click',function(){
