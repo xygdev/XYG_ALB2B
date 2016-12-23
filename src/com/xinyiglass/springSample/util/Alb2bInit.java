@@ -7,9 +7,13 @@ import org.apache.commons.net.ftp.FTP;
  * @author Sam.T  2016-12-21
  */  
 public class Alb2bInit {  
-    public static void init(){  
-		xygdev.commons.util.Constant.DEBUG_MODE=false;//common包的调试模式
-    	Constant.DEBUG_MODE = false;//b2b系统的调试模式
+    public static void init(Boolean debug){  
+    	//注意！当切换环境的时候，要日志信息，必须要修改log4j.properties的file路径！
+    	if(debug!=null){//实现一个效果：当登录的时候，不自动切换现有的调试状态。
+    		xygdev.commons.util.Constant.DEBUG_MODE=debug;//common包的调试模式
+        	Constant.DEBUG_MODE = debug;//b2b系统的调试模式
+        	//System.out.println("debugMode:"+debug);
+    	}
     	Constant.IMAGE_USER_PATH = "/ebs/data/image/user/";//"/ebs/data/image/user/" E:\\image\\user\\
     	Constant.LOCAL_CHARSET = "GBK";
     	Constant.SERVER_CHARSET = FTP.DEFAULT_CONTROL_ENCODING;

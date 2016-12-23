@@ -93,4 +93,6 @@
     <!-- AOP面向切面编程 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>  
     <bean id="AopUtil" class="com.xinyiglass.springSample.util.AopUtil" /> 
+    <!--Controller层的统一异常处理 -->
+    <bean id="exceptionHandler" class="com.xinyiglass.springSample.controller.ExceptionHandler"/>  
 </beans>

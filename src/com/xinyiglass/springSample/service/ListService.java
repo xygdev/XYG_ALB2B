@@ -18,15 +18,16 @@ public class ListService {
 	@Autowired
 	PagePub pagePub;
 
-	private Long loginId;
+	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
 	public Long getLoginId() {
-		return loginId;
+		return this.loginIdTL.get();
 	}
 	
 	public void setLoginId(Long loginId) {
-		this.loginId = loginId;
+		this.loginIdTL.set(loginId); 
 	}
+	
 	
 	public String findForEnableFlag() throws Exception{
 		String sql = "SELECT MEANING DISPLAY,LOOKUP_CODE VALUE"

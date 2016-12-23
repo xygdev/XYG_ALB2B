@@ -24,14 +24,14 @@ public class FuncVOService {
 	@Autowired
 	FuncVODao funcDao;
 
-	private Long loginId;
+	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
 	public Long getLoginId() {
-		return loginId;
+		return this.loginIdTL.get();
 	}
 	
 	public void setLoginId(Long loginId) {
-		this.loginId = loginId;
+		this.loginIdTL.set(loginId); 
 	}
 	
 	public PlsqlRetValue insert(FuncVO f) throws Exception{

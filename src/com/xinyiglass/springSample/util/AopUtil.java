@@ -35,9 +35,8 @@ public class AopUtil {
         target = joinPoint.getTarget();
         method = getMethodByClassAndName(target.getClass(), methodName);
         if(method!=null){
-        	loginId=(Long) method.invoke(target);
-            LogUtil.log("loginId:"+loginId);
-            if(loginId!=null&&loginId>0){
+        	loginId=(Long) method.invoke(target);//LogUtil.log("loginId:"+loginId);
+            if(loginId!=null&&loginId>0&&loginId!=utilDao.getLoginId()){
         		PlsqlRetValue ret =utilDao.alb2bInit(loginId);//初始化环境变量！
             	if(ret!=null&&!TypeConvert.isNullValue(ret.getErrbuf())) LogUtil.log("ret:"+ret.toJsonStr());
             }

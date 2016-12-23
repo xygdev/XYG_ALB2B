@@ -74,11 +74,11 @@ public class LoginController {
 			 if(retCode==1){
 				 mv.setViewName("redirect:/modifyPWD.do");
 				 sess.setAttribute("errorMsg", ret.getErrbuf());
-			 }else if(retCode==0){				 
+			 }else if(retCode==0){				
 				 mv.setViewName("redirect:/index.do"); 
 			 }
 			 //这里全局初始化。例如启用调试等
-			 Alb2bInit.init();
+			 Alb2bInit.init(null);//Boolean.parseBoolean("false")
 			 LogUtil.log("成功登录!-->当前SESS会话"+sess.getId()+" 匹配的longId:"+ret.getParam1());
 		 }
 		return mv;
@@ -91,6 +91,10 @@ public class LoginController {
 	
 	@RequestMapping(value="/index.do")
 	public void listIndex() throws Exception{
+		String debug=req.getParameter("debug");
+		if(debug!=null){//重新初始化
+			Alb2bInit.init(Boolean.parseBoolean(debug));
+		}
 		req.getRequestDispatcher("/WEB-INF/page/index/index.jsp").forward(req,res);	
 	}
 	

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xinyiglass.springSample.dao.UserVODao;
 import com.xinyiglass.springSample.entity.UserVO;
-import com.xinyiglass.springSample.util.LogUtil;
 
 import xygdev.commons.entity.PlsqlRetValue;
 import xygdev.commons.page.PagePub;
@@ -26,8 +25,17 @@ public class UserVOService {
 	UserVODao userDao;
 	@Autowired
 	PagePub pagePub;
-
-	private Long loginId;
+	
+	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
+	
+	public Long getLoginId() {
+		return this.loginIdTL.get();
+	}
+	
+	public void setLoginId(Long loginId) {
+		this.loginIdTL.set(loginId); 
+	}
+	/*private Long loginId;
 	
 	public Long getLoginId() {
 		return loginId;
@@ -36,7 +44,7 @@ public class UserVOService {
 	public void setLoginId(Long loginId) {
 		this.loginId = loginId;
 	}
-	
+	*/
 	public PlsqlRetValue insert(UserVO u) throws Exception{
 		PlsqlRetValue ret=userDao.insert(u);
 		if(ret.getRetcode()!=0){
@@ -94,9 +102,9 @@ public class UserVOService {
 		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",endDate_F,endDate_T,paramMap));
 		sqlBuff.append(" ORDER BY "+orderBy);
 		//测试会话初始化功能
-		Long sid=pagePub.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
-		Long longId=pagePub.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");
-		LogUtil.log("当前SESS登录id:"+this.getLoginId()+"-->对应的数据库sid:"+sid+",longId:"+longId);
+		//Long sid=pagePub.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
+		//Long longId=pagePub.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");
+		//LogUtil.log("...当前SESS登录id:"+this.getLoginId()+"-->对应的数据库sid:"+sid+",longId:"+longId);
 		//Thread.sleep(10000);//模拟等待10秒，经过测试，确实会用另外一个会话ID。
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}		

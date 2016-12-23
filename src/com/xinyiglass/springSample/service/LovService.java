@@ -21,15 +21,15 @@ public class LovService {
 
 	@Autowired
 	PagePub pagePub;
-    
-	private Long loginId;
+
+	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
 	public Long getLoginId() {
-		return loginId;
+		return this.loginIdTL.get();
 	}
 	
 	public void setLoginId(Long loginId) {
-		this.loginId = loginId;
+		this.loginIdTL.set(loginId); 
 	}
 	
 	/***用户LOV***/

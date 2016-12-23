@@ -16,16 +16,16 @@ public class LoginService {
     @Autowired
     LoginDao loginDao;
 
-	private Long loginId;
+	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
 	public Long getLoginId() {
-		return loginId;
+		return this.loginIdTL.get();
 	}
 	
 	public void setLoginId(Long loginId) {
-		this.loginId = loginId;
+		this.loginIdTL.set(loginId); 
 	}
-    
+	
     @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
     public PlsqlRetValue handleLogin(String password,String userName,String lang,String ipAddress) throws Exception{ 
     	password = MD5Util.string2MD5(password);

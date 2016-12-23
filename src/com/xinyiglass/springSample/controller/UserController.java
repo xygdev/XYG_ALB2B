@@ -59,7 +59,6 @@ public class UserController {
     	u.setUserType(req.getParameter("USER_TYPE"));
         u.setUserGroupId(TypeConvert.str2Long(req.getParameter("GROUP_ID")));
     	u.setImgUrl("default.png");
-    	//System.out.println("Ret:"+UVS.insert(u).toJsonStr());
     	res.getWriter().print(UVS.insert(u).toJsonStr());
 	}
     
@@ -116,6 +115,18 @@ public class UserController {
 		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
 		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
 		String orderBy=req.getParameter("orderby");
+		//test并发安全
+		/*if(UVS.getLoginId()==181){//uvos.getLoginId()!=null&&uvos.getLoginId()
+			System.out.println(Thread.currentThread().getId()+":WAITTING...该线程应该的登录ID:"+UVS.getLoginId());
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getId()+":WAITTING END!");
+		 } 
+		System.out.println(Thread.currentThread().getId()+":-->该线程匹配的longId:"+UVS.getLoginId());
+		*/
 		res.getWriter().print(UVS.findForPage(pageSize, pageNo, goLastPage, userId, respId, userType, startDate_F, startDate_T, endDate_F, endDate_T, orderBy));
 	}
     
