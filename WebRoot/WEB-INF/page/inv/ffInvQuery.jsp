@@ -70,7 +70,7 @@
           <i class="fa fa-cog pointer" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" data-pagetype='refresh' data-pageframe="table" data-func="$().validateOrgan()"></i>
@@ -129,24 +129,24 @@
             <label for='ORGANIZATION_CODE' class='left mid'>库存编码</label> 
             <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left short' required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getFfUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getFfUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
             <label for='ORGANIZATION_NAME' class='left mid'>库存组织</label>
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' required='required' class='left long' readonly="readonly"/>
             
             <label for='COLOUR_NAME' class='left mid'>颜色</label> 
             <input type='text' id='COLOUR_NAME' name='COLOUR_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validGrade.do" data-queryurl="lov/getGradeCode.do" data-lovbtn="COLOUR_LOV" data-hiddenid=["COLOUR_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
             <input type='hidden' id='COLOUR_CODE' name='COLOUR'/>
-            <input type='button' id="COLOUR_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="颜色查询" data-queryurl="lov/getColourPage.do" data-jsontype="colour" data-defaultquery="true" data-th=["颜色编码","颜色名称","描述"] data-td=["COLOUR_CODE","COLOUR_NAME","COLOUR_DESC"] data-selectname=["颜色编码","颜色名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COLOUR_CODE",".COLOUR_NAME"] data-recid=["#COLOUR_NAME","#COLOUR_CODE"] value="···"/>    
+            <input type='button' id="COLOUR_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="颜色查询" data-queryurl="lov/getColourPage.do" data-jsontype="colour" data-defaultquery="true" data-th=["颜色编码","颜色名称","描述"] data-td=["COLOUR_CODE","COLOUR_NAME","COLOUR_DESC"] data-selectname=["颜色编码","颜色名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COLOUR_CODE",".COLOUR_NAME"] data-recid=["#COLOUR_NAME","#COLOUR_CODE"] value="···"/>    
             
             <label for='GRADE_NAME' class='left mid'>等级</label> 
             <input type='text' id='GRADE_NAME' name='GRADE_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validColour.do" data-queryurl="lov/getColourCode.do" data-lovbtn="GRADE_LOV" data-hiddenid=["GRADE_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
             <input type='hidden' id='GRADE_CODE' name='GRADE'/>
-            <input type='button' id="GRADE_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="等级查询" data-queryurl="lov/getGradePage.do" data-jsontype="grade" data-defaultquery="true" data-th=["等级编码","等级名称","描述"] data-td=["GRADE_CODE","GRADE_NAME","GRADE_DESC"] data-selectname=["等级编码","等级名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".GRADE_CODE",".GRADE_NAME"] data-recid=["#GRADE_NAME","#GRADE_CODE"] value="···"/>    
+            <input type='button' id="GRADE_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="等级查询" data-queryurl="lov/getGradePage.do" data-jsontype="grade" data-defaultquery="true" data-th=["等级编码","等级名称","描述"] data-td=["GRADE_CODE","GRADE_NAME","GRADE_DESC"] data-selectname=["等级编码","等级名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".GRADE_CODE",".GRADE_NAME"] data-recid=["#GRADE_NAME","#GRADE_CODE"] value="···"/>    
             <br style="clear:both"/>
             <label for='PACK_NAME' class='left mid'>包装方式</label> 
             <input type='text' id='PACK_NAME' name='PACK_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validPack.do" data-queryurl="lov/getPackCode.do" data-lovbtn="PACK_LOV" data-hiddenid=["PACK_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
             <input type='hidden' id='PACK_CODE' name='PACK_CODE'/>
-            <input type='button' id="PACK_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="包装方式查询" data-queryurl="lov/getPackPage.do" data-jsontype="pack" data-defaultquery="true" data-th=["包装编码","包装名称","描述"] data-td=["PACK_CODE","PACK_NAME","PACK_DESC"] data-selectname=["包装编码","包装名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".PACK_CODE",".PACK_NAME"] data-recid=["#PACK_NAME","#PACK_CODE"] value="···"/>    
+            <input type='button' id="PACK_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="包装方式查询" data-queryurl="lov/getPackPage.do" data-jsontype="pack" data-defaultquery="true" data-th=["包装编码","包装名称","描述"] data-td=["PACK_CODE","PACK_NAME","PACK_DESC"] data-selectname=["包装编码","包装名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".PACK_CODE",".PACK_NAME"] data-recid=["#PACK_NAME","#PACK_CODE"] value="···"/>    
             
             <label for='THICKNESS' class='left mid'>厚度</label> 
             <input type='text' id='THICKNESS' name='THICKNESS' class='left long'/>
@@ -158,7 +158,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    

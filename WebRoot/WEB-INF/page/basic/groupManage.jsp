@@ -40,7 +40,7 @@
             <td class="GROUP_NAME" data-column="db"></td>
      	    <td class="DESCRIPTION" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新工作组" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupHeader.do" data-type="update" data-updateparam=["GROUP_ID",".GROUP_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新工作组" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupHeader.do" data-type="update" data-updateparam=["GROUP_ID",".GROUP_ID"]></i>
      	      &nbsp;
      	      <i class="fa fa fa-eye view pointer show_detail hidden" title="工作组明细"  data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" ></i>
      	    </td>
@@ -56,10 +56,10 @@
           <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增工作组" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" title="新增工作组" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -126,8 +126,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateGroupHeader.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="group/insertGroupHeader.do">新增</button>
+          <button class="right update_confirm pointer" data-keyup="enter" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateGroupHeader.do">提交更新</button>
+          <button class="right update_confirm pointer" data-keyup="enter" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="group/insertGroupHeader.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -150,7 +150,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">工作组查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-keyup="enter" data-pageframe="query">工作组查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end --> 
@@ -189,7 +189,7 @@
               <td class="SUB_GROUP_NAME" data-column="db"></td>
      	      <td class="ENABLED" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupLine.do" data-type="update" data-updateparam=["GROUP_SEQUENCE",".GROUP_SEQUENCE"] data-func="$().getGroupId();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateGroupLine.do" data-type="update" data-updateparam=["GROUP_SEQUENCE",".GROUP_SEQUENCE"] data-func="$().getGroupId();"></i>
      	      </td>
      	      <td class="GROUP_ID" style="display:none" data-column="hidden">&nbsp;</td>     	     
      	    </tr>
@@ -202,7 +202,7 @@
             <i class="fa fa-search pointer" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
           </div>
           <div class="setting">
-            <i class="fa fa-plus-circle pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().autoAddSeq();"></i>
+            <i class="fa fa-plus-circle pointer" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().autoAddSeq();"></i>
           </div>
           <div class="setting">
             <i id='sub_refresh' class="fa fa-refresh pointer" data-pagetype='refresh' data-pageframe="sub_table" data-func="$().setParam();"></i>
@@ -244,18 +244,18 @@
           <label for='SUB_GROUP_CODE' class='left'>工作组编码</label> 
           <input type="text" id="SUB_GROUP_CODE" name="SUB_GROUP_CODE" data-update="db" class="left short" readonly="readonly" required='required'/>
           <input type='hidden' id='SUB_GROUP_ID' name='SUB_GROUP_ID' data-update="db"/>
-          <input type="button" id="SUB_GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["LOV_GROUP_ID","LOV_GROUP_CODE","LOV_GROUP_NAME","LOV_DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".LOV_GROUP_ID",".LOV_GROUP_CODE",".LOV_GROUP_NAME"] data-recid=["#SUB_GROUP_ID","#SUB_GROUP_CODE","#SUB_GROUP_NAME"]  value="···"/> 
+          <input type="button" id="SUB_GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["LOV_GROUP_ID","LOV_GROUP_CODE","LOV_GROUP_NAME","LOV_DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".LOV_GROUP_ID",".LOV_GROUP_CODE",".LOV_GROUP_NAME"] data-recid=["#SUB_GROUP_ID","#SUB_GROUP_CODE","#SUB_GROUP_NAME"]  value="···"/> 
           <label for='SUB_GROUP_NAME' class='left'>工作组名称</label> 
           <input type="text" id="SUB_GROUP_NAME" name="SUB_GROUP_NAME" data-update="db" class="left long" readonly="readonly"/>
         </form>
       </div>
       <div class='foot'>       
-        <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="group/updateGroupLine.do" data-refresh="sub_refresh">提交更新</button>
-        <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="group/insertGroupLine.do" data-refresh="sub_refresh">新增</button>
+        <button class="right update_confirm pointer" data-keyup="enter" data-type="update" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="group/updateGroupLine.do" data-refresh="sub_refresh">提交更新</button>
+        <button class="right update_confirm pointer" data-keyup="enter" data-type="insert" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="group/insertGroupLine.do" data-refresh="sub_refresh">新增</button>
       </div>    
     </div> 
     <!-- 工作组明细新增/更新区域 end -->  
-<!----------------------------------------------菜单明细-------------------------------------------------------- -->       
+<!----------------------------------------------工作组明细-------------------------------------------------------- -->       
       
     <!-- 用户信息存放区域 start -->
     <input type="hidden" id="USER_ID" value="${USER_ID}"/>  

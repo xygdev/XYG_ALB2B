@@ -55,7 +55,8 @@
 		    animationspeed: 300, /****弹出速度默认值***/
 		    closeonbackgroundclick: false, /****点击背景是否关闭弹出框***/
 		    dismissmodalclass: 'close-reveal-modal' ,/****弹出框关闭按钮的默认值***/
-		    bg:'reveal-modal-bg'/****默认背景***/
+		    bg:'reveal-modal-bg',/****默认背景***/
+		    key: false
     	}; 
     	
         /****继承默认属性****/
@@ -86,6 +87,25 @@
 			modal.bind('reveal:open', function () {
 			    modalBG.unbind('click.modalEvent');
 				$('.' + options.dismissmodalclass).unbind('click.modalEvent');
+				
+				if(options.key==true){
+					$('body').off().keyup();
+					$('body').keyup(function(e) {
+		        		if(e.which===13){
+		        			//alert(modal.attr('id'));
+		        			var button = $('#'+modal.attr('id')+' [data-keyup="enter"]');
+		        			for(a=0;a<button.length;a++){
+		        				if(button[a].style.display!='none'&&button[a].style.display!=null){
+		        					button[a].click();
+		        					return;
+		        				}
+		        			}
+		        			//alert(button.length);			
+		        			return;
+		        		}
+					});	
+				}
+				
 				if(!locked) {
 					lockModal();
 					/****渐显加弹出特效****/
@@ -122,6 +142,22 @@
 
 			/****关闭弹出框****/
 			modal.bind('reveal:close', function () {
+			  if(options.key==true){
+			      $('body').off().keyup();
+			  }
+			  if(options.callback!=null&&options.callback!=''){
+				  $('body').keyup(function(e) {
+		        		if(e.which===13){
+		        			var button = $('#'+options.callback+' [data-keyup="enter"]');
+		        			for(a=0;a<button.length;a++){
+		        				if(button[a].style.display!='none'&&button[a].style.display!=null){
+		        					button[a].click();
+		        				}
+		        			}		
+		        			return;
+		        		}
+			      });
+			  }
 			  if(!locked) {
 					lockModal();
 					/****渐隐加弹出特效****/
@@ -173,12 +209,15 @@
 				  modal.trigger('reveal:close')
 				});
 			}
-			/****设置键盘ESC键为关闭弹出框快捷键****/
-			$('body').keyup(function(e) {
-				/****键盘代码27为ESC键****/
-        		if(e.which===27){ modal.trigger('reveal:close'); } 
-			});
 			
+			
+			/****设置键盘键盘ESC键为关闭弹出框快捷键****/
+			$('body').keyup(function(e) {
+    		    if(e.which===27){ 
+    			    modal.trigger('reveal:close'); 
+    		    }
+			});
+
 			
 	        /***************************
                     设定弹出框虚拟状态

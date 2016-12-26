@@ -62,7 +62,7 @@
      	    <td class="STATUS_DESC" data-column="db"></td>
      	    <td class="REMARK" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新PO头信息" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoHeader.do" data-type="update" data-updateparam=["PO_HEADER_ID",".PO_HEADER_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新PO头信息" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoHeader.do" data-type="update" data-updateparam=["PO_HEADER_ID",".PO_HEADER_ID"]></i>
      	      <i class="fa fa fa-eye view pointer show_detail hidden" title="菜单明细" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" ></i>
      	      <i class="fa fa fa-trash-o pointer hidden" title="删除数据" data-show="true" data-crudtype="del" data-delurl="po/deletePoHeader.do" data-col="PO_NUMBER" data-delmsg="是否删除PO单" data-delparam=["PO_HEADER_ID",".PO_HEADER_ID"] ></i>
      	    </td>	    
@@ -88,10 +88,10 @@
           <i class="fa fa-cog pointer" title="" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增PO单" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" title="新增PO单" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -156,7 +156,7 @@
             <label for='PARTY_NAME' class='left mid'>客户名称</label> 
             <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID' data-update="db"/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司","库存id","库存组织"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID","ORG_NAME","ORGANIZATION_ID","ORGANIZATION_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID",".ORG_NAME",".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID","#ORG_NAME","#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>
+            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司","库存id","库存组织"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID","ORG_NAME","ORGANIZATION_ID","ORGANIZATION_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID",".ORG_NAME",".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID","#ORG_NAME","#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>
             <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号</label>
             <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' data-update="db" required='required' class='left long' readonly="readonly"/> 
             <input type="hidden" id="ORG_ID" name="SALES_ORG_ID" data-update="db"/>
@@ -165,7 +165,7 @@
             <label for='ORGANIZATION_NAME' class='left mid'>发货组织</label> 
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID' data-update="db"/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>         
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>         
             <input type="hidden" id="CURR_CODE" name="CURR_CODE" required="required" value="CNY"/>
             <input type="hidden" id="STATUS" name="STATUS" data-update="db"/>
             <br style="clear:both"/>
@@ -175,8 +175,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="po/updatePoHeader.do">保存</button>
-          <button class="right pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="po/insertPoHeader.do">提交</button>
+          <button class="right pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="po/updatePoHeader.do">保存</button>
+          <button class="right pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="po/insertPoHeader.do">提交</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -200,12 +200,12 @@
             <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
             <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" readonly="readonly"/>
             <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
-            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
+            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
             <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q"]></i>
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">PO单查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">PO单查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end --> 
@@ -267,7 +267,7 @@
      	      <td class="AMOUNT" data-column="db"></td>
      	      <td class="REMARK" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoLine.do" data-type="update" data-updateparam=["PO_LINE_ID",".PO_LINE_ID"] data-func="$().beforePreUpdateDetail();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="po/preUpdatePoLine.do" data-type="update" data-updateparam=["PO_LINE_ID",".PO_LINE_ID"] data-func="$().beforePreUpdateDetail();"></i>
      	        <i class="fa fa fa-trash-o pointer" title="删除数据" data-show="true" data-crudtype="del" data-refresh="sub_refresh" data-delurl="po/deletePoLine.do" data-col="LINE_NUM" data-delmsg="是否删除PO明细行-" data-delparam=["PO_LINE_ID",".PO_LINE_ID"] ></i>
      	      </td>
      	      <td class="PO_LINE_ID" style="display:none" data-column="hidden">&nbsp;</td> 
@@ -277,11 +277,8 @@
         <!-- 菜单明细表格区域 end --> 
         
         <div class="table_button" id="sub_table" data-table="PoLine">
-          <div class="setting none">
-            <i class="fa fa-search pointer" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
-          </div>
           <div class="setting">
-            <i class="fa fa-plus-circle pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().autoAddSeq();"></i>
+            <i class="fa fa-plus-circle pointer" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().autoAddSeq();"></i>
           </div>
           <div class="setting">
             <i id='sub_refresh' class="fa fa-refresh pointer" data-pagetype='refresh' data-pageframe="sub_table" data-func="$().setParam();"></i>
@@ -333,14 +330,14 @@
             <label for='COATING_NAME_D' class='left'>膜系</label> 
             <input type='text' id='COATING_NAME_D' name='COATING_NAME' data-update="db" class='left short clean_item' required="required" data-modify="true" data-pageframe="query" data-validurl="lov/validCoating.do" data-queryurl="lov/getCoatingCode.do" data-lovbtn="COATING_LOV" data-hiddenid=["COATING_CODE_D"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
             <input type='hidden' id='COATING_CODE_D' name='COATING_TYPE' data-update="db"/>
-            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME_D","#COATING_CODE_D"] data-clickfunc="$().lovClickExtends();" value="···"/>  
+            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME_D","#COATING_CODE_D"] data-clickfunc="$().lovClickExtends();" value="···"/>  
             <br style="clear:both"/>
             <label for="THICKNESS_D" class="left mid">厚度</label> 
             <input type="text" id="THICKNESS_D" name="THICKNESS" data-update="db" class="left long clean_item" required="required"/> 
             <label for='ITEM_D' class='left'>物料</label> 
             <input type='text' id='ITEM_D' name='INVENTORY_ITEM' data-update="db" class='left short' required="required" readonly="readonly"/>          
             <input type='hidden' id='ITEM_ID_D' name='INVENTORY_ITEM_ID'/>
-            <input type='button' id="ITEM_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="物料查询" data-queryurl="lov/getItemPage.do" data-jsontype="item" data-defaultquery="true" data-func="$().lovExtends();" data-th=["物料ID","物料编码","物料描述","明细"] data-td=["ITEM_ID","ITEM_NUMBER","ITEM_DESC","LONG_DESC"] data-selectname=["物料编码"] data-selectvalue=["ITEM_NUMBER"] data-choose=[".ITEM_ID",".ITEM_DESC"] data-recid=["#ITEM_ID_D","#ITEM_D"] value="···"/> 
+            <input type='button' id="ITEM_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="物料查询" data-queryurl="lov/getItemPage.do" data-jsontype="item" data-defaultquery="true" data-func="$().lovExtends();" data-th=["物料ID","物料编码","物料描述","明细"] data-td=["ITEM_ID","ITEM_NUMBER","ITEM_DESC","LONG_DESC"] data-selectname=["物料编码"] data-selectvalue=["ITEM_NUMBER"] data-choose=[".ITEM_ID",".ITEM_DESC"] data-recid=["#ITEM_ID_D","#ITEM_D"] value="···"/> 
             <br style="clear:both"/>
             <label for="WIDTH_D" class="left mid">宽度(mm)</label> 
             <input type="text" id="WIDTH_D" name="WIDTH" data-update="db" class="left long sqm_calc" required="required"/> 
@@ -360,8 +357,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="po/updatePoLine.do" data-refresh="sub_refresh">保存</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="po/insertPoLine.do" data-refresh="sub_refresh">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="po/updatePoLine.do" data-refresh="sub_refresh">保存</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="po/insertPoLine.do" data-refresh="sub_refresh">新增</button>
         </div>    
       </div>   
     <!-- 菜单明细新增/更新区域 end -->  

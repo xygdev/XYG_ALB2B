@@ -49,7 +49,7 @@
      	    <td class="GROUP_CODE" data-column="db"></td>
      	    <td class="GROUP_NAME" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="分配工作组" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateCustGroup.do" data-type="update" data-updateparam=["ORG_ID",".ORG_ID"] data-func="$().getCustId(tr);"></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="分配工作组" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="group/preUpdateCustGroup.do" data-type="update" data-updateparam=["ORG_ID",".ORG_ID"] data-func="$().getCustId(tr);"></i>
      	    </td>
      	    <td class="ORG_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="CUST_ACCOUNT_ID" style="display:none" data-column="hidden">&nbsp;</td>
@@ -61,10 +61,10 @@
       <!-- 主表格按钮区域 start -->
       <div class="table_button" id="table" data-table="Group">
         <div class="setting">
-          <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
+          <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" ddata-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -137,11 +137,11 @@
             <label for='GROUP_NAME' class='left'>工作组</label>
             <input type='text' id="GROUP_NAME" name="GROUP_NAME" data-update="db" class="left short" data-modify="true" data-pageframe="ui" data-validurl="lov/validGroupName.do" data-queryurl="lov/getGroupId.do" data-lovbtn="GROUP_LOV" data-hiddenid=["GROUP_ID"] data-hiddenval=["GROUP_ID"] data-param="groupName"/>
             <input type='hidden' id='GROUP_ID' name='GROUP_ID' data-update="db"/>
-            <input type="button" id="GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_NAME"] data-recid=["#GROUP_ID","#GROUP_NAME"]  value="···"/>
+            <input type="button" id="GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_NAME"] data-recid=["#GROUP_ID","#GROUP_NAME"]  value="···"/>
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateCustGroup.do">提交更新</button>
+          <button class="right update_confirm pointer" data-keyup="enter" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateCustGroup.do">提交更新</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end --> 
@@ -158,19 +158,19 @@
             <label for='GROUP_NAME_Q' class='left mid'>工作组</label>
             <input type='text' id="GROUP_NAME_Q" name="GROUP_NAME" data-update="db" class="left mid" data-modify="true" data-pageframe="ui" data-validurl="lov/validGroupName.do" data-queryurl="lov/getGroupId.do" data-lovbtn="GROUP_LOV_Q" data-hiddenid=["GROUP_ID_Q"] data-hiddenval=["GROUP_ID"] data-param="groupName"/>
             <input type='hidden' id='GROUP_ID_Q' name='GROUP_ID' data-update="db"/>
-            <input type="button" id="GROUP_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_NAME"] data-recid=["#GROUP_ID_Q","#GROUP_NAME_Q"]  value="···"/>
+            <input type="button" id="GROUP_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_NAME"] data-recid=["#GROUP_ID_Q","#GROUP_NAME_Q"]  value="···"/>
             <br style="clear:both"/>
             <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
             <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" readonly="readonly"/>
             <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
-            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q","#ACCOUNT_NUMBER_Q"] value="···"/> 
+            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q","#ACCOUNT_NUMBER_Q"] value="···"/> 
             <label for="ACCOUNT_NUMBER_Q" class="left mid">账号编码:</label>
             <input type="text" id="ACCOUNT_NUMBER_Q" name="ACCOUNT_NUMBER" class="left long" readonly="readonly"/>
             <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q","ACCOUNT_NUMBER_Q"]></i>
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">客户查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">客户查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->   

@@ -16,7 +16,7 @@
         <input type="text" data-type="query_val" class="left" >
         <input type="hidden" data-type="extend_param"/>
         <div class="left lov_button">
-          <i class="fa fa-search pointer" data-crudtype="lovquery" data-pageframe="lov"></i>
+          <i class="fa fa-search pointer" data-keyup="enter" data-crudtype="lovquery" data-pageframe="lov"></i>
         </div>
         <div class="left lov_button">
           <i class="fa fa-arrow-circle-left pointer" data-pagetype="prevpage" data-pageframe="lov"></i>

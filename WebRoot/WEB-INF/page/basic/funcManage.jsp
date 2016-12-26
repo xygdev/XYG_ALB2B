@@ -44,7 +44,7 @@
      	    <td class="DESCRIPTION" data-column="db"></td>
      	    <td class="ICON_CODE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="func/preUpdate.do" data-type="update" data-updateparam=["FUNCTION_ID",".FUNCTION_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" data-show="true" data-reveal-id="ui" data-key="true"  data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="func/preUpdate.do" data-type="update" data-updateparam=["FUNCTION_ID",".FUNCTION_ID"]></i>
      	    </td>
      	    <td class="FUNCTION_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	  </tr>
@@ -58,10 +58,10 @@
           <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增功能" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" title="新增功能" data-reveal-id="ui" data-key="true"  data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -129,12 +129,12 @@
             <label for='ICON_CODE' class='left'>图标编码</label> 
             <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left short" required="required" readonly="readonly"/>
             <input type='hidden' id='ICON_ID' name='ICON_ID' data-update="db"/>
-            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>           
+            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>           
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="func/update.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="func/insert.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="func/update.do">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="func/insert.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -151,13 +151,13 @@
             <label for='FUNCTION_CODE_Q' class='left mid'>功能编码:</label> 
             <input type="text" id="FUNCTION_CODE_Q" name="FUNCTION_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validFuncCode.do" data-queryurl="lov/getFuncId.do" data-lovbtn="FUNCTION_LOV" data-hiddenid=["FUNCTION_ID_Q","FUNCTION_NAME_Q"] data-hiddenval=["FUNCTION_ID","FUNCTION_NAME"] data-param="funccode"/>
             <input type='hidden' id='FUNCTION_ID_Q' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
+            <input type='button' id="FUNCTION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
             <label for='FUNCTION_NAME_Q' class='left mid'>功能名称:</label> 
             <input type="text" id="FUNCTION_NAME_Q" name="FUNCTION_NAME" data-update="db" class="left long"  readonly="readonly"/>
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">功能查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-keyup="enter" data-pageframe="query">功能查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    

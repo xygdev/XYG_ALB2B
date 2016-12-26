@@ -59,7 +59,7 @@
      	    <td class="START_DATE" data-column="db"></td>
      	    <td class="END_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新功能权限" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="perm/preUpdateFP.do" data-type="update" data-updateparam=["P_ID",".P_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新功能权限" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="perm/preUpdateFP.do" data-type="update" data-updateparam=["P_ID",".P_ID"]></i>
      	    </td>
      	    <td class="P_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	  </tr>
@@ -73,10 +73,10 @@
           <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增功能权限" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-revealfunc="$().afterReveal(); " ></i>
+          <i class="fa fa-plus-circle pointer" title="新增功能权限" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -136,15 +136,15 @@
             <label for='USER_NAME' class='left mid'>用户账号</label> 
             <input type='text' id='USER_NAME' name='USER_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='U_ID' name='USER_ID'/>
-            <input type='button' id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","用户账号","用户姓名"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["用户账号","用户姓名"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#U_ID","#USER_NAME","#USER_DESC"] value="···"/>
+            <input type='button' id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","用户账号","用户姓名"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["用户账号","用户姓名"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#U_ID","#USER_NAME","#USER_DESC"] value="···"/>
             <label for='USER_DESC' class='left'>用户姓名</label>
             <input type='text' id='USER_DESC' name='USER_DESC' data-update="db" required='required' class='left' readonly="readonly"/>
             <label for='FUNCTION_CODE' class='left mid'>功能编码</label> 
-            <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left short" readonly="readonly"/>
+            <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left short" readonly="readonly" required="required"/>
             <input type='hidden' id='FUNCTION_ID' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
+            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
             <label for='FUNCTION_NAME' class='left'>功能名称</label> 
-            <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left"  readonly="readonly"/>
+            <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left"  readonly="readonly" required="required"/>
             <br style="clear:both"/>
             <label for='START_DATE' class='left'>启用日期</label>
             <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
@@ -164,8 +164,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="perm/updateFP.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="perm/insertFP.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="perm/updateFP.do">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="perm/insertFP.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -182,13 +182,13 @@
             <label for='USER_NAME_Q' class='left mid'>用户账号:</label> 
             <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
             <input type='hidden' id='USER_ID_Q' name='USER_ID'/>
-            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
+            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
             <label for='DESCRIPTION_Q' class='left mid'>用户名:</label> 
             <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/> 
             <label for='FUNCTION_CODE_Q' class='left mid'>功能编码:</label> 
             <input type="text" id="FUNCTION_CODE_Q" name="FUNCTION_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validFuncCode.do" data-queryurl="lov/getFuncId.do" data-lovbtn="FUNCTION_LOV" data-hiddenid=["FUNCTION_ID_Q","FUNCTION_NAME_Q"] data-hiddenval=["FUNCTION_ID","FUNCTION_NAME"] data-param="funccode"/>
             <input type='hidden' id='FUNCTION_ID_Q' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
+            <input type='button' id="FUNCTION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
             <label for='FUNCTION_NAME_Q' class='left mid'>功能名称:</label> 
             <input type="text" id="FUNCTION_NAME_Q" name="FUNCTION_NAME" data-update="db" class="left long"  readonly="readonly"/>
             <br style="clear:both"/>
@@ -202,7 +202,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">权限查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">权限查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    
@@ -343,6 +343,7 @@
        	    }
        	}
     </script>
+    <script type="text/javascript" src="plugin/layer/layer.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

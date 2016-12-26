@@ -51,7 +51,7 @@
      	    <td class="START_DATE" data-column="db"></td>
      	    <td class="END_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新库存权限" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="perm/preUpdateOP.do" data-type="update" data-updateparam=["P_ID",".P_ID"] data-func="$().beforeUpdate();"></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新库存权限" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="perm/preUpdateOP.do" data-type="update" data-updateparam=["P_ID",".P_ID"] data-func="$().beforeUpdate();"></i>
      	    </td>
      	    <td class="P_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	  </tr>
@@ -65,10 +65,10 @@
           <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增库存权限" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert();" data-revealfunc="$().afterReveal(); " ></i>
+          <i class="fa fa-plus-circle pointer" title="新增库存权限" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert();" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -128,13 +128,13 @@
             <label for='USER_NAME' class='left mid'>用户账号</label> 
             <input type='text' id='USER_NAME' name='USER_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='U_ID' name='USER_ID'/>
-            <input type='button' id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","用户账号","用户姓名"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["用户账号","用户姓名"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#U_ID","#USER_NAME","#USER_DESC"] value="···"/>
+            <input type='button' id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","用户账号","用户姓名"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["用户账号","用户姓名"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#U_ID","#USER_NAME","#USER_DESC"] value="···"/>
             <label for='USER_DESC' class='left'>用户姓名</label>
             <input type='text' id='USER_DESC' name='USER_DESC' data-update="db" required='required' class='left' readonly="readonly"/>
             <label for='ORGANIZATION_CODE' class='left mid'>库存编码</label> 
             <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
             <label for='ORGANIZATION_NAME' class='left'>库存组织</label>
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' data-update="db" required='required' class='left' readonly="readonly"/>
             <br style="clear:both"/>
@@ -145,8 +145,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="perm/updateOP.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="perm/insertOP.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="perm/updateOP.do">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="perm/insertOP.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -163,13 +163,13 @@
             <label for='USER_NAME_Q' class='left mid'>用户账号:</label> 
             <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
             <input type='hidden' id='USER_ID_Q' name='USER_ID'/>
-            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
+            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
             <label for='DESCRIPTION_Q' class='left mid'>用户名:</label> 
             <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/>             
             <label for='ORGANIZATION_CODE_Q' class='left mid'>库存编码</label> 
             <input type='text' id='ORGANIZATION_CODE_Q' name='ORGANIZATION_CODE' class='left mid' data-update="db" data-modify="true" data-pageframe="query" data-validurl="lov/validOrganCode.do" data-queryurl="lov/getOrganId.do" data-lovbtn="ORGANIZATION_LOV_Q" data-hiddenid=["ORGANIZATION_ID_Q","ORGANIZATION_NAME_Q"] data-hiddenval=["ORGANIZATION_ID","ORGANIZATION_NAME"] data-param="organCode"/>          
             <input type='hidden' id='ORGANIZATION_ID_Q' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
+            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
             <label for='ORGANIZATION_NAME_Q' class='left mid'>库存组织</label>
             <input type='text' id='ORGANIZATION_NAME_Q' name='ORGANIZATION_NAME' data-update="db" class='left long' readonly="readonly"/>           
             <br style="clear:both"/>
@@ -183,7 +183,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">权限查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">权限查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    
@@ -284,6 +284,7 @@
        	    }
        	}
     </script>
+    <script type="text/javascript" src="plugin/layer/layer.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

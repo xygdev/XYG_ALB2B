@@ -40,7 +40,7 @@
      	    <td class="GREATER_BOX" data-column="db"></td>
      	    <td class="DISPLAY_BOX" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新库存设置" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="inv/preUpdateOS.do" data-type="update" data-updateparam=["ORGANIZATION_ID",".ORGANIZATION_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新库存设置" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="inv/preUpdateOS.do" data-type="update" data-updateparam=["ORGANIZATION_ID",".ORGANIZATION_ID"]></i>
      	    </td>
      	    <td class="ORGANIZATION_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	  </tr>
@@ -54,10 +54,10 @@
           <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增库存设置" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" title="新增库存设置" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -116,7 +116,7 @@
             <label for='ORGANIZATION_CODE' class='left mid'>库存编码</label> 
             <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
             <label for='ORGANIZATION_NAME' class='left'>库存组织</label>
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' data-update="db" required='required' class='left' readonly="readonly"/>
             <br style="clear:both"/>
@@ -127,8 +127,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="inv/updateOS.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="inv/insertOS.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="inv/updateOS.do">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="inv/insertOS.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -145,13 +145,13 @@
             <label for='ORGANIZATION_CODE_Q' class='left mid'>库存编码</label> 
             <input type='text' id='ORGANIZATION_CODE_Q' name='ORGANIZATION_CODE' class='left mid' data-update="db" data-modify="true" data-pageframe="query" data-validurl="lov/validOrganCode.do" data-queryurl="lov/getOrganId.do" data-lovbtn="ORGANIZATION_LOV_Q" data-hiddenid=["ORGANIZATION_ID_Q","ORGANIZATION_NAME_Q"] data-hiddenval=["ORGANIZATION_ID","ORGANIZATION_NAME"] data-param="organCode"/>          
             <input type='hidden' id='ORGANIZATION_ID_Q' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
+            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
             <label for='ORGANIZATION_NAME_Q' class='left mid'>库存组织</label>
             <input type='text' id='ORGANIZATION_NAME_Q' name='ORGANIZATION_NAME' data-update="db" class='left long' readonly="readonly"/>    
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">设定查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">设定查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    
@@ -213,6 +213,7 @@
        	    }
        	}
     </script>
+    <script type="text/javascript" src="plugin/layer/layer.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

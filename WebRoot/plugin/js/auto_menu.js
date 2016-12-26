@@ -85,6 +85,9 @@
 					    $('ol.breadcrumb').append('<li data-hrefflag="N">'+json[i].innerText+'</li>');
 					    //alert(json[i].innerText);
 					}
+					/***modify by bird 2016.12.23***/
+					$('#mainframe').focus();//焦点focus到iframe中,此处iframe选择器为hardcode,有待修改
+					/***modify by bird 2016.12.23***/
 				});
 			},error: function(){
 			    alert("获取json数据错误");

@@ -19,8 +19,8 @@
             <input type="text" name="USER_INTERACT_NAME" id="USER_INTERACT_NAME">
           </div>
           <div class="item" style="text-indent:6rem">
-            <label class="pointer" for="DESCRIPTION">描述：</label>
-            <input type="text" name="DESCRIPTION" id="DESCRIPTION">
+            <label class="pointer" for="CONFIG_DESCRIPTION">描述：</label>
+            <input type="text" name="DESCRIPTION" id="CONFIG_DESCRIPTION">
           </div>
           <div class="item" style="text-indent:6rem">
             <label class="pointer" for="PUBLIC_FLAG">共享</label>

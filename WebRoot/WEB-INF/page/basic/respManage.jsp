@@ -52,7 +52,7 @@
      	    <td class="START_DATE" data-column="db"></td>
      	    <td class="END_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新职责" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="resp/preUpdate.do" data-type="update" data-updateparam=["RESP_ID",".RESP_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新职责" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="resp/preUpdate.do" data-type="update" data-updateparam=["RESP_ID",".RESP_ID"]></i>
      	    </td>
      	    <td class="MENU_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="RESP_ID" style="display:none" data-column="hidden">&nbsp;</td>
@@ -67,10 +67,10 @@
           <i class="fa fa-cog pointer" data-reveal-id="setting" title="表格设置" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" data-reveal-id="query" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" data-reveal-id="query" data-key="true" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" data-reveal-id="ui" title="新增职责" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-revealfunc="$().afterReveal(); " ></i>
+          <i class="fa fa-plus-circle pointer" data-reveal-id="ui" data-key="true" title="新增职责" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -136,7 +136,7 @@
             <label for='MENU_CODE' class='left'>职责菜单</label> 
             <input type="text" id="MENU_CODE" name="MENU_CODE" data-update="db" class="left short" data-modify="true" required="required" data-pageframe="ui" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="MENU_LOV" data-hiddenid=["MENU_ID"] data-hiddenval=["MENU_ID"] data-param="menucode"/>
             <input type='hidden' id='MENU_ID' name='MENU_ID' data-update="db"/>
-            <input type='button' id="MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE"] data-recid=["#MENU_ID","#MENU_CODE"] value="···"/>
+            <input type='button' id="MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov"  data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE"] data-recid=["#MENU_ID","#MENU_CODE"] value="···"/>
             <br style="clear:both"/>
             <label for='START_DATE' class='left'>启用日期</label>
             <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
@@ -145,8 +145,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="resp/update.do" data-updateparam=["RESP_ID","#RESP_ID"] >提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="resp/insert.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="resp/update.do" data-updateparam=["RESP_ID","#RESP_ID"] >提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="resp/insert.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -163,12 +163,12 @@
             <label for='RESP_NAME_Q' class='left mid'>职责:</label> 
             <input type='text' id='RESP_NAME_Q' name='RESP_NAME' data-update="db" class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validRespName.do' data-queryurl='lov/getRespId.do' data-lovbtn='RESP_LOV' data-hiddenid=["RESP_ID_Q"] data-hiddenval=["RESP_ID"] data-param="respname"/>
             <input type='hidden' id='RESP_ID_Q' name='RESP_ID' data-update="db"/>
-            <input type='button' id="RESP_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="职责查询" data-queryurl="lov/getRespPage.do" data-jsontype="resp" data-defaultquery="true" data-th=["职责ID","职责编码","职责名称","描述"] data-td=["RESP_ID","RESP_CODE","RESP_NAME","RESP_DESC"] data-selectname=["职责编码","职责名称"] data-selectvalue=["RESP_CODE","RESP_NAME"] data-choose=[".RESP_ID",".RESP_NAME"] data-recid=["#RESP_ID_Q","#RESP_NAME_Q"] value="···"/>
+            <input type='button' id="RESP_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="职责查询" data-queryurl="lov/getRespPage.do" data-jsontype="resp" data-defaultquery="true" data-th=["职责ID","职责编码","职责名称","描述"] data-td=["RESP_ID","RESP_CODE","RESP_NAME","RESP_DESC"] data-selectname=["职责编码","职责名称"] data-selectvalue=["RESP_CODE","RESP_NAME"] data-choose=[".RESP_ID",".RESP_NAME"] data-recid=["#RESP_ID_Q","#RESP_NAME_Q"] value="···"/>
             <br style="clear:both"/>
             <label for='MENU_NAME_Q' class='left mid'>菜单:</label> 
             <input type="text" id="MENU_NAME_Q" name="MENU_NAME" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="MENU_LOV_Q" data-hiddenid=["MENU_ID_Q","MENU_NAME_Q"] data-hiddenval=["MENU_ID","MENU_NAME"] data-param="menucode"/>
             <input type='hidden' id='MENU_ID_Q' name='MENU_ID' data-update="db"/>
-            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_NAME_Q"] value="···"/>
+            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_NAME_Q"] value="···"/>
             <br style="clear:both"/>
             <label for="START_DATE_F" class="left mid">启用日期:</label>
             <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" data-datatype="date" placeholder="起始启用日期"/>
@@ -177,7 +177,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">职责查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">职责查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    

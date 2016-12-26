@@ -44,7 +44,7 @@
      	    <td class="ICON_CODE" data-column="db"></td>
      	    <td class="ICON_DESC" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新菜单" data-show="true" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuHeader.do" data-type="update" data-updateparam=["MENU_ID",".MENU_ID"]></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" title="更新菜单" data-show="true" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuHeader.do" data-type="update" data-updateparam=["MENU_ID",".MENU_ID"]></i>
      	      &nbsp;
      	      <i class="fa fa fa-eye view pointer show_detail hidden" title="菜单明细" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" ></i>
      	    </td>
@@ -60,10 +60,10 @@
           <i class="fa fa-cog pointer" title="" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
+          <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-plus-circle pointer" title="新增菜单" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
+          <i class="fa fa-plus-circle pointer" title="新增菜单" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -130,12 +130,12 @@
             <label for='ICON_CODE' class='left'>图标编码</label> 
             <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left short" required="required" readonly="readonly"/>
             <input type='hidden' id='ICON_ID' name='ICON_ID' data-update="db"/>
-            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>  
+            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>  
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="menu/updateMenuHeader.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="menu/insertMenuHeader.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="menu/updateMenuHeader.do">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="menu/insertMenuHeader.do">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -152,13 +152,13 @@
             <label for='MENU_CODE_Q' class='left mid'>菜单编码:</label> 
             <input type="text" id="MENU_CODE_Q" name="MENU_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="MENU_LOV_Q" data-hiddenid=["MENU_ID_Q","MENU_NAME_Q","MENU_CODE_Q"] data-hiddenval=["MENU_ID","MENU_NAME","MENU_CODE"] data-param="menucode"/>
             <input type='hidden' id='MENU_ID_Q' name='MENU_ID' data-update="db"/>
-            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_CODE_Q","#MENU_NAME_Q"] value="···"/>
+            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_CODE_Q","#MENU_NAME_Q"] value="···"/>
             <label for="MENU_NAME_Q" class='left mid'>菜单名称:</label>
             <input type="text" id="MENU_NAME_Q" name="MENU_NAME"  class="left long"/>
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">菜单查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">菜单查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end --> 
@@ -201,7 +201,7 @@
      	      <td class="FUNCTION_NAME" data-column="db"></td>
      	      <td class="ENABLED" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuLine.do" data-type="update" data-updateparam=["MENU_SEQUENCE",".MENU_SEQUENCE"] data-func="$().getMenuId();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="menu/preUpdateMenuLine.do" data-type="update" data-updateparam=["MENU_SEQUENCE",".MENU_SEQUENCE"] data-func="$().getMenuId();"></i>
      	      </td>
      	      <td class="MENU_ID" style="display:none" data-column="hidden">&nbsp;</td>     	     
      	    </tr>
@@ -210,9 +210,6 @@
         <!-- 菜单明细表格区域 end --> 
         
         <div class="table_button" id="sub_table" data-table="MenuLine">
-          <div class="setting none">
-            <i class="fa fa-search pointer" data-reveal-id="query" data-dismissmodalclass="close-query-frame"></i>
-          </div>
           <div class="setting">
             <i class="fa fa-plus-circle pointer" data-reveal-id="detail_ui" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().autoAddSeq();"></i>
           </div>
@@ -257,20 +254,20 @@
             <label for='SUB_MENU_CODE' class='left'>子菜单编码</label> 
             <input type="text" id="SUB_MENU_CODE" name="SUB_MENU_CODE" data-update="db" class="left short" data-modify="true" data-pageframe="detail_ui" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="SUB_MENU_LOV" data-hiddenid=["SUB_MENU_ID"] data-hiddenval=["MENU_ID"] data-param="menucode"/>
             <input type='hidden' id='SUB_MENU_ID' name='SUB_MENU_ID' data-update="db"/>
-            <input type='button' id="SUB_MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#SUB_MENU_ID","#SUB_MENU_CODE","#SUB_MENU_NAME"] value="···"/>  
+            <input type='button' id="SUB_MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#SUB_MENU_ID","#SUB_MENU_CODE","#SUB_MENU_NAME"] value="···"/>  
             <label for='SUB_MENU_NAME' class='left'>子菜单名称</label> 
             <input type="text" id="SUB_MENU_NAME" name="SUB_MENU_NAME" data-update="db" class="left long" readonly="readonly"/>
             <label for='FUNCTION_CODE' class='left'>功能编码</label> 
             <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left short" data-modify="true" data-pageframe="detail_ui" data-validurl="lov/validFuncCode.do" data-queryurl="lov/getFuncId.do" data-lovbtn="FUNCTION_LOV" data-hiddenid=["FUNCTION_ID","FUNCTION_NAME"] data-hiddenval=["FUNCTION_ID","FUNCTION_NAME"] data-param="funccode"/>
             <input type='hidden' id='FUNCTION_ID' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
+            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
             <label for='FUNCTION_NAME' class='left'>功能名称</label> 
             <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left long"  readonly="readonly"/>
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="menu/updateMenuLine.do" data-refresh="sub_refresh">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="menu/insertMenuLine.do" data-refresh="sub_refresh">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="menu/updateMenuLine.do" data-refresh="sub_refresh">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="menu/insertMenuLine.do" data-refresh="sub_refresh">新增</button>
         </div>    
       </div>   
     <!-- 菜单明细新增/更新区域 end -->  
