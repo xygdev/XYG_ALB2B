@@ -45,6 +45,13 @@ public class PermController {
 		fpvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
     }
     
+    @RequestMapping(value = "/getEdiLog.do", method = RequestMethod.POST)
+	public void getEdiLog() throws Exception
+	{  
+    	String syncCode = req.getParameter("SYNC_CODE");
+    	res.getWriter().print(opvs.validateEdiLog(syncCode));
+	}
+    
     @RequestMapping("/onhandPerm.do")
 	public String listOnhandPermVO(){
 		return "basic/onhandPerm";

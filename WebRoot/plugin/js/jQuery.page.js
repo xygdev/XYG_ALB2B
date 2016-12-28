@@ -74,9 +74,9 @@
 		    main:function(){
 		    	param=$('option:selected',$('#'+options.pageframe+' select[data-type="select"]')).val();
 				value=$('#'+options.pageframe+' input[data-type="query_val"]').val();
-				if(options.func!=null||options.func!=''){
-					eval(options.func);
-				}
+				//if(options.func!=null||options.func!=''){
+				//	eval(options.func);
+				//}
 				//$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','visible');
 				$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','inherit');//MODIFY BY BIRD 2016.12.21
        	        if(!value){
@@ -154,11 +154,16 @@
 								$('#'+options.pageframe+' input[data-type="number"]').val(pageNo);
 							}
 						}else{
-							if(options.pagetype=='nextpage'){
-								layer.msg("当前页无数据,即将自动跳转到最后一页");
-								$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();
-							}
-							else if(options.pagetype=='refresh'){
+							if(options.pagetype=='nextpage'){								
+								if($('#'+options.pageframe+' i[data-pagetype="lastpage"]').length>0){
+									layer.msg("当前页无数据,即将自动跳转到最后一页");	
+									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();
+								}else{
+									layer.msg("当前页为最后一页");	
+									pageNo=parseInt($('#'+options.pageframe+' input[data-type="number"]').val());
+									jQuery.global.main();
+								}								
+							}else if(options.pagetype=='refresh'){
 								pageNo=parseInt($('#'+options.pageframe+' input[data-type="number"]').val());
 								if(pageNo==1){
 									console.log("查无数据");
@@ -175,9 +180,6 @@
 									for(j=1;j<=pageSize;j++){
 										$('tr:eq(0)',$('table[data-table="'+tablename+'"]')).parent().append(blank_tr.clone());
 									}
-								}else{
-									layer.msg("当前页无数据,即将自动跳转到最后一页");
-									$('#'+options.pageframe+' i[data-pagetype="lastpage"]').click();
 								}
 							}
 						}
@@ -194,7 +196,7 @@
         	$(options.load).show();/****显示加载数据加载动画****/
         	pageSize=parseInt($('#'+options.pageframe+' input[data-type="size"]').val());
             /****预查询****/
-			if(options.pagetype=='refresh'){	
+			if(options.pagetype=='refresh'){
 				pageNo=parseInt($('#'+options.pageframe+' input[data-type="number"]').val());
 				$('td[data-column="db"]',$('table[data-table="'+tablename+'"] tr:eq(1)')).html('');
 				blank_tr=$('tr:eq(1)',$('table[data-table="'+tablename+'"]'));

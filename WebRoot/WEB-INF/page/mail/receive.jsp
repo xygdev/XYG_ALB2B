@@ -50,7 +50,7 @@
      	    <td class="SEND_DATE" data-column="db"></td>
      	    <td class="READ_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa fa-eye view pointer" title="邮件详情" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getRecMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"] data-mailtype="detail" data-btn="#mailrefresh" data-mailurl="mail/updateRecMail.do" data-mailparam=[".READ_DATE","RECEIVE_ID",".RECEIVE_ID"]></i>
+     	      <i class="fa fa fa-eye view pointer" title="邮件详情" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getRecMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"] data-mailtype="detail" data-btn="#mailrefresh" data-mailurl="mail/updateRecMail.do" data-mailparam=[".READ_DATE","RECEIVE_ID",".RECEIVE_ID"]></i>
      	    </td>
      	    <td class="SEND_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="RECEIVE_ID" style="display:none" data-column="hidden">&nbsp;</td>
@@ -180,6 +180,7 @@
     		$("#query").draggable({ handle: ".title" });  
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
+    		$().mailListener();
     		$().revealListener(); 
     		
     		$.fn.apResult = function(){
@@ -262,8 +263,8 @@
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 
-    <script type="text/javascript" src="plugin/js/jQuery.crud.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.mail.js"></script> 
+    <script type="text/javascript" src="plugin/js/jQuery.crud.js"></script>    
     <script type="text/javascript" src="plugin/js/jQuery.rowdefine.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.irr.orderby.js"></script>	
     <script type="text/javascript" src="plugin/js/jQuery.irr.init.js"></script>	    

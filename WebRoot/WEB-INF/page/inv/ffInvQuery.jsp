@@ -182,6 +182,22 @@
     		       $('.ajax_loading').hide();
     		       layer.alert('必须选择库存组织才能查询库存！',{skin:'layui-layer-lan',title:'警告',offset:[150]});
     		       throw new error('必须选择库存组织才能查询库存！');
+    		   }else{
+    		       sync = "SYNC_CODE=SYNC_ONHAND";
+    		       $.ajax({
+				       type:'post', 
+				       data:sync,
+				       url:'perm/getEdiLog.do',
+				       dataType:'json',
+				       success: function (data) {
+				    	   if(data.rows[0].COUNT=='1'){
+				    	       layer.alert('正在同步最新库存,现有库存可能存在部分差异！请知悉！',{skin:'layui-layer-lan',title:'警告',offset:[150]});
+				    	   }					  
+				       },
+				       error: function () {
+				    	   layer.alert("获取数据失败",{title:'警告',offset: [150]});
+				       }	
+                   });  
     		   }  
     		} 		
         });

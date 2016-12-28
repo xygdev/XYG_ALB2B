@@ -76,4 +76,12 @@ public class OnhandPermVOService {
 		}
 		return ret;
 	}
+	
+	//验证是否在更新库存
+	public String validateEdiLog(String syncCode) throws Exception{
+		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_EDI_LOG WHERE SYNC_CODE = :1 AND PROCESS_FLAG = '1'";
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("1", syncCode);
+		return pagePub.qSqlForJson(sql, paramMap);
+	}
 }

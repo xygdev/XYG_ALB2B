@@ -1,6 +1,7 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -209,5 +210,28 @@ public class PoController {
     	Long userId = (Long)sess.getAttribute("USER_ID");
     	String status = req.getParameter("STATUS");
     	res.getWriter().print(phvs.changeStatus(poHeaderId,status,userId).toJsonStr());
+	}
+    
+    @RequestMapping("/poRate.do")
+	public String listPoRate(){
+		return "po/poRate";
+	}
+    
+    @RequestMapping("/getPoRate.do")
+    public void getPoRate() throws Exception
+	{   	
+		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
+		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
+		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
+		String orderBy=req.getParameter("orderby");
+		Long userId = (Long)sess.getAttribute("USER_ID");
+		String coatingType = req.getParameter("COATING_TYPE");
+		Long thickness = TypeConvert.str2Long(req.getParameter("THICKNESS"));
+		Long width = TypeConvert.str2Long(req.getParameter("WIDTH"));
+		Long height = TypeConvert.str2Long(req.getParameter("HEIGHT"));
+		Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
+		Date approvalDate_F = TypeConvert.str2uDate(req.getParameter("APPROVAL_DATE_F"));
+		Date approvalDate_T = TypeConvert.str2uDate(req.getParameter("APPROVAL_DATE_T"));
+		res.getWriter().print(phvs.findForPoRate(pageSize, pageNo, goLastPage, userId, coatingType, thickness, width, height, custId, approvalDate_F, approvalDate_T, orderBy));
 	}
 }

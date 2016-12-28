@@ -88,7 +88,7 @@ public class MailDaoImpl  extends DevJdbcDaoSupport implements MailDao{
 		}else{
 			userArray=recUser.split(",");	
 		}
-		paramMap.put("RECEIVE_USER_IDS", this.getOracleARRAY("APEX_UAT.XYG_ALB2B_SEND_PKG.NUM_TBL_TYPE", userArray));
+		paramMap.put("RECEIVE_USER_IDS", this.getOracleARRAY("XYG_ALB2B_SEND_PKG.NUM_TBL_TYPE", userArray));
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
 	

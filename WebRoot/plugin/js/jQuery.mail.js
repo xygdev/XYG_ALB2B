@@ -44,24 +44,26 @@
 				tr=$(this).parent().parent();
 		        readdate=tr.children(options.mailparam[0]).text();
 		        if(readdate==null||readdate==''){
-		            param=options.mailparam[1]+'='+tr.children(options.mailparam[2]).text();
-		    		$.ajax({
+		            var param=options.mailparam[1]+'='+tr.children(options.mailparam[2]).text();
+		            console.log('开始detail');
+		            console.log(param);
+		            $.ajax({
 						type:'post', 
 						data:param,
 						url:options.mailurl,
 						dataType:'json',
 						success: function (data) {
 							if(data.retcode=="0"){
-			    				$(options.refresh).click();/****点击刷新当前页按钮，刷新数据****/
+			    				$(options.refresh).click();
 			    				parent.$(options.btn).click();
 			    			}else{
-			    				alert("更新处理失败！错误信息:"+data.errbuf);
+			    				layer.alert("更新处理失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
 			    			}
 						},
 						error: function () {
-							alert("获取Json数据失败");
+							layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 					    }
-				    }); 
+				    });
 		        }else{
 		            console.log('该邮件已阅读');
 		        }
@@ -82,12 +84,12 @@
 								jQuery.json.getUnreadMail(data);
 							},
 							error: function () {
-								alert("获取Json数据失败");
+								layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 							}
 						});		
 					},
 					error: function () {
-						alert("获取Json数据失败");
+						layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
 				    }
 			    }); 				
 			}

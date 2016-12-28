@@ -14,6 +14,7 @@
 .query_frame>.content>form>label.short{width:60px}
 .query_frame>.content>form>input{height:20px;font-size:1em;margin:5px 0}
 .query_frame>.content>form>input.long{width:200px}
+.query_frame>.content>form>input.long_spec{width:200px;margin:5px 20px 0 0}
 .query_frame>.content>form>input.mid{width:175px}
 .query_frame>.content>form>input.short{width:150px}
 .query_frame>.content>form>input.button{background-color:black;color:white;width:50px;height:25px;line-height:1;border:none;-moz-border-top-right-radius:5px;-webkit-border-top-right-radius:5px;border-top-right-radius:5px;-moz-border-bottom-right-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-right-radius:5px;margin:5px 0;font-size:1.2em;text-align:center;vertical-align:middle}

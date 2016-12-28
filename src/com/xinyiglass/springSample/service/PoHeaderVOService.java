@@ -1,5 +1,6 @@
 package com.xinyiglass.springSample.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,5 +122,48 @@ public class PoHeaderVOService {
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
 		}
 		return ret;
+	}
+	
+	
+	//PO订单进度查询
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public String findForPoRate(int pageSize,int pageNo,boolean goLastPage,Long userId,String coatingType,Long thickness,Long width,Long height,Long custId,Date approvalDate_F,Date approvalDate_T,String orderBy) throws Exception{
+		Map<String,Object> paramMap=new HashMap<String,Object>();
+		paramMap.put("1", userId);
+		StringBuffer sqlBuff = new StringBuffer();
+		sqlBuff.append("SELECT *");
+		sqlBuff.append("  FROM XYG_ALB2B_LG_PO_QUERY_V");
+		sqlBuff.append(" WHERE ((CUSTOMER_ID IN (SELECT CUSTOMER_ID");
+		sqlBuff.append("                          FROM XYG_ALB2B_USER_CUSTOMER");
+		sqlBuff.append("                         WHERE USER_ID = :1)");
+		sqlBuff.append("       AND (SELECT USER_TYPE");
+		sqlBuff.append("              FROM XYG_ALB2B_USER");
+		sqlBuff.append("             WHERE USER_ID = :1) = 'CUSTOMER')");
+		sqlBuff.append("    OR (CUSTOMER_ID IN (SELECT CUST_ACCOUNT_ID");
+		sqlBuff.append("                          FROM XYG_ALFR_CUST_ACCOUNT");
+		sqlBuff.append("                         WHERE GROUP_ID IN (SELECT L.SUB_GROUP_ID");
+		sqlBuff.append("                                             FROM XYG_ALB2B_GROUP_HEADERS H");
+		sqlBuff.append("                                                 ,XYG_ALB2B_GROUP_LINES L");
+		sqlBuff.append("                                            WHERE 1=1");
+		sqlBuff.append("                                              AND L.GROUP_ID=H.GROUP_ID");
+		sqlBuff.append("                                       CONNECT BY H.GROUP_ID = PRIOR L.SUB_GROUP_ID");
+		sqlBuff.append("                                       START WITH H.GROUP_ID=(SELECT USER_GROUP_ID");
+		sqlBuff.append("                                                                FROM XYG_ALB2B_USER");
+		sqlBuff.append("                                                               WHERE USER_ID = :1)");
+		sqlBuff.append("                                            UNION");
+		sqlBuff.append("                                           SELECT USER_GROUP_ID");
+		sqlBuff.append("                                             FROM XYG_ALB2B_USER");
+		sqlBuff.append("                                            WHERE USER_ID = :1)");
+		sqlBuff.append("       AND (SELECT USER_TYPE");
+		sqlBuff.append("              FROM XYG_ALB2B_USER");
+		sqlBuff.append("             WHERE USER_ID = :1) = 'EMP')))");
+		sqlBuff.append(SqlStmtPub.getAndStmt("COATING_TYPE",coatingType,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("THICKNESS",thickness,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("WIDTH",width,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("HEIGHT",height,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",custId,paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("APPROVAL_DATE",approvalDate_F,approvalDate_T,paramMap));
+		sqlBuff.append(" ORDER BY "+orderBy);
+		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 }

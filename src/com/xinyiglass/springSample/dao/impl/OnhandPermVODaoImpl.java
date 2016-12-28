@@ -98,4 +98,5 @@ public class OnhandPermVODaoImpl extends DevJdbcDaoSupport implements OnhandPerm
 		paramMap.put("5", TypeConvert.u2tDate(op.getEndDate()));
 		return this.getDevJdbcTemplate().executeForRetValue(sql, paramMap);
 	}
+		
 }

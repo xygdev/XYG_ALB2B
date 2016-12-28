@@ -150,7 +150,7 @@
 			/******预更新方法******/
 			else if(options.crudtype=='pre-update'){
 				pageframe=$(this).attr('data-reveal-id');
-				param = '';
+				var param = '';
 				tr=$(this).parent().parent();
 				if(options.func!=null||options.func!=''){
 					eval(options.func);
@@ -164,7 +164,8 @@
                 $('#'+pageframe+' span[data-type="'+options.type+'"]').show();
                 $('#'+pageframe+' button[data-type="'+options.type+'"]').show();
 				param=param+options.updateparam[0]+'='+tr.children(options.updateparam[1]).text();/****设置参数****/
-				$.ajax({
+				console.log('开始pre-update');
+		        $.ajax({
 					type:'post', 
 					data:param,
 					url:options.preupdateurl,
@@ -314,6 +315,9 @@
 							$('table[data-table="'+tablename+'"] tr:eq('+(pageSize-j+1)+')').css('display','none');						
 	                	};
 						jQuery.global.pageFlag(firstPageFlag,lastPageFlag);
+						if(parseInt(data.pageMinRow)==0){
+							$('#'+options.pageframe+' i[data-pagetype="nextpage"]').css('display','none');
+						}
 						width='-'+parseInt($('#'+options.pageframe).css('width'))/2+'px';
 			        	$('#'+options.pageframe).css('margin-left',width);
 					},

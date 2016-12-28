@@ -49,7 +49,7 @@
      	    <td class="SEND_DATE" data-column="db"></td>
      	    <td class="REC_USER_NAME" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa fa-eye view pointer" title="邮件详情" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getSendMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"]></i>
+     	      <i class="fa fa fa-eye view pointer" title="邮件详情" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getSendMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"]></i>
      	    </td>
      	    <td class="SEND_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="RECEIVE_ID" style="display:none" data-column="hidden">&nbsp;</td>
@@ -67,7 +67,7 @@
           <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-envelope pointer" title="发送邮件" data-reveal-id="send_mail" data-key="true" data-dismissmodalclass="close-send-frame" data-type="send" data-crudtype="pre-insert"></i>
+          <i class="fa fa-envelope pointer" title="发送邮件" data-reveal-id="send_mail" data-dismissmodalclass="close-send-frame" data-type="send" data-crudtype="pre-insert"></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新发件箱" data-pagetype='refresh' data-pageframe="table"></i>
@@ -156,7 +156,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">邮件查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-crudtype="query" data-pageframe="query">邮件查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->
@@ -172,7 +172,7 @@
           <form id="send_data">  
             <label for="locations" class="rec left">收件账号:</label>
             <input type="text" name="locations" id="locations"/>
-            <i class="fa fa-plus-circle pointer right" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="send_mail" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_NAME"] data-recid=["#locations"] ></i>     
+            <i class="fa fa-plus-circle pointer right" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_NAME"] data-recid=["#locations"] ></i>     
             <br style="clear:both"/>
             <label class="left invert">全发送:</label>
           	<input type="checkbox" id="ALLUSER_FLAG" name="ALLUSER_FLAG" class="invert left"/>
