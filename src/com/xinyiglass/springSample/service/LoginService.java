@@ -15,16 +15,6 @@ import com.xinyiglass.springSample.util.MD5Util;
 public class LoginService {
     @Autowired
     LoginDao loginDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
     @Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
     public PlsqlRetValue handleLogin(String password,String userName,String lang,String ipAddress) throws Exception{ 

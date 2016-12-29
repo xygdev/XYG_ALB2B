@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import com.xinyiglass.springSample.util.MD5Util;
 
 @Controller
 @RequestMapping("/user")
+@Scope("prototype")
 public class UserController {
 	
 	@Autowired
@@ -33,6 +35,7 @@ public class UserController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -42,7 +45,7 @@ public class UserController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		UVS.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
@@ -59,7 +62,7 @@ public class UserController {
     	u.setUserType(req.getParameter("USER_TYPE"));
         u.setUserGroupId(TypeConvert.str2Long(req.getParameter("GROUP_ID")));
     	u.setImgUrl("default.png");
-    	res.getWriter().print(UVS.insert(u).toJsonStr());
+    	res.getWriter().print(UVS.insert(u,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -93,7 +96,7 @@ public class UserController {
     	u.setUserType(req.getParameter("USER_TYPE"));
     	u.setUserGroupId(TypeConvert.str2Long(req.getParameter("GROUP_ID")));
     	u.setImgUrl(req.getParameter("IMG_URL"));
-    	res.getWriter().print(UVS.update(lockUserVO, u).toJsonStr());
+    	res.getWriter().print(UVS.update(lockUserVO, u,loginId).toJsonStr());
 	}
     
     @RequestMapping("/userManage.do")
@@ -116,27 +119,27 @@ public class UserController {
 		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
 		String orderBy=req.getParameter("orderby");
 		//test并发安全
-		/*if(UVS.getLoginId()==181){//uvos.getLoginId()!=null&&uvos.getLoginId()
-			System.out.println(Thread.currentThread().getId()+":WAITTING...该线程应该的登录ID:"+UVS.getLoginId());
+		/*if(loginId==75){//uvos.getLoginId()!=null&&uvos.getLoginId()
+			System.out.println(Thread.currentThread().getId()+":WAITTING...该线程应该的登录ID:"+loginId+",会话:"+sess);
 			try {
 				Thread.sleep(20000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			System.out.println(Thread.currentThread().getId()+":WAITTING END!");
-		 } 
-		System.out.println(Thread.currentThread().getId()+":-->该线程匹配的longId:"+UVS.getLoginId());
-		*/
-		res.getWriter().print(UVS.findForPage(pageSize, pageNo, goLastPage, userId, respId, userType, startDate_F, startDate_T, endDate_F, endDate_T, orderBy));
+		 }
+		System.out.println(Thread.currentThread().getId()+":-->该线程匹配的longId:"+loginId+",会话:"+sess+",Serv:"+UVS);
+		 */
+		res.getWriter().print(UVS.findForPage(pageSize, pageNo, goLastPage, userId, respId, userType, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/userPreUpdate.do", method = RequestMethod.POST)
     public void userPreUpdate() throws Exception
     {
     	Long userId = Long.parseLong(req.getParameter("USER_ID"));
-    	UserVO userVO = UVS.findForUserVOById(userId);
+    	UserVO userVO = UVS.findForUserVOById(userId,loginId);
     	sess.setAttribute("lockUserVO", userVO);//记录在session变量
-    	res.getWriter().print(UVS.findUserByIdForJSON(userId));
+    	res.getWriter().print(UVS.findUserByIdForJSON(userId,loginId));
     }
     
     @RequestMapping(value = "/setUserImg.do", method = RequestMethod.POST)
@@ -153,7 +156,7 @@ public class UserController {
     	//String path="/ebs/data/image/user/";
     	String path=Constant.IMAGE_USER_PATH;
     	Base64Convert.base64ToIo(strBase64, path, fileName);
-        res.getWriter().print(UVS.updateImgUrl(fileName, userId).toJsonStr());
+        res.getWriter().print(UVS.updateImgUrl(fileName, userId,loginId).toJsonStr());
     }
     
     //非Ajax请求
@@ -164,7 +167,7 @@ public class UserController {
     	Long userId = (Long)sess.getAttribute("USER_ID");
     	String oldPassword = MD5Util.string2MD5(req.getParameter("O_PASSWORD"));
     	String newPassword = MD5Util.string2MD5(req.getParameter("N_PASSWORD"));
-    	PlsqlRetValue ret=UVS.updatePWD(userId, oldPassword, newPassword);
+    	PlsqlRetValue ret=UVS.updatePWD(userId, oldPassword, newPassword,loginId);
 		int retCode = ret.getRetcode();
         if(retCode==0){
             mv.setViewName("redirect:/index.do");
@@ -181,6 +184,6 @@ public class UserController {
     	Long userId = (Long)sess.getAttribute("USER_ID");
     	String oldPassword = MD5Util.string2MD5(req.getParameter("O_PASSWORD"));
     	String newPassword = MD5Util.string2MD5(req.getParameter("N_PASSWORD"));
-    	res.getWriter().print(UVS.updatePWD(userId, oldPassword, newPassword).toJsonStr());
+    	res.getWriter().print(UVS.updatePWD(userId, oldPassword, newPassword,loginId).toJsonStr());
     }
 }

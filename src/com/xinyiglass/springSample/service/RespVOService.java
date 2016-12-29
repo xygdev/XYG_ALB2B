@@ -25,18 +25,8 @@ public class RespVOService {
 	RespVODao respDao;
 	@Autowired
 	PagePub pagePub;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
-	
-	public PlsqlRetValue insert(RespVO r) throws Exception{
+	public PlsqlRetValue insert(RespVO r,Long loginId) throws Exception{
 		PlsqlRetValue ret=respDao.insert(r);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -44,7 +34,7 @@ public class RespVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(RespVO lockRespVO,RespVO updateRespVO) throws Exception
+	public PlsqlRetValue update(RespVO lockRespVO,RespVO updateRespVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=respDao.lock(lockRespVO);
 		if(ret.getRetcode()==0){
@@ -56,7 +46,7 @@ public class RespVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,Long respId,Date startDate_F,Date startDate_T,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,Long respId,Date startDate_F,Date startDate_T,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_RESPONSIBILITY_V A WHERE 1=1");
@@ -68,17 +58,17 @@ public class RespVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public RespVO findForRespVOById(Long respId) throws Exception{
+	public RespVO findForRespVOById(Long respId,Long loginId) throws Exception{
 		return respDao.findByRespId(respId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findRespByIdForJSON(Long respId) throws Exception{
+	public String findRespByIdForJSON(Long respId,Long loginId) throws Exception{
 		return "{\"rows\":"+respDao.findByIdForJSON(respId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public Long findMenuId(Long respId) throws Exception{
+	public Long findMenuId(Long respId,Long loginId) throws Exception{
 		return TypeConvert.str2Long(respDao.findMenuId(respId));
 	}
 }

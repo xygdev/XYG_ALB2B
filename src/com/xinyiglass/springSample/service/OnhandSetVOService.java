@@ -23,19 +23,9 @@ public class OnhandSetVOService {
 	PagePub pagePub;
 	@Autowired
 	OnhandSetVODao onhandDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long organId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long organId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_ONHAND_SET_V A WHERE 1=1");
@@ -45,16 +35,16 @@ public class OnhandSetVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public OnhandSetVO findForOnhandSetVOById(Long organizationId) throws Exception{
+	public OnhandSetVO findForOnhandSetVOById(Long organizationId,Long loginId) throws Exception{
 		return onhandDao.findById(organizationId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findOnhandSetByIdForJSON(Long organizationId) throws Exception{
+	public String findOnhandSetByIdForJSON(Long organizationId,Long loginId) throws Exception{
 		return "{\"rows\":"+onhandDao.findByIdForJSON(organizationId).toJsonStr()+"}";
 	}
 	
-	public PlsqlRetValue insert(OnhandSetVO os) throws Exception{
+	public PlsqlRetValue insert(OnhandSetVO os,Long loginId) throws Exception{
 		PlsqlRetValue ret=onhandDao.insert(os);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -62,7 +52,7 @@ public class OnhandSetVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(OnhandSetVO lockOsVO,OnhandSetVO updateOsVO) throws Exception
+	public PlsqlRetValue update(OnhandSetVO lockOsVO,OnhandSetVO updateOsVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=onhandDao.lock(lockOsVO);
 		if(ret.getRetcode()==0){

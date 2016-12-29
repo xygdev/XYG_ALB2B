@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.xinyiglass.springSample.service.OnhandPermVOService;
 
 @Controller
 @RequestMapping("/perm")
+@Scope("prototype")
 public class PermController {
     
 	@Autowired
@@ -32,6 +34,7 @@ public class PermController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -41,15 +44,14 @@ public class PermController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		opvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		fpvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping(value = "/getEdiLog.do", method = RequestMethod.POST)
 	public void getEdiLog() throws Exception
 	{  
     	String syncCode = req.getParameter("SYNC_CODE");
-    	res.getWriter().print(opvs.validateEdiLog(syncCode));
+    	res.getWriter().print(opvs.validateEdiLog(syncCode,loginId));
 	}
     
     @RequestMapping("/onhandPerm.do")
@@ -70,7 +72,7 @@ public class PermController {
 		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
 		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(opvs.findForPage(pageSize, pageNo, goLastPage, userId, organId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy));
+		res.getWriter().print(opvs.findForPage(pageSize, pageNo, goLastPage, userId, organId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/insertOP.do", method = RequestMethod.POST)
@@ -81,16 +83,16 @@ public class PermController {
     	op.setOrganizationId(TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
     	op.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
        	op.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-       	res.getWriter().print(opvs.insert(op).toJsonStr());
+       	res.getWriter().print(opvs.insert(op,loginId).toJsonStr());
    	}
     
     @RequestMapping(value = "/preUpdateOP.do", method = RequestMethod.POST)
     public void preUpdateOP() throws Exception
     {
     	Long pId = Long.parseLong(req.getParameter("P_ID"));
-    	OnhandPermVO opVO = opvs.findForOnhandPermVOById(pId);
+    	OnhandPermVO opVO = opvs.findForOnhandPermVOById(pId,loginId);
     	sess.setAttribute("lockOpVO", opVO);//记录在session变量
-    	res.getWriter().print(opvs.findOnhandPermByIdForJSON(pId));
+    	res.getWriter().print(opvs.findOnhandPermByIdForJSON(pId,loginId));
     }
     
     @RequestMapping(value = "/updateOP.do", method = RequestMethod.POST)
@@ -111,7 +113,7 @@ public class PermController {
     	op.setOrganizationId(TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
     	op.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
        	op.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(opvs.update(lockOpVO, op).toJsonStr());
+    	res.getWriter().print(opvs.update(lockOpVO, op,loginId).toJsonStr());
 	}
     
     @RequestMapping("/funcPerm.do")
@@ -132,7 +134,7 @@ public class PermController {
 		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
 		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(fpvs.findForPage(pageSize, pageNo, goLastPage, userId, funcId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy));
+		res.getWriter().print(fpvs.findForPage(pageSize, pageNo, goLastPage, userId, funcId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/insertFP.do", method = RequestMethod.POST)
@@ -173,7 +175,7 @@ public class PermController {
     	}
     	fp.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	fp.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(fpvs.insert(fp).toJsonStr());
+    	res.getWriter().print(fpvs.insert(fp,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/getUserFuncPerm.do", method = RequestMethod.POST)
@@ -181,16 +183,16 @@ public class PermController {
     {
     	Long userId = (Long)sess.getAttribute("USER_ID");
     	Long funcId = (Long)sess.getAttribute("FUNC_ID");
-    	res.getWriter().print(fpvs.findFuncPermByUserAndFunc(userId, funcId));
+    	res.getWriter().print(fpvs.findFuncPermByUserAndFunc(userId, funcId,loginId));
     }
     
     @RequestMapping(value = "/preUpdateFP.do", method = RequestMethod.POST)
     public void preUpdateFP() throws Exception
     {
     	Long pId = Long.parseLong(req.getParameter("P_ID"));
-    	FuncPermVO fpVO = fpvs.findForFuncPermVOById(pId);
+    	FuncPermVO fpVO = fpvs.findForFuncPermVOById(pId,loginId);
     	sess.setAttribute("lockFpVO", fpVO);//记录在session变量
-    	res.getWriter().print(fpvs.findFuncPermByIdForJSON(pId));
+    	res.getWriter().print(fpvs.findFuncPermByIdForJSON(pId,loginId));
     }
     
     @RequestMapping(value = "/updateFP.do", method = RequestMethod.POST)
@@ -232,6 +234,6 @@ public class PermController {
     	}
     	fp.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	fp.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(fpvs.update(fp).toJsonStr());
+    	res.getWriter().print(fpvs.update(fp,loginId).toJsonStr());
 	}
 }

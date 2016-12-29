@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import com.xinyiglass.springSample.websocket.SystemWebSocketHandler;
 
 @Controller
 @RequestMapping("/mail")
+@Scope("prototype")
 public class MailController {
 	
 	@Autowired
@@ -35,6 +37,7 @@ public class MailController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -44,8 +47,7 @@ public class MailController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		ms.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		uvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     } 
     
     @Bean
@@ -77,7 +79,7 @@ public class MailController {
 		Date sendDate_T = TypeConvert.str2uDate(req.getParameter("SEND_DATE_T"));
 		Date readDate_F = TypeConvert.str2uDate(req.getParameter("READ_DATE_F"));
 		Date readDate_T = TypeConvert.str2uDate(req.getParameter("READ_DATE_T"));
-		res.getWriter().print(ms.findForRecMail(pageSize, pageNo, goLastPage, orderBy, userId, sendId, mailTitle, sendDate_F, sendDate_T, readDate_F, readDate_T));
+		res.getWriter().print(ms.findForRecMail(pageSize, pageNo, goLastPage, orderBy, userId, sendId, mailTitle, sendDate_F, sendDate_T, readDate_F, readDate_T,loginId));
 	}
     
     @RequestMapping(value = "/getSendMail.do", method = RequestMethod.POST)
@@ -91,35 +93,35 @@ public class MailController {
 		String sendTitle=req.getParameter("SEND_TITLE");
 		Date sendDate_F=TypeConvert.str2uDate(req.getParameter("SEND_DATE_F"));
 		Date sendDate_T=TypeConvert.str2uDate(req.getParameter("SEND_DATE_T"));
-		res.getWriter().print(ms.findForSendMail(pageSize, pageNo, goLastPage, sendTitle, orderBy, userId, sendDate_F, sendDate_T));
+		res.getWriter().print(ms.findForSendMail(pageSize, pageNo, goLastPage, sendTitle, orderBy, userId, sendDate_F, sendDate_T,loginId));
 	}
     
     @RequestMapping(value = "/getRecMailDetail.do", method = RequestMethod.POST)
     public void getRecMailDetail() throws Exception
     {
     	Long sendid=TypeConvert.str2Long(req.getParameter("SEND_ID"));
-    	res.getWriter().print(ms.findRecMailByIdForJson(sendid));
+    	res.getWriter().print(ms.findRecMailByIdForJson(sendid,loginId));
     }
     
     @RequestMapping(value = "/getSendMailDetail.do", method = RequestMethod.POST)
     public void getSendMailDetail() throws Exception
     {
     	Long sendid=TypeConvert.str2Long(req.getParameter("SEND_ID"));
-    	res.getWriter().print(ms.findSendMailByIdForJson(sendid));
+    	res.getWriter().print(ms.findSendMailByIdForJson(sendid,loginId));
     }
     
     @RequestMapping(value = "/delRecMail.do", method = RequestMethod.POST)
 	public void delRecMail() throws Exception
 	{   	
 		Long recid = Long.parseLong(req.getParameter("RECEIVE_ID"));
-		res.getWriter().print(ms.delRecMail(recid).toJsonStr());
+		res.getWriter().print(ms.delRecMail(recid,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/updateRecMail.do", method = RequestMethod.POST)
 	public void updateRecMail() throws Exception
 	{ 
     	Long recid = Long.parseLong(req.getParameter("RECEIVE_ID"));
-    	res.getWriter().print(ms.updateRecMail(recid).toJsonStr());
+    	res.getWriter().print(ms.updateRecMail(recid,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/insertSendMail.do", method = RequestMethod.POST)
@@ -137,10 +139,10 @@ public class MailController {
     	}
     	String recUser=req.getParameter("REC_USER");
     	System.out.println("Ruser:"+recUser);
-    	PlsqlRetValue  ret=ms.insertSendMail(sendUserId, title, content, sendType, recUser);
+    	PlsqlRetValue  ret=ms.insertSendMail(sendUserId, title, content, sendType, recUser,loginId);
     	if(ret.getRetcode()==0){
     		if(sendType.equals("ALL_USERS")){
-    			recUser = uvs.findOtherUsers(sendUserId);
+    			recUser = uvs.findOtherUsers(sendUserId,loginId);
     		}
     		ArrayList<Long> userIdList=new ArrayList<Long>();
 			for(String userIdStr:recUser.split(",")){
@@ -157,14 +159,14 @@ public class MailController {
    	public void countUnReadMail() throws Exception
    	{ 
        	Long recid = (Long)sess.getAttribute("USER_ID");
-       	res.getWriter().print(ms.countUnReadMail(recid));
+       	res.getWriter().print(ms.countUnReadMail(recid,loginId));
    	}
     
     @RequestMapping(value = "/findUnReadMail.do", method = RequestMethod.POST)
    	public void findUnReadMail() throws Exception
    	{ 
        	Long recid = (Long)sess.getAttribute("USER_ID");
-       	res.getWriter().print(ms.findUnReadMailForJson(recid));
+       	res.getWriter().print(ms.findUnReadMailForJson(recid,loginId));
    	}
     
     @RequestMapping(value = "/findSendUser.do", method = RequestMethod.GET)
@@ -172,7 +174,7 @@ public class MailController {
    	{ 
     	String username=req.getParameter("query");
     	Long sendUserId = (Long)sess.getAttribute("USER_ID");
-       	res.getWriter().print(uvs.findUserForLOV(sendUserId, username));
+       	res.getWriter().print(uvs.findUserForLOV(sendUserId, username,loginId));
    	}
     
 

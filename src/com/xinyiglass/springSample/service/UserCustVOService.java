@@ -23,25 +23,15 @@ public class UserCustVOService {
 	@Autowired
 	UserCustVODao ucDao;
 
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
-
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long userId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long userId,Long loginId) throws Exception{
 		String sql="select * from XYG_ALB2B_USER_CUSTOMER_V WHERE USER_ID = :1 order by "+orderby;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		return pagePub.qPageForJson(sql, paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public PlsqlRetValue insert(UserCustVO u) throws Exception{
+	public PlsqlRetValue insert(UserCustVO u,Long loginId) throws Exception{
 		PlsqlRetValue ret=ucDao.insert(u);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -49,7 +39,7 @@ public class UserCustVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(UserCustVO u) throws Exception
+	public PlsqlRetValue update(UserCustVO u,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=ucDao.update(u);
 		if(ret.getRetcode()!=0){
@@ -59,7 +49,7 @@ public class UserCustVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findByIdForJSON(Long userCustId) throws Exception{
+	public String findByIdForJSON(Long userCustId,Long loginId) throws Exception{
 		return "{\"rows\":"+ucDao.findByIdForJSON(userCustId).toJsonStr()+"}";
 	}
 }

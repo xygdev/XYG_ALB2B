@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import xygdev.commons.util.TypeConvert;
 
 @Controller
 @RequestMapping("/ap")
+@Scope("prototype")
 public class ApController {
 	@Autowired
 	ApService as;
@@ -31,6 +33,7 @@ public class ApController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -40,7 +43,7 @@ public class ApController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		as.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping("/apQuery.do")
@@ -54,7 +57,7 @@ public class ApController {
     	Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
     	String apDate = req.getParameter("AP_DATE");
     	Long userId = (Long)sess.getAttribute("USER_ID");
-    	as.apQuery(orgId, custId, apDate, userId); 	
+    	as.apQuery(orgId, custId, apDate, userId,loginId); 	
     }
     
     @RequestMapping(value = "/getApHistory.do", method = RequestMethod.POST)
@@ -65,7 +68,7 @@ public class ApController {
    		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
    		String orderBy=req.getParameter("orderby");
    		Long userId = (Long)sess.getAttribute("USER_ID");
-   		res.getWriter().print(as.findForPage(pageSize, pageNo, goLastPage, userId, orderBy));
+   		res.getWriter().print(as.findForPage(pageSize, pageNo, goLastPage, userId, orderBy,loginId));
    	}
 
     @RequestMapping(value = "/getApOutput.do")

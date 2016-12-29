@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.xinyiglass.springSample.websocket.SystemWebSocketHandler;
  */
 @Controller
 @RequestMapping("/admin")
+@Scope("prototype")
 public class AdminController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 

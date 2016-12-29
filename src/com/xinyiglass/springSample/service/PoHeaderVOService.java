@@ -25,19 +25,9 @@ public class PoHeaderVOService {
 	PagePub pagePub;
 	@Autowired
 	PoHeaderVODao phvDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String poNumber,String custContractNumber,String status,Long custId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String poNumber,String custContractNumber,String status,Long custId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		StringBuffer sqlBuff = new StringBuffer();
@@ -76,17 +66,17 @@ public class PoHeaderVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findPoHeaderByIdForJSON(Long poHeaderId) throws Exception{
+	public String findPoHeaderByIdForJSON(Long poHeaderId,Long loginId) throws Exception{
 		return "{\"rows\":"+phvDao.findByIdForJSON(poHeaderId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public PoHeaderVO findForPoHeaderVOById(Long poHeaderId) throws Exception{
+	public PoHeaderVO findForPoHeaderVOById(Long poHeaderId,Long loginId) throws Exception{
 		return phvDao.findByPoHeaderId(poHeaderId);
 	}
 	
 	//insert
-	public PlsqlRetValue insert(PoHeaderVO ph,Long funcId) throws Exception{
+	public PlsqlRetValue insert(PoHeaderVO ph,Long funcId,Long loginId) throws Exception{
 		PlsqlRetValue ret = phvDao.insert(ph, funcId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -95,7 +85,7 @@ public class PoHeaderVOService {
 	}
 	
 	//update
-	public PlsqlRetValue update(PoHeaderVO lockPoHeaderVO,PoHeaderVO updatePoHeaderVO,Long funcId) throws Exception
+	public PlsqlRetValue update(PoHeaderVO lockPoHeaderVO,PoHeaderVO updatePoHeaderVO,Long funcId,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=phvDao.lock(lockPoHeaderVO, funcId);
 		if(ret.getRetcode()==0){
@@ -107,7 +97,7 @@ public class PoHeaderVOService {
 	}
 	
 	//delete
-	public PlsqlRetValue delete(Long poHeaderId) throws Exception{
+	public PlsqlRetValue delete(Long poHeaderId,Long loginId) throws Exception{
 		PlsqlRetValue ret = phvDao.delete(poHeaderId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -116,7 +106,7 @@ public class PoHeaderVOService {
 	}	
 	
 	//changeStatus
-	public PlsqlRetValue changeStatus(Long poHeaderId,String status,Long userId) throws Exception{
+	public PlsqlRetValue changeStatus(Long poHeaderId,String status,Long userId,Long loginId) throws Exception{
 		PlsqlRetValue ret = phvDao.changeStatus(poHeaderId, status,userId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -127,7 +117,7 @@ public class PoHeaderVOService {
 	
 	//PO订单进度查询
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPoRate(int pageSize,int pageNo,boolean goLastPage,Long userId,String coatingType,Long thickness,Long width,Long height,Long custId,Date approvalDate_F,Date approvalDate_T,String orderBy) throws Exception{
+	public String findForPoRate(int pageSize,int pageNo,boolean goLastPage,Long userId,String coatingType,Long thickness,Long width,Long height,Long custId,Date approvalDate_F,Date approvalDate_T,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", userId);
 		StringBuffer sqlBuff = new StringBuffer();

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import com.xinyiglass.springSample.service.FuncVOService;
 
 @Controller
 @RequestMapping("/func")
+@Scope("prototype")
 public class FuncController {
     
 	@Autowired
@@ -28,6 +30,7 @@ public class FuncController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -37,7 +40,7 @@ public class FuncController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		fvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping("/setFuncId.do")
@@ -59,7 +62,7 @@ public class FuncController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		Long funcId = TypeConvert.str2Long(req.getParameter("FUNCTION_ID"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(fvs.findForPage(pageSize, pageNo, goLastPage, funcId, orderBy));
+		res.getWriter().print(fvs.findForPage(pageSize, pageNo, goLastPage, funcId, orderBy,loginId));
 	}
 	
 	@RequestMapping(value = "/insert.do", method = RequestMethod.POST)
@@ -71,7 +74,7 @@ public class FuncController {
     	f.setFunctionHref(req.getParameter("FUNCTION_HREF"));
     	f.setIconId(TypeConvert.str2Long(req.getParameter("ICON_ID")));
     	f.setDescription(req.getParameter("DESCRIPTION"));
-    	res.getWriter().print(fvs.insert(f).toJsonStr());
+    	res.getWriter().print(fvs.insert(f,loginId).toJsonStr());
 	}
 	
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -93,15 +96,15 @@ public class FuncController {
     	f.setFunctionHref(req.getParameter("FUNCTION_HREF"));
     	f.setIconId(TypeConvert.str2Long(req.getParameter("ICON_ID")));
     	f.setDescription(req.getParameter("DESCRIPTION"));
-    	res.getWriter().print(fvs.update(lockFuncVO, f).toJsonStr());
+    	res.getWriter().print(fvs.update(lockFuncVO, f,loginId).toJsonStr());
 	}
 	
 	@RequestMapping(value = "/preUpdate.do", method = RequestMethod.POST)
     public void preUpdate() throws Exception
     {
     	Long funcId = Long.parseLong(req.getParameter("FUNCTION_ID"));
-    	FuncVO funcVO = fvs.findForFuncVOById(funcId);
+    	FuncVO funcVO = fvs.findForFuncVOById(funcId,loginId);
     	sess.setAttribute("lockFuncVO", funcVO);//记录在session变量
-    	res.getWriter().print(fvs.findRespByIdForJSON(funcId));
+    	res.getWriter().print(fvs.findRespByIdForJSON(funcId,loginId));
     }
 }

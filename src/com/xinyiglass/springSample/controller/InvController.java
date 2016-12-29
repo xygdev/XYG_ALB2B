@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.xinyiglass.springSample.service.ResnInvService;
 
 @Controller
 @RequestMapping("/inv")
+@Scope("prototype")
 public class InvController {
 	@Autowired
 	LgInvService lis;
@@ -35,6 +37,7 @@ public class InvController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -44,10 +47,7 @@ public class InvController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		lis.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		fis.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		ris.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		oss.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping("/lgInvQuery.do")
@@ -67,7 +67,7 @@ public class InvController {
 		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
 		Long thickness=TypeConvert.str2Long(req.getParameter("THICKNESS"));
 		String coatingType=req.getParameter("COATING_TYPE");
-		res.getWriter().print(lis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, coatingType));
+		res.getWriter().print(lis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, coatingType,loginId));
 	}
     
     @RequestMapping("/ffInvQuery.do")
@@ -89,7 +89,7 @@ public class InvController {
 		String colour=req.getParameter("COLOUR");
 		String grade=req.getParameter("GRADE");
 		String packCode=req.getParameter("PACK_CODE");
-		res.getWriter().print(fis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, colour, grade, packCode));
+		res.getWriter().print(fis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, colour, grade, packCode,loginId));
 	}
     
     @RequestMapping("/resnInvQuery.do")
@@ -109,7 +109,7 @@ public class InvController {
 		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
 		String coatingType=req.getParameter("COATING_TYPE");
 	    String packCode=req.getParameter("PACK_CODE");
-		res.getWriter().print(ris.findForPage(pageSize, pageNo, goLastPage, orderby, custId, width, height, coatingType, packCode));
+		res.getWriter().print(ris.findForPage(pageSize, pageNo, goLastPage, orderby, custId, width, height, coatingType, packCode,loginId));
 	}
     
     @RequestMapping("/onhandSet.do")
@@ -125,16 +125,16 @@ public class InvController {
 		boolean goLastPage = Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String orderBy = req.getParameter("orderby");
 		Long organId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-		res.getWriter().print(oss.findForPage(pageSize, pageNo, goLastPage, organId, orderBy));
+		res.getWriter().print(oss.findForPage(pageSize, pageNo, goLastPage, organId, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateOS.do", method = RequestMethod.POST)
     public void preUpdateOS() throws Exception
     {
     	Long organizationId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-    	OnhandSetVO os = oss.findForOnhandSetVOById(organizationId);
+    	OnhandSetVO os = oss.findForOnhandSetVOById(organizationId,loginId);
     	sess.setAttribute("lockOsVO", os);
-    	res.getWriter().print(oss.findOnhandSetByIdForJSON(organizationId));
+    	res.getWriter().print(oss.findOnhandSetByIdForJSON(organizationId,loginId));
     }
     
     @RequestMapping(value = "/insertOS.do", method = RequestMethod.POST)
@@ -144,7 +144,7 @@ public class InvController {
     	os.setOrganizationId(TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
     	os.setOnhandGreaterBox(TypeConvert.str2Long(req.getParameter("GREATER_BOX")));
     	os.setOnhandDisplayBox(TypeConvert.str2Long(req.getParameter("DISPLAY_BOX")));
-    	res.getWriter().print(oss.insert(os).toJsonStr());
+    	res.getWriter().print(oss.insert(os,loginId).toJsonStr());
     }
     
     @RequestMapping(value = "/updateOS.do", method = RequestMethod.POST)
@@ -163,7 +163,7 @@ public class InvController {
 		os.setOrganizationId(organizationId);
     	os.setOnhandGreaterBox(TypeConvert.str2Long(req.getParameter("GREATER_BOX")));
     	os.setOnhandDisplayBox(TypeConvert.str2Long(req.getParameter("DISPLAY_BOX")));
-    	res.getWriter().print(oss.update(lockOsVO, os).toJsonStr());
+    	res.getWriter().print(oss.update(lockOsVO, os,loginId).toJsonStr());
 	}
     
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.xinyiglass.springSample.util.LogUtil;
 
 @Controller
 @RequestMapping("/cust")
+@Scope("prototype")
 public class CustController {
     
 	@Autowired
@@ -28,6 +30,7 @@ public class CustController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -37,7 +40,7 @@ public class CustController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		ucvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping(value = "/getUserCustPage.do", method = RequestMethod.POST)
@@ -48,7 +51,7 @@ public class CustController {
 		boolean goLastPage = Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String orderby = req.getParameter("orderby");
 		Long userId = Long.parseLong(req.getParameter("USER_ID"));
-		res.getWriter().print(ucvs.findForPage(pageSize, pageNo, goLastPage, orderby, userId));
+		res.getWriter().print(ucvs.findForPage(pageSize, pageNo, goLastPage, orderby, userId,loginId));
 	}
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)
@@ -61,14 +64,14 @@ public class CustController {
     	u.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	LogUtil.log("Time:"+req.getParameter("END_DATE"));
     	u.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(ucvs.insert(u).toJsonStr());
+    	res.getWriter().print(ucvs.insert(u,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/preUpdate.do", method = RequestMethod.POST)
     public void preUpdate() throws Exception
     {
     	Long userCustId = Long.parseLong(req.getParameter("USER_CUST_ID"));
-    	res.getWriter().print(ucvs.findByIdForJSON(userCustId));
+    	res.getWriter().print(ucvs.findByIdForJSON(userCustId,loginId));
     }
     
     @RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -77,6 +80,6 @@ public class CustController {
     	UserCustVO u = new UserCustVO();
     	u.setUserCustId(TypeConvert.str2Long(req.getParameter("USER_CUST_ID")));
     	u.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(ucvs.update(u).toJsonStr());
+    	res.getWriter().print(ucvs.update(u,loginId).toJsonStr());
 	}
 }

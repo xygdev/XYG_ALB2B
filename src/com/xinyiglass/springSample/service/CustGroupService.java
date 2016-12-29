@@ -22,19 +22,9 @@ public class CustGroupService {
 	PagePub pagePub;
 	@Autowired
 	CustGroupDao groupDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForCustPage(int pageSize,int pageNo,boolean goLastPage,Long custId,String orderBy) throws Exception{
+	public String findForCustPage(int pageSize,int pageNo,boolean goLastPage,Long custId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALFR_CUST_ACCOUNT_V A WHERE 1=1");
@@ -44,12 +34,12 @@ public class CustGroupService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findCustForJSON(Long orgId,Long custId) throws Exception{
+	public String findCustForJSON(Long orgId,Long custId,Long loginId) throws Exception{
 		return "{\"rows\":"+groupDao.findForCust(orgId, custId).toJsonStr()+"}";
 	}
 	
 	//update
-	public PlsqlRetValue update(Long orgId,Long custAccountId,Long groupId) throws Exception
+	public PlsqlRetValue update(Long orgId,Long custAccountId,Long groupId,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=groupDao.updateCustGroup(orgId, custAccountId, groupId);
 		System.out.println("Retcode:"+ret.toString());

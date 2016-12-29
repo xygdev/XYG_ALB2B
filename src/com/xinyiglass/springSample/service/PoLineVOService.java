@@ -23,19 +23,9 @@ public class PoLineVOService {
 	PagePub pagePub;
 	@Autowired
 	PoLineVODao plvDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long poHeaderId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long poHeaderId,Long loginId) throws Exception{
 		String sql="SELECT * FROM XYG_ALB2B_LG_PO_LINES_V WHERE PO_HEADER_ID = :1 ORDER BY "+orderby;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", poHeaderId);
@@ -43,23 +33,23 @@ public class PoLineVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findAutoAddSequence(Long poHeaderId) throws Exception{
+	public String findAutoAddSequence(Long poHeaderId,Long loginId) throws Exception{
 		Long Seq = plvDao.autoAddSequence(poHeaderId);
 		return "{\"rows\":[{\"LINE_NUM\":\""+Seq+"\"}]}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findPoLineByIdForJSON(Long poLineId) throws Exception{
+	public String findPoLineByIdForJSON(Long poLineId,Long loginId) throws Exception{
 		return "{\"rows\":"+plvDao.findByIdForJSON(poLineId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public PoLineVO findForPoLineVOById(Long poLineId) throws Exception{
+	public PoLineVO findForPoLineVOById(Long poLineId,Long loginId) throws Exception{
 		return plvDao.findByPoLineId(poLineId);
 	}
 	
 	//insert
-	public PlsqlRetValue insert(PoLineVO pl,Long funcId) throws Exception{
+	public PlsqlRetValue insert(PoLineVO pl,Long funcId,Long loginId) throws Exception{
 		PlsqlRetValue ret = plvDao.insert(pl, funcId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -68,7 +58,7 @@ public class PoLineVOService {
 	}
 	
 	//update
-	public PlsqlRetValue update(PoLineVO lockPoLineVO,PoLineVO updatePoLineVO,String userType,Long funcId) throws Exception
+	public PlsqlRetValue update(PoLineVO lockPoLineVO,PoLineVO updatePoLineVO,String userType,Long funcId,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=plvDao.lock(lockPoLineVO);
 		if(ret.getRetcode()==0){
@@ -80,7 +70,7 @@ public class PoLineVOService {
 	}
 	
 	//delete
-	public PlsqlRetValue delete(Long poLineId) throws Exception{
+	public PlsqlRetValue delete(Long poLineId,Long loginId) throws Exception{
 		PlsqlRetValue ret = plvDao.delete(poLineId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！

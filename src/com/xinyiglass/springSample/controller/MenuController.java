@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.xinyiglass.springSample.service.RespVOService;
 
 @Controller
 @RequestMapping("/menu")
+@Scope("prototype")
 public class MenuController {
 	@Autowired
     RespVOService rvs;
@@ -33,6 +35,7 @@ public class MenuController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -42,16 +45,14 @@ public class MenuController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		rvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		mhvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		mlvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping("/getPersonalMenu.do")
     public void getPersonalMenu() throws Exception{
     	Long respId = (Long)sess.getAttribute("RESP_ID");
-    	Long menuId = rvs.findMenuId(respId);
-    	res.getWriter().print(mhvs.findPersonalMenuById(menuId));
+    	Long menuId = rvs.findMenuId(respId,loginId);
+    	res.getWriter().print(mhvs.findPersonalMenuById(menuId,loginId));
     }
     
     @RequestMapping("/menuManage.do")
@@ -67,7 +68,7 @@ public class MenuController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		Long menuId = TypeConvert.str2Long(req.getParameter("MENU_ID"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(mhvs.findForPage(pageSize, pageNo, goLastPage, menuId, orderBy));
+		res.getWriter().print(mhvs.findForPage(pageSize, pageNo, goLastPage, menuId, orderBy,loginId));
 	} 
     
     @RequestMapping(value = "/insertMenuHeader.do", method = RequestMethod.POST)
@@ -78,7 +79,7 @@ public class MenuController {
     	m.setMenuName(req.getParameter("MENU_NAME"));
     	m.setDescription(req.getParameter("DESCRIPTION"));
     	m.setMenuIconId(TypeConvert.str2Long(req.getParameter("ICON_ID")));
-    	res.getWriter().print(mhvs.insert(m).toJsonStr());
+    	res.getWriter().print(mhvs.insert(m,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/preUpdateMenuHeader.do", method = RequestMethod.POST)
@@ -86,9 +87,9 @@ public class MenuController {
     {
     	Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
     	//System.out.println(menuId);
-    	MenuHeaderVO menuVO = mhvs.findForMenuVOById(menuId);
+    	MenuHeaderVO menuVO = mhvs.findForMenuVOById(menuId,loginId);
     	sess.setAttribute("lockMenuHeaderVO", menuVO);//记录在session变量
-    	res.getWriter().print(mhvs.findMenuByIdForJSON(menuId));
+    	res.getWriter().print(mhvs.findMenuByIdForJSON(menuId,loginId));
     }
     
     @RequestMapping(value = "/updateMenuHeader.do", method = RequestMethod.POST)
@@ -109,7 +110,7 @@ public class MenuController {
     	m.setMenuName(req.getParameter("MENU_NAME"));
     	m.setDescription(req.getParameter("DESCRIPTION"));
     	m.setMenuIconId(TypeConvert.str2Long(req.getParameter("ICON_ID")));
-       	res.getWriter().print(mhvs.update(lockMenuVO, m).toJsonStr());
+       	res.getWriter().print(mhvs.update(lockMenuVO, m,loginId).toJsonStr());
    	}
     
     @RequestMapping("/getMenuLinePage.do")
@@ -120,14 +121,14 @@ public class MenuController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String orderby=req.getParameter("orderby");
 		Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
-		res.getWriter().print(mlvs.findForPage(pageSize, pageNo, goLastPage, orderby, menuId));
+		res.getWriter().print(mlvs.findForPage(pageSize, pageNo, goLastPage, orderby, menuId,loginId));
 	} 
     
     @RequestMapping("/getAutoAddSeq.do")
     public void getAutoAddSeq() throws Exception
 	{
     	Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
-    	res.getWriter().print(mlvs.findAutoAddSequence(menuId));
+    	res.getWriter().print(mlvs.findAutoAddSequence(menuId,loginId));
 	}
     
     @RequestMapping(value = "/insertMenuLine.do", method = RequestMethod.POST)
@@ -139,7 +140,7 @@ public class MenuController {
     	m.setSubMenuId(TypeConvert.str2Long(req.getParameter("SUB_MENU_ID")));
     	m.setFunctionId(TypeConvert.str2Long(req.getParameter("FUNCTION_ID")));
     	m.setEnabledFlag(req.getParameter("ENABLED_FLAG"));
-    	res.getWriter().print(mlvs.insert(m).toJsonStr());
+    	res.getWriter().print(mlvs.insert(m,loginId).toJsonStr());
 	}
     
     @RequestMapping("/preUpdateMenuLine.do")
@@ -147,9 +148,9 @@ public class MenuController {
     {
     	Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
     	Long menuSeq = Long.parseLong(req.getParameter("MENU_SEQUENCE"));
-    	MenuLineVO menuVO = mlvs.findForMenuVOById(menuId, menuSeq);
+    	MenuLineVO menuVO = mlvs.findForMenuVOById(menuId, menuSeq,loginId);
     	sess.setAttribute("lockMenuLineVO", menuVO);//记录在session变量
-    	res.getWriter().print(mlvs.findMenuLineForJSON(menuId, menuSeq));
+    	res.getWriter().print(mlvs.findMenuLineForJSON(menuId, menuSeq,loginId));
     }
     
     @RequestMapping(value = "/updateMenuLine.do", method = RequestMethod.POST)
@@ -170,6 +171,6 @@ public class MenuController {
     	m.setSubMenuId(TypeConvert.str2Long(req.getParameter("SUB_MENU_ID")));
     	m.setFunctionId(TypeConvert.str2Long(req.getParameter("FUNCTION_ID")));
     	m.setEnabledFlag(req.getParameter("ENABLED_FLAG"));
-       	res.getWriter().print(mlvs.update(lockMenuVO, m).toJsonStr());
+       	res.getWriter().print(mlvs.update(lockMenuVO, m,loginId).toJsonStr());
    	}
 }

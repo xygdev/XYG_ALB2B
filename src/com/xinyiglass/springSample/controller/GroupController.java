@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.xinyiglass.springSample.service.GroupLineVOService;
 
 @Controller
 @RequestMapping("/group")
+@Scope("prototype")
 public class GroupController {
     
 	@Autowired
@@ -34,6 +36,7 @@ public class GroupController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -43,9 +46,7 @@ public class GroupController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		gvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		ghvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		glvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+		loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     /************************客户组分配页码方法************************/
@@ -62,7 +63,7 @@ public class GroupController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(gvs.findForCustPage(pageSize, pageNo, goLastPage, custId, orderBy));
+		res.getWriter().print(gvs.findForCustPage(pageSize, pageNo, goLastPage, custId, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateCustGroup.do", method = RequestMethod.POST)
@@ -70,7 +71,7 @@ public class GroupController {
     {
     	Long orgId = Long.parseLong(req.getParameter("ORG_ID"));
     	Long custId = Long.parseLong(req.getParameter("CUST_ACCOUNT_ID"));
-    	res.getWriter().print(gvs.findCustForJSON(orgId, custId));
+    	res.getWriter().print(gvs.findCustForJSON(orgId, custId,loginId));
     }
     
     @RequestMapping(value = "/updateCustGroup.do", method = RequestMethod.POST)
@@ -79,7 +80,7 @@ public class GroupController {
     	Long orgId = Long.parseLong(req.getParameter("ORG_ID"));
     	Long custAccountId = Long.parseLong(req.getParameter("CUST_ACCOUNT_ID"));
     	Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
-    	res.getWriter().print(gvs.update(orgId, custAccountId, groupId).toJsonStr());
+    	res.getWriter().print(gvs.update(orgId, custAccountId, groupId,loginId).toJsonStr());
     }
     /************************客户组分配页码方法************************/
     
@@ -96,16 +97,16 @@ public class GroupController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		Long groupId = TypeConvert.str2Long(req.getParameter("GROUP_ID"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(ghvs.findForPage(pageSize, pageNo, goLastPage, groupId, orderBy));
+		res.getWriter().print(ghvs.findForPage(pageSize, pageNo, goLastPage, groupId, orderBy,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateGroupHeader.do", method = RequestMethod.POST)
     public void preUpdateGroupHeader() throws Exception
     {
     	Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
-    	GroupHeaderVO groupVO = ghvs.findForGroupVOById(groupId);
+    	GroupHeaderVO groupVO = ghvs.findForGroupVOById(groupId,loginId);
     	sess.setAttribute("lockGroupHeaderVO", groupVO);//记录在session变量
-    	res.getWriter().print(ghvs.findGroupByIdForJSON(groupId));
+    	res.getWriter().print(ghvs.findGroupByIdForJSON(groupId,loginId));
     }
     
     @RequestMapping(value = "/insertGroupHeader.do", method = RequestMethod.POST)
@@ -115,7 +116,7 @@ public class GroupController {
     	g.setGroupCode(req.getParameter("GROUP_CODE"));
     	g.setGroupName(req.getParameter("GROUP_NAME"));
     	g.setDescription(req.getParameter("DESCRIPTION"));
-    	res.getWriter().print(ghvs.insert(g).toJsonStr());
+    	res.getWriter().print(ghvs.insert(g,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/updateGroupHeader.do", method = RequestMethod.POST)
@@ -135,7 +136,7 @@ public class GroupController {
    		g.setGroupCode(req.getParameter("GROUP_CODE"));
    		g.setGroupName(req.getParameter("GROUP_NAME"));
    		g.setDescription(req.getParameter("DESCRIPTION"));
-       	res.getWriter().print(ghvs.update(lockGroupVO, g).toJsonStr());
+       	res.getWriter().print(ghvs.update(lockGroupVO, g,loginId).toJsonStr());
    	}
     
     @RequestMapping(value = "/getGroupLinePage.do", method = RequestMethod.POST)
@@ -146,14 +147,14 @@ public class GroupController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String orderby=req.getParameter("orderby");
 		Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
-		res.getWriter().print(glvs.findForPage(pageSize, pageNo, goLastPage, orderby, groupId));
+		res.getWriter().print(glvs.findForPage(pageSize, pageNo, goLastPage, orderby, groupId,loginId));
 	}
     
     @RequestMapping("/getAutoAddSeq.do")
     public void getAutoAddSeq() throws Exception
 	{
     	Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
-    	res.getWriter().print(glvs.findAutoAddSequence(groupId));
+    	res.getWriter().print(glvs.findAutoAddSequence(groupId,loginId));
 	}
     
     @RequestMapping("/preUpdateGroupLine.do")
@@ -161,9 +162,9 @@ public class GroupController {
     {
     	Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
     	Long groupSeq = Long.parseLong(req.getParameter("GROUP_SEQUENCE"));
-    	GroupLineVO groupVO = glvs.findForGroupVOById(groupId, groupSeq);
+    	GroupLineVO groupVO = glvs.findForGroupVOById(groupId, groupSeq,loginId);
     	sess.setAttribute("lockGroupLineVO", groupVO);//记录在session变量
-    	res.getWriter().print(glvs.findGroupLineForJSON(groupId, groupSeq));
+    	res.getWriter().print(glvs.findGroupLineForJSON(groupId, groupSeq,loginId));
     }
     
     @RequestMapping(value = "/insertGroupLine.do", method = RequestMethod.POST)
@@ -174,7 +175,7 @@ public class GroupController {
     	g.setGroupSequence(TypeConvert.str2Long(req.getParameter("GROUP_SEQUENCE")));
     	g.setSubGroupId(TypeConvert.str2Long(req.getParameter("SUB_GROUP_ID")));
     	g.setEnabledFlag(req.getParameter("ENABLED_FLAG"));
-    	res.getWriter().print(glvs.insert(g).toJsonStr());
+    	res.getWriter().print(glvs.insert(g,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/updateGroupLine.do", method = RequestMethod.POST)
@@ -194,6 +195,6 @@ public class GroupController {
     	g.setGroupSequence(TypeConvert.str2Long(req.getParameter("GROUP_SEQUENCE")));
     	g.setSubGroupId(TypeConvert.str2Long(req.getParameter("SUB_GROUP_ID")));
     	g.setEnabledFlag(req.getParameter("ENABLED_FLAG"));
-    	res.getWriter().print(glvs.update(lockGroupLineVO, g).toJsonStr());
+    	res.getWriter().print(glvs.update(lockGroupLineVO, g,loginId).toJsonStr());
    	}
 }

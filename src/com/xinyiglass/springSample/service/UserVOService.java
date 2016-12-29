@@ -25,16 +25,6 @@ public class UserVOService {
 	UserVODao userDao;
 	@Autowired
 	PagePub pagePub;
-	
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	/*private Long loginId;
 	
 	public Long getLoginId() {
@@ -45,7 +35,7 @@ public class UserVOService {
 		this.loginId = loginId;
 	}
 	*/
-	public PlsqlRetValue insert(UserVO u) throws Exception{
+	public PlsqlRetValue insert(UserVO u,Long loginId) throws Exception{
 		PlsqlRetValue ret=userDao.insert(u);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -53,7 +43,7 @@ public class UserVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(UserVO lockUserVO,UserVO updateUserVO) throws Exception
+	public PlsqlRetValue update(UserVO lockUserVO,UserVO updateUserVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=userDao.lock(lockUserVO);
 		if(ret.getRetcode()==0){
@@ -64,7 +54,7 @@ public class UserVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue updateImgUrl(String fileName,Long userId) throws Exception{
+	public PlsqlRetValue updateImgUrl(String fileName,Long userId,Long loginId) throws Exception{
 		PlsqlRetValue ret = userDao.updateImgUrl(fileName, userId);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -72,7 +62,7 @@ public class UserVOService {
 		return ret;
 	}	
 	
-	public PlsqlRetValue updatePWD(Long userId,String oldPassword,String newPassword) throws Exception{
+	public PlsqlRetValue updatePWD(Long userId,String oldPassword,String newPassword,Long loginId) throws Exception{
 		PlsqlRetValue ret = userDao.updatePWD(userId, oldPassword, newPassword);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -81,17 +71,17 @@ public class UserVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public UserVO findForUserVOByName(String userName) throws Exception{
+	public UserVO findForUserVOByName(String userName,Long loginId) throws Exception{
 		return userDao.findByUserName(userName);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public UserVO findForUserVOById(Long userId) throws Exception{
+	public UserVO findForUserVOById(Long userId,Long loginId) throws Exception{
 		return userDao.findByUserId(userId);
 	}
 		
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long respId,String userType,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long respId,String userType,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("select A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_USER_TYPE',A.USER_TYPE) USER_TYPE_M from XYG_ALB2B_USER_V A WHERE 1=1");
@@ -110,17 +100,17 @@ public class UserVOService {
 	}		
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findUserForLOV(Long sendUserId,String userName) throws Exception{
+	public String findUserForLOV(Long sendUserId,String userName,Long loginId) throws Exception{
 		return userDao.findByUserForRS(sendUserId, userName).toJsonStr();
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findUserByIdForJSON(Long userId) throws Exception{
+	public String findUserByIdForJSON(Long userId,Long loginId) throws Exception{
 		return "{\"rows\":"+userDao.findByIdForJSON(userId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findOtherUsers(Long userId) throws Exception{
+	public String findOtherUsers(Long userId,Long loginId) throws Exception{
 		return userDao.findOtherUsers(userId);
 	}
 }

@@ -23,19 +23,9 @@ public class GroupLineVOService {
 	PagePub pagePub;
 	@Autowired
 	GroupLineVODao groupDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long groupId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long groupId,Long loginId) throws Exception{
 		String sql="SELECT A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_YN',A.ENABLED_FLAG) ENABLED FROM XYG_ALB2B_GROUP_LINES_V A WHERE GROUP_ID = :1 ORDER BY "+orderby;
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", groupId);
@@ -43,22 +33,22 @@ public class GroupLineVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findAutoAddSequence(Long groupId) throws Exception{
+	public String findAutoAddSequence(Long groupId,Long loginId) throws Exception{
 		Long Seq = groupDao.autoAddSequence(groupId);
 		return "{\"rows\":[{\"MENU_SEQUENCE\":\""+Seq+"\"}]}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findGroupLineForJSON(Long groupId,Long groupSeq) throws Exception{
+	public String findGroupLineForJSON(Long groupId,Long groupSeq,Long loginId) throws Exception{
 		return "{\"rows\":"+groupDao.findGroupLineForJSON(groupId, groupSeq).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public GroupLineVO findForGroupVOById(Long groupId,Long groupSeq) throws Exception{
+	public GroupLineVO findForGroupVOById(Long groupId,Long groupSeq,Long loginId) throws Exception{
 		return groupDao.findByGroupId(groupId, groupSeq);
 	}
 	
-	public PlsqlRetValue insert(GroupLineVO g) throws Exception{
+	public PlsqlRetValue insert(GroupLineVO g,Long loginId) throws Exception{
 		PlsqlRetValue ret=groupDao.insert(g);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -66,7 +56,7 @@ public class GroupLineVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(GroupLineVO lockGroupLineVO,GroupLineVO updateGroupVO) throws Exception
+	public PlsqlRetValue update(GroupLineVO lockGroupLineVO,GroupLineVO updateGroupVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=groupDao.lock(lockGroupLineVO);
 		if(ret.getRetcode()==0){

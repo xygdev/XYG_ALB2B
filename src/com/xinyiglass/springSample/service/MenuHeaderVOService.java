@@ -24,24 +24,14 @@ public class MenuHeaderVOService {
 	MenuHeaderVODao menuDao;
 	@Autowired
 	PagePub pagePub;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findPersonalMenuById(Long menuId) throws Exception{
+	public String findPersonalMenuById(Long menuId,Long loginId) throws Exception{
 		return menuDao.findPersonalMenuById(menuId).toJsonStr();
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_MENU_HEADERS_V A WHERE 1=1");
@@ -50,7 +40,7 @@ public class MenuHeaderVOService {
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public PlsqlRetValue insert(MenuHeaderVO m) throws Exception{
+	public PlsqlRetValue insert(MenuHeaderVO m,Long loginId) throws Exception{
 		PlsqlRetValue ret=menuDao.insert(m);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -58,7 +48,7 @@ public class MenuHeaderVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(MenuHeaderVO lockMenuVO,MenuHeaderVO updateMenuVO) throws Exception
+	public PlsqlRetValue update(MenuHeaderVO lockMenuVO,MenuHeaderVO updateMenuVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=menuDao.lock(lockMenuVO);
 		if(ret.getRetcode()==0){
@@ -70,12 +60,12 @@ public class MenuHeaderVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public MenuHeaderVO findForMenuVOById(Long menuId) throws Exception{
+	public MenuHeaderVO findForMenuVOById(Long menuId,Long loginId) throws Exception{
 		return menuDao.findByMenuId(menuId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findMenuByIdForJSON(Long menuId) throws Exception{
+	public String findMenuByIdForJSON(Long menuId,Long loginId) throws Exception{
 		return "{\"rows\":"+menuDao.findByIdForJSON(menuId).toJsonStr()+"}";
 	}
 

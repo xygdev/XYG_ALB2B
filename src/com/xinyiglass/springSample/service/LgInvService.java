@@ -17,19 +17,9 @@ public class LgInvService {
     
 	@Autowired
 	PagePub pagePub;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long organizationId,Long width,Long height,Long thickness,String coatingType) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long organizationId,Long width,Long height,Long thickness,String coatingType,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("SELECT * FROM XYG_ALB2B_LG_ONHAND_V WHERE 1=1");

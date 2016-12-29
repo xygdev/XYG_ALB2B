@@ -26,16 +26,6 @@ public class ApService {
 	ApDao apDao;
 	@Autowired
 	PagePub pagePub;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Bean
     public SystemWebSocketHandler systemWebSocketHandler() {
@@ -43,7 +33,7 @@ public class ApService {
     }
 	
 	@Async  
-    public void apQuery(Long orgId,Long custId,String apDate,Long userId) throws Exception{  
+    public void apQuery(Long orgId,Long custId,String apDate,Long userId,Long loginId) throws Exception{  
 		Thread.sleep(5000);
 		PlsqlRetValue ret= apDao.apQuery(orgId, custId, apDate);
         ArrayList<Long> userIdList=new ArrayList<Long>();
@@ -61,7 +51,7 @@ public class ApService {
     } 
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_REQUEST_LOG_V A WHERE 1=1");

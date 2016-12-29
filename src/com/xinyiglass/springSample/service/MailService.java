@@ -24,19 +24,9 @@ public class MailService {
 	PagePub pagePub;
 	@Autowired
 	MailDao mDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForRecMail(int pageSize,int pageNo,boolean goLastPage,String orderBy,Long userId,Long sendId,String mailTitle,Date sendDate_F,Date sendDate_T,Date readDate_F,Date readDate_T) throws Exception{
+	public String findForRecMail(int pageSize,int pageNo,boolean goLastPage,String orderBy,Long userId,Long sendId,String mailTitle,Date sendDate_F,Date sendDate_T,Date readDate_F,Date readDate_T,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("select * FROM XYG_ALB2B_RECEIVE_V A WHERE RECEIVE_USER_ID = :1");
@@ -50,7 +40,7 @@ public class MailService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForSendMail(int pageSize,int pageNo,boolean goLastPage,String sendTitle,String orderBy,Long userId,Date sendDate_F,Date sendDate_T) throws Exception{
+	public String findForSendMail(int pageSize,int pageNo,boolean goLastPage,String sendTitle,String orderBy,Long userId,Date sendDate_F,Date sendDate_T,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("SELECT SEND_ID,");
@@ -70,7 +60,7 @@ public class MailService {
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public PlsqlRetValue delRecMail(Long recid) throws Exception{
+	public PlsqlRetValue delRecMail(Long recid,Long loginId) throws Exception{
 		PlsqlRetValue ret=mDao.deleteRecMail(recid);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -79,7 +69,7 @@ public class MailService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public PlsqlRetValue updateRecMail(Long recid) throws Exception
+	public PlsqlRetValue updateRecMail(Long recid,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue  ret=mDao.updateRecMail(recid);
 		if(ret.getRetcode()!=0){
@@ -88,7 +78,7 @@ public class MailService {
 		return ret;
 	}
 	
-	public PlsqlRetValue insertSendMail(Long sendUserId,String title,String content,String sendType,String recUser) throws Exception{
+	public PlsqlRetValue insertSendMail(Long sendUserId,String title,String content,String sendType,String recUser,Long loginId) throws Exception{
 		PlsqlRetValue  ret=mDao.insertMail(sendUserId, title, content, sendType, recUser);
 		//DevJdbcSubProcess.setRollbackOnly();
 		if(ret.getRetcode()!=0){
@@ -98,19 +88,17 @@ public class MailService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findRecMailByIdForJson(Long sendid) throws Exception{
-		xygdev.commons.util.Constant.ENTER_REPLACE_STR="\\\\r\\\\n";
+	public String findRecMailByIdForJson(Long sendid,Long loginId) throws Exception{
 		return "{\"rows\":"+mDao.findRecMailByIdForRS(sendid).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findSendMailByIdForJson(Long sendid) throws Exception{
-		xygdev.commons.util.Constant.ENTER_REPLACE_STR="\\\\r\\\\n";
+	public String findSendMailByIdForJson(Long sendid,Long loginId) throws Exception{
 		return "{\"rows\":"+mDao.findSendMailByIdForRS(sendid).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String countUnReadMail(Long recid) throws Exception{
+	public String countUnReadMail(Long recid,Long loginId) throws Exception{
 		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_RECEIVE WHERE RECEIVE_USER_ID = :1 AND READ_DATE IS NULL";
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		paramMap.put("1", recid);
@@ -118,7 +106,7 @@ public class MailService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findUnReadMailForJson(Long recid) throws Exception{
+	public String findUnReadMailForJson(Long recid,Long loginId) throws Exception{
 		String sql = "SELECT R.* FROM (SELECT ROWNUM RN, INNER_Q.* FROM (  SELECT REC.* FROM XYG_ALB2B_RECEIVE_V REC WHERE REC.RECEIVE_USER_ID = :1 AND READ_DATE IS NULL ORDER BY REC.SEND_DATE DESC) INNER_Q) R WHERE R.RN <= 3";
 		Map<String,Object> paramMap=new  HashMap<String,Object>();
 		paramMap.put("1", recid);

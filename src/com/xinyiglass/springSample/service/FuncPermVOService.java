@@ -24,19 +24,9 @@ public class FuncPermVOService {
 	PagePub pagePub;
 	@Autowired
 	FuncPermVODao fpDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long funcId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long funcId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_FUNC_PERM_V A WHERE 1=1");
@@ -49,21 +39,21 @@ public class FuncPermVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public FuncPermVO findForFuncPermVOById(Long pId) throws Exception{
+	public FuncPermVO findForFuncPermVOById(Long pId,Long loginId) throws Exception{
 		return fpDao.findByRespId(pId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findFuncPermByIdForJSON(Long pId) throws Exception{
+	public String findFuncPermByIdForJSON(Long pId,Long loginId) throws Exception{
 		return "{\"rows\":"+fpDao.findByIdForJSON(pId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findFuncPermByUserAndFunc(Long userId,Long funcId) throws Exception{
+	public String findFuncPermByUserAndFunc(Long userId,Long funcId,Long loginId) throws Exception{
 		return "{\"rows\":"+fpDao.findByUserAndFuncForJSON(userId, funcId).toJsonStr()+"}";
 	}
 	
-	public PlsqlRetValue insert(FuncPermVO fp) throws Exception{
+	public PlsqlRetValue insert(FuncPermVO fp,Long loginId) throws Exception{
 		PlsqlRetValue ret=fpDao.insert(fp);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -71,7 +61,7 @@ public class FuncPermVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(FuncPermVO fp) throws Exception{
+	public PlsqlRetValue update(FuncPermVO fp,Long loginId) throws Exception{
 		PlsqlRetValue ret=fpDao.update(fp);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！

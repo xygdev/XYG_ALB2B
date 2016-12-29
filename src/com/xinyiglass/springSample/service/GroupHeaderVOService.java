@@ -24,19 +24,9 @@ public class GroupHeaderVOService {
 	PagePub pagePub;
 	@Autowired
 	GroupHeaderVODao groupDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
     
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long groupId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long groupId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_GROUP_HEADERS_V A WHERE 1=1");
@@ -46,17 +36,17 @@ public class GroupHeaderVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public GroupHeaderVO findForGroupVOById(Long groupId) throws Exception{
+	public GroupHeaderVO findForGroupVOById(Long groupId,Long loginId) throws Exception{
 		return groupDao.findByGroupId(groupId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findGroupByIdForJSON(Long groupId) throws Exception{
+	public String findGroupByIdForJSON(Long groupId,Long loginId) throws Exception{
 		return "{\"rows\":"+groupDao.findByIdForJSON(groupId).toJsonStr()+"}";
 	}
 	
 	//insert
-	public PlsqlRetValue insert(GroupHeaderVO g) throws Exception{
+	public PlsqlRetValue insert(GroupHeaderVO g,Long loginId) throws Exception{
 		PlsqlRetValue ret=groupDao.insert(g);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -65,7 +55,7 @@ public class GroupHeaderVOService {
 	}
 	
 	//update
-	public PlsqlRetValue update(GroupHeaderVO lockGroupVO,GroupHeaderVO updateGroupVO) throws Exception
+	public PlsqlRetValue update(GroupHeaderVO lockGroupVO,GroupHeaderVO updateGroupVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=groupDao.lock(lockGroupVO);
 		if(ret.getRetcode()==0){

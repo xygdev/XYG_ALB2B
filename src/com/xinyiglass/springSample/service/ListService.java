@@ -17,19 +17,8 @@ public class ListService {
 
 	@Autowired
 	PagePub pagePub;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
-	
-	
-	public String findForEnableFlag() throws Exception{
+	public String findForEnableFlag(Long loginId) throws Exception{
 		String sql = "SELECT MEANING DISPLAY,LOOKUP_CODE VALUE"
 				+ " FROM XYG_ALD_LOOKUP_VALUES  "
 				+ " WHERE LOOKUP_TYPE = 'XYG_ALB2B_YN' "
@@ -41,7 +30,7 @@ public class ListService {
 		return pagePub.qSqlForJson(sql, paramMap);
 	}
 	
-	public String findForUserType() throws Exception{
+	public String findForUserType(Long loginId) throws Exception{
 		String sql = "SELECT MEANING DISPLAY,LOOKUP_CODE VALUE"
 				+ " FROM XYG_ALD_LOOKUP_VALUES  "
 				+ " WHERE LOOKUP_TYPE = 'XYG_ALB2B_USER_TYPE' "
@@ -53,7 +42,7 @@ public class ListService {
 		return pagePub.qSqlForJson(sql, paramMap);
 	}
 	
-	public String findForPoStatus() throws Exception{
+	public String findForPoStatus(Long loginId) throws Exception{
 		String sql = "SELECT MEANING DISPLAY,LOOKUP_CODE VALUE"
 				+ " FROM XYG_ALD_LOOKUP_VALUES  "
 				+ " WHERE LOOKUP_TYPE = 'XYG_LG_PO_STATUS' "

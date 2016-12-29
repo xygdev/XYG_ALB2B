@@ -23,18 +23,8 @@ public class FuncVOService {
 	PagePub pagePub;
 	@Autowired
 	FuncVODao funcDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
 	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
-	
-	public PlsqlRetValue insert(FuncVO f) throws Exception{
+	public PlsqlRetValue insert(FuncVO f,Long loginId) throws Exception{
 		PlsqlRetValue ret=funcDao.insert(f);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -42,7 +32,7 @@ public class FuncVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(FuncVO lockFuncVO,FuncVO updateFuncVO) throws Exception
+	public PlsqlRetValue update(FuncVO lockFuncVO,FuncVO updateFuncVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=funcDao.lock(lockFuncVO);
 		if(ret.getRetcode()==0){
@@ -54,7 +44,7 @@ public class FuncVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long funcId,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long funcId,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_FUNCTIONS_V A WHERE 1=1");
@@ -64,12 +54,12 @@ public class FuncVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findRespByIdForJSON(Long funcId) throws Exception{
+	public String findRespByIdForJSON(Long funcId,Long loginId) throws Exception{
 		return "{\"rows\":"+funcDao.findByIdForJSON(funcId).toJsonStr()+"}";
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public FuncVO findForFuncVOById(Long funcId) throws Exception{
+	public FuncVO findForFuncVOById(Long funcId,Long loginId) throws Exception{
 		return funcDao.findByFuncId(funcId);
 	}
 }

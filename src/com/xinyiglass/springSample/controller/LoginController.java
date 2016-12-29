@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.xinyiglass.springSample.util.Alb2bInit;
 import com.xinyiglass.springSample.util.LogUtil;
 
 @Controller
+@Scope("prototype")
 public class LoginController {
 	
 	@Autowired
@@ -33,6 +35,7 @@ public class LoginController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    //protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -42,8 +45,7 @@ public class LoginController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		uvos.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
-		ls.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    //loginId=(Long)sess.getAttribute("LOGIN_ID");
     } 
 	
 	@RequestMapping("/")
@@ -62,7 +64,7 @@ public class LoginController {
 			mv.setViewName("login-ch");
 			sess.setAttribute("errorMsg", ret.getErrbuf());
 		 }else{
-			 UserVO user=uvos.findForUserVOByName(username);
+			 UserVO user=uvos.findForUserVOByName(username,null);
 			 sess.setAttribute("LOGIN_ID",TypeConvert.str2Long(ret.getParam1()));
 			 sess.setAttribute("USER_ID", user.getUserId());
 			 sess.setAttribute("USER_NAME", user.getUserName());

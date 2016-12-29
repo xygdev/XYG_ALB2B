@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.xinyiglass.springSample.service.RespVOService;
 
 @Controller
 @RequestMapping("/resp")
+@Scope("prototype")
 public class RespController {
 	
     @Autowired
@@ -28,6 +30,7 @@ public class RespController {
     protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -37,7 +40,7 @@ public class RespController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		rvs.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     }
     
     @RequestMapping("/respManage.do")
@@ -55,16 +58,16 @@ public class RespController {
     	r.setMenuId(TypeConvert.str2Long(req.getParameter("MENU_ID")));
     	r.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	r.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(rvs.insert(r).toJsonStr());
+    	res.getWriter().print(rvs.insert(r,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/preUpdate.do", method = RequestMethod.POST)
     public void preUpdate() throws Exception
     {
     	Long respId = Long.parseLong(req.getParameter("RESP_ID"));
-    	RespVO respVO = rvs.findForRespVOById(respId);
+    	RespVO respVO = rvs.findForRespVOById(respId,loginId);
     	sess.setAttribute("lockRespVO", respVO);//记录在session变量
-    	res.getWriter().print(rvs.findRespByIdForJSON(respId));
+    	res.getWriter().print(rvs.findRespByIdForJSON(respId,loginId));
     }
     
     @RequestMapping(value = "/update.do", method = RequestMethod.POST)
@@ -87,7 +90,7 @@ public class RespController {
     	r.setMenuId(TypeConvert.str2Long(req.getParameter("MENU_ID")));
     	r.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	r.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
-    	res.getWriter().print(rvs.update(lockRespVO, r).toJsonStr());
+    	res.getWriter().print(rvs.update(lockRespVO, r,loginId).toJsonStr());
 	}
     
     @RequestMapping(value = "/getRespPage.do", method = RequestMethod.POST)
@@ -101,6 +104,6 @@ public class RespController {
 		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
 		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
 		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, menuId, respId, startDate_F, startDate_T, orderBy));
+		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, menuId, respId, startDate_F, startDate_T, orderBy,loginId));
 	}  
 }

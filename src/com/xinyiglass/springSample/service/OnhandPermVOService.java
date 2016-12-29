@@ -24,19 +24,9 @@ public class OnhandPermVOService {
 	PagePub pagePub;
 	@Autowired
 	OnhandPermVODao onhandDao;
-
-	private ThreadLocal<Long> loginIdTL = new ThreadLocal<Long>();
-	
-	public Long getLoginId() {
-		return this.loginIdTL.get();
-	}
-	
-	public void setLoginId(Long loginId) {
-		this.loginIdTL.set(loginId); 
-	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long organId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long organId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_ONHAND_PERM_V A WHERE 1=1");
@@ -49,16 +39,16 @@ public class OnhandPermVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public OnhandPermVO findForOnhandPermVOById(Long pId) throws Exception{
+	public OnhandPermVO findForOnhandPermVOById(Long pId,Long loginId) throws Exception{
 		return onhandDao.findByPId(pId);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findOnhandPermByIdForJSON(Long pId) throws Exception{
+	public String findOnhandPermByIdForJSON(Long pId,Long loginId) throws Exception{
 		return "{\"rows\":"+onhandDao.findByIdForJSON(pId).toJsonStr()+"}";
 	}
 	
-	public PlsqlRetValue insert(OnhandPermVO op) throws Exception{
+	public PlsqlRetValue insert(OnhandPermVO op,Long loginId) throws Exception{
 		PlsqlRetValue ret=onhandDao.insert(op);
 		if(ret.getRetcode()!=0){
 			DevJdbcSubProcess.setRollbackOnly();//该事务必须要回滚！
@@ -66,7 +56,7 @@ public class OnhandPermVOService {
 		return ret;
 	}
 	
-	public PlsqlRetValue update(OnhandPermVO lockOpVO,OnhandPermVO updateOpVO) throws Exception
+	public PlsqlRetValue update(OnhandPermVO lockOpVO,OnhandPermVO updateOpVO,Long loginId) throws Exception
 	{ 
 		PlsqlRetValue ret=onhandDao.lock(lockOpVO);
 		if(ret.getRetcode()==0){
@@ -78,7 +68,7 @@ public class OnhandPermVOService {
 	}
 	
 	//验证是否在更新库存
-	public String validateEdiLog(String syncCode) throws Exception{
+	public String validateEdiLog(String syncCode,Long loginId) throws Exception{
 		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_EDI_LOG WHERE SYNC_CODE = :1 AND PROCESS_FLAG = '1'";
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("1", syncCode);

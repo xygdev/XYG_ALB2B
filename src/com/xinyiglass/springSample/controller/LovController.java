@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.xinyiglass.springSample.service.LovService;
 
 @Controller
 @RequestMapping("/lov")
+@Scope("prototype")
 public class LovController {
 	
 	@Autowired
@@ -26,6 +28,7 @@ public class LovController {
 	protected HttpServletRequest req; 
     protected HttpServletResponse res; 
     protected HttpSession sess; 
+    protected Long loginId; 
     
     @ModelAttribute 
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{ 
@@ -35,7 +38,7 @@ public class LovController {
         req.setCharacterEncoding("utf-8");
 		res.setCharacterEncoding("utf-8");
 		res.setContentType("text/html;charset=utf-8");  
-		lovService.setLoginId((Long)sess.getAttribute("LOGIN_ID"));
+	    loginId=(Long)sess.getAttribute("LOGIN_ID");
     } 
 	
     //获取USER值列表
@@ -47,7 +50,7 @@ public class LovController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String userName=req.getParameter("USER_NAME");
 		String userDesc=req.getParameter("DESCRIPTION");
-		res.getWriter().print(lovService.findUserForPage(pageSize, pageNo, goLastPage, userName, userDesc));
+		res.getWriter().print(lovService.findUserForPage(pageSize, pageNo, goLastPage, userName, userDesc,loginId));
 	}
 	
 	//USER值列表值验证
@@ -56,7 +59,7 @@ public class LovController {
     {	
     	String userName=req.getParameter("username");
     	System.out.println(userName);
-    	res.getWriter().print(lovService.countByUserName(userName));
+    	res.getWriter().print(lovService.countByUserName(userName,loginId));
     }
     
     //通过USER_NAME获取USER_ID,DESCRIPTION
@@ -65,7 +68,7 @@ public class LovController {
     {	
     	String userName=req.getParameter("username");
     	System.out.println(userName);
-    	res.getWriter().print(lovService.findForUserId(userName));
+    	res.getWriter().print(lovService.findForUserId(userName,loginId));
     }
 	
     //获取RESP值列表
@@ -77,7 +80,7 @@ public class LovController {
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
 		String respName=req.getParameter("RESP_NAME");
 		String respCode=req.getParameter("RESP_CODE");
-		res.getWriter().print(lovService.findRespForPage(pageSize, pageNo, goLastPage, respCode, respName));
+		res.getWriter().print(lovService.findRespForPage(pageSize, pageNo, goLastPage, respCode, respName,loginId));
 	}
 	
     //RESP值列表值验证
@@ -85,7 +88,7 @@ public class LovController {
     public void validRespName() throws Exception
     {	
     	String respName=req.getParameter("respname");
-    	res.getWriter().print(lovService.countByRespName(respName));
+    	res.getWriter().print(lovService.countByRespName(respName,loginId));
     }
     
     //通过RESP_NAME获取RESP_ID,RESP_CODE,RESP_NAME,DESCRIPTION
@@ -93,7 +96,7 @@ public class LovController {
     public void getRespId() throws Exception
     {	
     	String respName=req.getParameter("respname");
-    	res.getWriter().print(lovService.findForRespId(respName));
+    	res.getWriter().print(lovService.findForRespId(respName,loginId));
     }
     
     //获取CUST值列表
@@ -105,7 +108,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String accountNumber=req.getParameter("ACCOUNT_NUMBER");
   		String partyName=req.getParameter("PARTY_NAME");
-  		res.getWriter().print(lovService.findCustForPage(pageSize, pageNo, goLastPage, accountNumber, partyName));
+  		res.getWriter().print(lovService.findCustForPage(pageSize, pageNo, goLastPage, accountNumber, partyName,loginId));
   	}
   	
     //获取CUST值列表(用户限制)
@@ -119,7 +122,7 @@ public class LovController {
   		String partyName=req.getParameter("PARTY_NAME");
   		Long userId = (Long)sess.getAttribute("USER_ID");
   		String userType = (String)sess.getAttribute("USER_TYPE");
-  		res.getWriter().print(lovService.findUserCustForPage(pageSize, pageNo, goLastPage, accountNumber, partyName, userId, userType));
+  		res.getWriter().print(lovService.findUserCustForPage(pageSize, pageNo, goLastPage, accountNumber, partyName, userId, userType,loginId));
     }
 
 	
@@ -132,7 +135,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String menuCode=req.getParameter("MENU_CODE");
   		String menuName=req.getParameter("MENU_NAME");
-  		res.getWriter().print(lovService.findMenuForPage(pageSize, pageNo, goLastPage, menuCode, menuName));
+  		res.getWriter().print(lovService.findMenuForPage(pageSize, pageNo, goLastPage, menuCode, menuName,loginId));
   	}
   	
     //MENU值列表值验证
@@ -140,7 +143,7 @@ public class LovController {
     public void validMenuCode() throws Exception
     {	
       	String menuCode=req.getParameter("menucode");
-      	res.getWriter().print(lovService.countByMenuCode(menuCode));
+      	res.getWriter().print(lovService.countByMenuCode(menuCode,loginId));
     }
       
     //通过MENU_CODE获取MENU_ID
@@ -148,7 +151,7 @@ public class LovController {
     public void getMenuId() throws Exception
     {	
       	String menuCode=req.getParameter("menucode");
-      	res.getWriter().print(lovService.findForMenuId(menuCode));
+      	res.getWriter().print(lovService.findForMenuId(menuCode,loginId));
     }
     
     //获取图标值列表
@@ -160,7 +163,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String iconCode=req.getParameter("ICON_CODE");
   		String iconDesc=req.getParameter("ICON_DESC");
-  		res.getWriter().print(lovService.findIconForPage(pageSize, pageNo, goLastPage, iconCode, iconDesc));
+  		res.getWriter().print(lovService.findIconForPage(pageSize, pageNo, goLastPage, iconCode, iconDesc,loginId));
   	}
   	
     //获取功能值列表
@@ -172,7 +175,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String funcCode=req.getParameter("FUNCTION_CODE");
   		String funcName=req.getParameter("FUNCTION_NAME");
-  		res.getWriter().print(lovService.findFuncForPage(pageSize, pageNo, goLastPage, funcCode, funcName));
+  		res.getWriter().print(lovService.findFuncForPage(pageSize, pageNo, goLastPage, funcCode, funcName,loginId));
   	}
   	
     //FUNC值列表值验证
@@ -180,7 +183,7 @@ public class LovController {
     public void validFuncCode() throws Exception
     {	
       	String funcCode=req.getParameter("funccode");
-      	res.getWriter().print(lovService.countByFuncCode(funcCode));
+      	res.getWriter().print(lovService.countByFuncCode(funcCode,loginId));
     }
       
     //通过FUNC_CODE获取FUNC_ID
@@ -188,7 +191,7 @@ public class LovController {
     public void getFuncId() throws Exception
     {	
       	String funcCode=req.getParameter("funccode");
-      	res.getWriter().print(lovService.findForFuncId(funcCode));
+      	res.getWriter().print(lovService.findForFuncId(funcCode,loginId));
     }
   	
     //获取EMP值列表
@@ -200,7 +203,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String ename=req.getParameter("ENAME");
   		String eno=req.getParameter("ENO");
-  		res.getWriter().print(lovService.findEmpForPage(pageSize, pageNo, goLastPage, ename, eno));
+  		res.getWriter().print(lovService.findEmpForPage(pageSize, pageNo, goLastPage, ename, eno,loginId));
   	}
   	
     //EMP值列表值验证
@@ -208,7 +211,7 @@ public class LovController {
     public void validEmpName() throws Exception
     {	
       	String ename=req.getParameter("ename");
-      	res.getWriter().print(lovService.countByEmpName(ename));
+      	res.getWriter().print(lovService.countByEmpName(ename,loginId));
     }
       
     //通过ENAME获取EMP_ID
@@ -216,7 +219,7 @@ public class LovController {
     public void getEmpId() throws Exception
     {	
       	String ename=req.getParameter("ename");
-      	res.getWriter().print(lovService.findForEmpId(ename));
+      	res.getWriter().print(lovService.findForEmpId(ename,loginId));
     }
     
     //获取GROUP值列表
@@ -228,7 +231,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String groupCode=req.getParameter("GROUP_CODE");
   		String groupName=req.getParameter("GROUP_NAME");
-  		res.getWriter().print(lovService.findGroupForPage(pageSize, pageNo, goLastPage, groupCode, groupName));
+  		res.getWriter().print(lovService.findGroupForPage(pageSize, pageNo, goLastPage, groupCode, groupName,loginId));
   	}
   	
     //GROUP值列表值验证
@@ -236,7 +239,7 @@ public class LovController {
     public void validGroupCode() throws Exception
     {	
       	String groupName=req.getParameter("groupName");
-      	res.getWriter().print(lovService.countByGroupCode(groupName));
+      	res.getWriter().print(lovService.countByGroupCode(groupName,loginId));
     }
       
     //通过GROUP_CODE获取GROUP_ID
@@ -244,7 +247,7 @@ public class LovController {
     public void getGroupId() throws Exception
     {	
       	String groupName=req.getParameter("groupName");
-      	res.getWriter().print(lovService.findForGroupId(groupName));
+      	res.getWriter().print(lovService.findForGroupId(groupName,loginId));
     }
     
     //获取Organization值列表
@@ -256,7 +259,7 @@ public class LovController {
   		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
   		String organCode=req.getParameter("ORGANIZATION_CODE");
   		String organName=req.getParameter("ORGANIZATION_NAME");
-  		res.getWriter().print(lovService.findOrganForPage(pageSize, pageNo, goLastPage, organCode, organName));
+  		res.getWriter().print(lovService.findOrganForPage(pageSize, pageNo, goLastPage, organCode, organName,loginId));
   	}
   	
   	//Organization_code值验证
@@ -264,7 +267,7 @@ public class LovController {
     public void validOrganCode() throws Exception
     {	
   		String organCode = req.getParameter("organCode");
-  		res.getWriter().print(lovService.countByOrganCode(organCode));
+  		res.getWriter().print(lovService.countByOrganCode(organCode,loginId));
     }
   	
   	//通过Organization_code获取其他值
@@ -272,7 +275,7 @@ public class LovController {
     public void getOrganId() throws Exception
     {	
   		String organCode = req.getParameter("organCode");
-  		res.getWriter().print(lovService.findForOrganId(organCode));
+  		res.getWriter().print(lovService.findForOrganId(organCode,loginId));
     }
   	
     //获取(建玻产业)用户Organization值列表
@@ -286,7 +289,7 @@ public class LovController {
   		String organName=req.getParameter("ORGANIZATION_NAME");
   		Long userId = (Long)sess.getAttribute("USER_ID");
   		String glassIndustry = "JB";
-  		res.getWriter().print(lovService.findUserOrganForPage(pageSize, pageNo, goLastPage, userId, organCode, organName, glassIndustry));
+  		res.getWriter().print(lovService.findUserOrganForPage(pageSize, pageNo, goLastPage, userId, organCode, organName, glassIndustry,loginId));
   	}
   	
     //获取(浮法产业)用户Organization值列表
@@ -300,7 +303,7 @@ public class LovController {
   		String organName=req.getParameter("ORGANIZATION_NAME");
   		Long userId = (Long)sess.getAttribute("USER_ID");
   		String glassIndustry = "FF";
-  		res.getWriter().print(lovService.findUserOrganForPage(pageSize, pageNo, goLastPage, userId, organCode, organName, glassIndustry));
+  		res.getWriter().print(lovService.findUserOrganForPage(pageSize, pageNo, goLastPage, userId, organCode, organName, glassIndustry,loginId));
   	}
   	
   	//物料值列表
@@ -314,7 +317,7 @@ public class LovController {
   		Long organizationId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
   		String coatingCode = req.getParameter("COATING_CODE");
   		String itemNumber = req.getParameter("itemNumber");
-  		res.getWriter().print(lovService.findItemForPage(pageSize, pageNo, goLastPage, thickness, coatingCode, organizationId, itemNumber));
+  		res.getWriter().print(lovService.findItemForPage(pageSize, pageNo, goLastPage, thickness, coatingCode, organizationId, itemNumber,loginId));
   	}
   	
     //从LOOKUP_VALUES获取Coating值列表
@@ -327,7 +330,7 @@ public class LovController {
   		String lookupType="XYG_JB_GLASS_COATING";
   		String lookupCode=req.getParameter("LOOKUP_CODE");
   		String meaning=req.getParameter("MEANING");
-  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning));
+  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning,loginId));
   	}
   	
     //Coating值列表MEANING值验证
@@ -336,7 +339,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_JB_GLASS_COATING";
-      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType));
+      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType,loginId));
     }
       
     //通过MEANING获取Coating_Code
@@ -345,7 +348,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_JB_GLASS_COATING";
-      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType));
+      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType,loginId));
     }
     
     //从LOOKUP_VALUES获取Colour值列表
@@ -358,7 +361,7 @@ public class LovController {
   		String lookupType="XYG_FLOAT_COLOR";
   		String lookupCode=req.getParameter("LOOKUP_CODE");
   		String meaning=req.getParameter("MEANING");
-  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning));
+  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning,loginId));
   	}
   	
   	 //Colour值列表MEANING值验证
@@ -367,7 +370,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FLOAT_COLOR";
-      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType));
+      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType,loginId));
     }
       
     //通过MEANING获取ColourCode
@@ -376,7 +379,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FLOAT_COLOR";
-      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType));
+      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType,loginId));
     }
     
     //从LOOKUP_VALUES获取Grade值列表
@@ -389,7 +392,7 @@ public class LovController {
   		String lookupType="XYG_FLOAT_GRADE";
   		String lookupCode=req.getParameter("LOOKUP_CODE");
   		String meaning=req.getParameter("MEANING");
-  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning));
+  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning,loginId));
   	}
   	
   	 //Grade值列表MEANING值验证
@@ -398,7 +401,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FLOAT_GRADE";
-      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType));
+      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType,loginId));
     }
       
     //通过MEANING获取GradeCode
@@ -407,7 +410,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FLOAT_GRADE";
-      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType));
+      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType,loginId));
     }
     
     //从LOOKUP_VALUES获取Pack值列表
@@ -420,7 +423,7 @@ public class LovController {
   		String lookupType="XYG_FFI_PACK";
   		String lookupCode=req.getParameter("LOOKUP_CODE");
   		String meaning=req.getParameter("MEANING");
-  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning));
+  		res.getWriter().print(lovService.findLookupForPage(pageSize, pageNo, goLastPage, lookupType, lookupCode, meaning,loginId));
   	}
   	
   	 //Pack值列表MEANING值验证
@@ -429,7 +432,7 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FFI_PACK";
-      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType));
+      	res.getWriter().print(lovService.countByLookupMeaning(meaning, lookupType,loginId));
     }
       
     //通过MEANING获取PackCode
@@ -438,6 +441,6 @@ public class LovController {
     {	
       	String meaning=req.getParameter("meaning");
       	String lookupType="XYG_FFI_PACK";
-      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType));
+      	res.getWriter().print(lovService.findForLookupCode(meaning, lookupType,loginId));
     }
 }
