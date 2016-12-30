@@ -31,12 +31,12 @@ public class MenuHeaderVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_MENU_HEADERS_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("MENU_ID",menuId,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("MENU_ID",conditionMap.get("menuId"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

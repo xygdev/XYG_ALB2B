@@ -25,12 +25,12 @@ public class OnhandSetVOService {
 	OnhandSetVODao onhandDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long organId,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_ONHAND_SET_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("ORGANIZATION_ID",organId,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("ORGANIZATION_ID",conditionMap.get("organId"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

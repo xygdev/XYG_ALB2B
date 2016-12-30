@@ -1,6 +1,5 @@
 package com.xinyiglass.springSample.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,16 +80,16 @@ public class UserVOService {
 	}
 		
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long respId,String userType,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("select A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_USER_TYPE',A.USER_TYPE) USER_TYPE_M from XYG_ALB2B_USER_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("USER_ID",userId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("RESP_ID",respId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("USER_TYPE",userType,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",startDate_F,startDate_T,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",endDate_F,endDate_T,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("USER_ID",conditionMap.get("userId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("RESP_ID",conditionMap.get("respId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("USER_TYPE",conditionMap.get("userType"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",conditionMap.get("startDate_F"),conditionMap.get("startDate_T"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",conditionMap.get("endDate_F"),conditionMap.get("endDate_T"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		//测试会话初始化功能
 		//Long sid=pagePub.getDevJdbcTemplate().queryForLong("select USERENV('SESSIONID') from dual");
 		//Long longId=pagePub.getDevJdbcTemplate().queryForLong("select XYG_ALD_GLOBAL_PKG.login_id from dual");

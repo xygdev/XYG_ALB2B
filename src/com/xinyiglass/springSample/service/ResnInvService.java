@@ -18,16 +18,16 @@ public class ResnInvService {
 	PagePub pagePub;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long custId,Long width,Long height,String coatingType,String packCode,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("SELECT * FROM XYG_ALB2B_RESERVATIONS_V WHERE 1=1");
-		sqlBuf.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",custId,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("WIDTH",width,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("HEIGHT",height,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("COATING_TYPE",coatingType,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("PACK_CODE",packCode,paramMap));
-		sqlBuf.append(" ORDER BY "+orderby);
+		sqlBuf.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",conditionMap.get("custId"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("WIDTH",conditionMap.get("width"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("HEIGHT",conditionMap.get("height"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("COATING_TYPE",conditionMap.get("coatingType"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("PACK_CODE",conditionMap.get("packCode"),paramMap));
+		sqlBuf.append(" ORDER BY "+conditionMap.get("orderby"));
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 }

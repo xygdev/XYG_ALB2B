@@ -2,6 +2,8 @@ package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,13 +59,14 @@ public class PoController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderBy=req.getParameter("orderby");
-		Long userId = (Long)sess.getAttribute("USER_ID");
-		String custContractNumber = req.getParameter("CUSTOMER_CONTRACT_NUMBER");
-		String poNumber = req.getParameter("PO_NUMBER");
-		String status = req.getParameter("STATUS");
-		Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
-		res.getWriter().print(phvs.findForPage(pageSize, pageNo, goLastPage, userId, poNumber, custContractNumber, status, custId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("userId", (Long)sess.getAttribute("USER_ID"));
+   		conditionMap.put("custContractNumber", req.getParameter("CUSTOMER_CONTRACT_NUMBER"));
+   		conditionMap.put("poNumber", req.getParameter("PO_NUMBER"));
+   		conditionMap.put("status", req.getParameter("STATUS"));
+   		conditionMap.put("custId", TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
+		res.getWriter().print(phvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	} 
     
     @RequestMapping("/preUpdatePoHeader.do")
@@ -128,9 +131,10 @@ public class PoController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderBy=req.getParameter("orderby");
-		Long poHeaderId = TypeConvert.str2Long(req.getParameter("PO_HEADER_ID"));
-		res.getWriter().print(plvs.findForPage(pageSize, pageNo, goLastPage, orderBy,poHeaderId,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("poHeaderId", TypeConvert.str2Long(req.getParameter("PO_HEADER_ID")));
+		res.getWriter().print(plvs.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	} 
     
     @RequestMapping("/getAutoAddSeq.do")

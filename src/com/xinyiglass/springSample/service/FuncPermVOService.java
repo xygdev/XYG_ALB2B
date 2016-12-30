@@ -1,6 +1,5 @@
 package com.xinyiglass.springSample.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,15 +25,15 @@ public class FuncPermVOService {
 	FuncPermVODao fpDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,Long funcId,Date startDate_F,Date startDate_T,Date endDate_F,Date endDate_T,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_FUNC_PERM_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("USER_ID",userId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("FUNCTION_ID",funcId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",startDate_F,startDate_T,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",endDate_F,endDate_T,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("USER_ID",conditionMap.get("userId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("FUNCTION_ID",conditionMap.get("funcId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",conditionMap.get("startDate_F"),conditionMap.get("startDate_T"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("END_DATE",conditionMap.get("endDate_F"),conditionMap.get("endDate_T"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

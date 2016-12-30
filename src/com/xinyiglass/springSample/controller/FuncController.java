@@ -1,6 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,9 +62,10 @@ public class FuncController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long funcId = TypeConvert.str2Long(req.getParameter("FUNCTION_ID"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(fvs.findForPage(pageSize, pageNo, goLastPage, funcId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("funcId", TypeConvert.str2Long(req.getParameter("FUNCTION_ID")));
+		res.getWriter().print(fvs.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
 	
 	@RequestMapping(value = "/insert.do", method = RequestMethod.POST)

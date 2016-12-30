@@ -1,6 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,9 +68,10 @@ public class MenuController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long menuId = TypeConvert.str2Long(req.getParameter("MENU_ID"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(mhvs.findForPage(pageSize, pageNo, goLastPage, menuId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("menuId", TypeConvert.str2Long(req.getParameter("MENU_ID")));
+		res.getWriter().print(mhvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	} 
     
     @RequestMapping(value = "/insertMenuHeader.do", method = RequestMethod.POST)
@@ -119,9 +122,10 @@ public class MenuController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby=req.getParameter("orderby");
-		Long menuId = Long.parseLong(req.getParameter("MENU_ID"));
-		res.getWriter().print(mlvs.findForPage(pageSize, pageNo, goLastPage, orderby, menuId,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("menuId", Long.parseLong(req.getParameter("MENU_ID")));
+		res.getWriter().print(mlvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	} 
     
     @RequestMapping("/getAutoAddSeq.do")

@@ -1,6 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,9 +63,10 @@ public class GroupController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long custId = TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(gvs.findForCustPage(pageSize, pageNo, goLastPage, custId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("custId", TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
+		res.getWriter().print(gvs.findForCustPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateCustGroup.do", method = RequestMethod.POST)
@@ -95,9 +98,10 @@ public class GroupController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long groupId = TypeConvert.str2Long(req.getParameter("GROUP_ID"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(ghvs.findForPage(pageSize, pageNo, goLastPage, groupId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("groupId", TypeConvert.str2Long(req.getParameter("GROUP_ID")));
+		res.getWriter().print(ghvs.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateGroupHeader.do", method = RequestMethod.POST)
@@ -145,9 +149,10 @@ public class GroupController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby=req.getParameter("orderby");
-		Long groupId = Long.parseLong(req.getParameter("GROUP_ID"));
-		res.getWriter().print(glvs.findForPage(pageSize, pageNo, goLastPage, orderby, groupId,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("groupId", Long.parseLong(req.getParameter("GROUP_ID")));
+		res.getWriter().print(glvs.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping("/getAutoAddSeq.do")

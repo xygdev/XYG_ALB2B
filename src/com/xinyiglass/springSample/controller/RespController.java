@@ -1,7 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,11 +100,12 @@ public class RespController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long menuId = TypeConvert.str2Long(req.getParameter("MENU_ID"));
-		Long respId = TypeConvert.str2Long(req.getParameter("RESP_ID"));
-		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
-		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, menuId, respId, startDate_F, startDate_T, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("menuId", TypeConvert.str2Long(req.getParameter("MENU_ID")));
+   		conditionMap.put("respId", TypeConvert.str2Long(req.getParameter("RESP_ID")));
+   		conditionMap.put("startDate_F", TypeConvert.str2uDate(req.getParameter("START_DATE_F")));
+   		conditionMap.put("startDate_T", TypeConvert.str2uDate(req.getParameter("START_DATE_T")));
+		res.getWriter().print(rvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	}  
 }

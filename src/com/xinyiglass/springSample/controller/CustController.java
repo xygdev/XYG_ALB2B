@@ -1,6 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,9 +51,10 @@ public class CustController {
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage = Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby = req.getParameter("orderby");
-		Long userId = Long.parseLong(req.getParameter("USER_ID"));
-		res.getWriter().print(ucvs.findForPage(pageSize, pageNo, goLastPage, orderby, userId,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("userId", Long.parseLong(req.getParameter("USER_ID")));
+		res.getWriter().print(ucvs.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping(value = "/insert.do", method = RequestMethod.POST)

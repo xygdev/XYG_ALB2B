@@ -25,10 +25,10 @@ public class PoLineVOService {
 	PoLineVODao plvDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long poHeaderId,Long loginId) throws Exception{
-		String sql="SELECT * FROM XYG_ALB2B_LG_PO_LINES_V WHERE PO_HEADER_ID = :1 ORDER BY "+orderby;
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
+		String sql="SELECT * FROM XYG_ALB2B_LG_PO_LINES_V WHERE PO_HEADER_ID = :1 ORDER BY "+conditionMap.get("orderby");
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", poHeaderId);
+		paramMap.put("1", conditionMap.get("poHeaderId"));
 		return pagePub.qPageForJson(sql, paramMap, pageSize, pageNo, goLastPage);
 	}
 	

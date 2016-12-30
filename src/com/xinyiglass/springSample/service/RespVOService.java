@@ -1,6 +1,5 @@
 package com.xinyiglass.springSample.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,14 +45,14 @@ public class RespVOService {
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long menuId,Long respId,Date startDate_F,Date startDate_T,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALB2B_RESPONSIBILITY_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("MENU_ID",menuId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("RESP_ID",respId,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",startDate_F,startDate_T,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("MENU_ID",conditionMap.get("menuId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("RESP_ID",conditionMap.get("respId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("START_DATE",conditionMap.get("startDate_F"),conditionMap.get("startDate_T"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

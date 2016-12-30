@@ -27,9 +27,9 @@ public class PoHeaderVOService {
 	PoHeaderVODao phvDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String poNumber,String custContractNumber,String status,Long custId,String orderBy,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", userId);
+		paramMap.put("1", conditionMap.get("userId"));
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT *");
 		sqlBuff.append("  FROM XYG_ALB2B_LG_PO_HEADERS_V");
@@ -57,11 +57,11 @@ public class PoHeaderVOService {
 		sqlBuff.append("       AND (SELECT USER_TYPE");
 		sqlBuff.append("              FROM XYG_ALB2B_USER");
 		sqlBuff.append("             WHERE USER_ID = :1) = 'EMP')))");
-		sqlBuff.append(SqlStmtPub.getAndStmt("PO_NUMBER",poNumber,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_CONTRACT_NUMBER",custContractNumber,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("STATUS",status,paramMap));
-		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",custId,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("PO_NUMBER",conditionMap.get("poNumber"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_CONTRACT_NUMBER",conditionMap.get("custContractNumber"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("STATUS",conditionMap.get("status"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUSTOMER_ID",conditionMap.get("custId"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

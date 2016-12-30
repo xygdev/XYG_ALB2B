@@ -25,10 +25,12 @@ public class GroupLineVOService {
 	GroupLineVODao groupDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long groupId,Long loginId) throws Exception{
-		String sql="SELECT A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_YN',A.ENABLED_FLAG) ENABLED FROM XYG_ALB2B_GROUP_LINES_V A WHERE GROUP_ID = :1 ORDER BY "+orderby;
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
+		String sql="SELECT A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_YN',A.ENABLED_FLAG) ENABLED "
+				+ " FROM XYG_ALB2B_GROUP_LINES_V A "
+				+ " WHERE GROUP_ID = :1 ORDER BY "+conditionMap.get("orderby");
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", groupId);
+		paramMap.put("1", conditionMap.get("groupId"));
 		return pagePub.qPageForJson(sql, paramMap, pageSize, pageNo, goLastPage);
 	}
 	

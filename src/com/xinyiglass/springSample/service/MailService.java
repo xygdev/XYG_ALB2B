@@ -1,6 +1,5 @@
 package com.xinyiglass.springSample.service;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,21 +25,21 @@ public class MailService {
 	MailDao mDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForRecMail(int pageSize,int pageNo,boolean goLastPage,String orderBy,Long userId,Long sendId,String mailTitle,Date sendDate_F,Date sendDate_T,Date readDate_F,Date readDate_T,Long loginId) throws Exception{
+	public String findForRecMail(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("select * FROM XYG_ALB2B_RECEIVE_V A WHERE RECEIVE_USER_ID = :1");
-		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_USER_ID",sendId,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("MAIL_TITLE",mailTitle,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_DATE",sendDate_F, sendDate_T,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("READ_DATE",readDate_F, readDate_T,paramMap));
-		paramMap.put("1", userId);
-		sqlBuf.append(" ORDER BY "+orderBy);
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_USER_ID",conditionMap.get("sendId"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("MAIL_TITLE",conditionMap.get("mailTitle"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_DATE",conditionMap.get("sendDate_F"), conditionMap.get("sendDate_T"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("READ_DATE",conditionMap.get("readDate_F"), conditionMap.get("readDate_T"),paramMap));
+		paramMap.put("1", conditionMap.get("userId"));
+		sqlBuf.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForSendMail(int pageSize,int pageNo,boolean goLastPage,String sendTitle,String orderBy,Long userId,Date sendDate_F,Date sendDate_T,Long loginId) throws Exception{
+	public String findForSendMail(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("SELECT SEND_ID,");
@@ -53,10 +52,10 @@ public class MailService {
 		sqlBuf.append("       END REC_USER_NAME");
 		sqlBuf.append("  FROM XYG_ALB2B_SEND_V");
 		sqlBuf.append(" WHERE SEND_USER_ID = :1");
-		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_TITLE",sendTitle,paramMap));
-		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_DATE",sendDate_F, sendDate_T,paramMap));
-		paramMap.put("1", userId);
-		sqlBuf.append(" ORDER BY "+orderBy);
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_TITLE",conditionMap.get("sendTitle"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_DATE",conditionMap.get("sendDate_F"), conditionMap.get("sendDate_T"),paramMap));
+		paramMap.put("1", conditionMap.get("userId"));
+		sqlBuf.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

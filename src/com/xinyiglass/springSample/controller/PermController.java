@@ -1,7 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,14 +66,15 @@ public class PermController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long userId = TypeConvert.str2Long(req.getParameter("USER_ID"));
-		Long organId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
-		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
-		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
-		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(opvs.findForPage(pageSize, pageNo, goLastPage, userId, organId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("userId", TypeConvert.str2Long(req.getParameter("USER_ID")));
+   		conditionMap.put("organId", TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
+   		conditionMap.put("startDate_F", TypeConvert.str2uDate(req.getParameter("START_DATE_F")));
+   		conditionMap.put("startDate_T", TypeConvert.str2uDate(req.getParameter("START_DATE_T")));
+   		conditionMap.put("endDate_F", TypeConvert.str2uDate(req.getParameter("END_DATE_F")));
+   		conditionMap.put("endDate_T", TypeConvert.str2uDate(req.getParameter("END_DATE_T")));
+		res.getWriter().print(opvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	}
     
     @RequestMapping(value = "/insertOP.do", method = RequestMethod.POST)
@@ -127,14 +129,15 @@ public class PermController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long userId = TypeConvert.str2Long(req.getParameter("USER_ID"));
-		Long funcId = TypeConvert.str2Long(req.getParameter("FUNCTION_ID"));
-		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
-		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
-		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
-		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
-		String orderBy=req.getParameter("orderby");
-		res.getWriter().print(fpvs.findForPage(pageSize, pageNo, goLastPage, userId, funcId, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("userId", TypeConvert.str2Long(req.getParameter("USER_ID")));
+   		conditionMap.put("funcId", TypeConvert.str2Long(req.getParameter("FUNCTION_ID")));
+   		conditionMap.put("startDate_F", TypeConvert.str2uDate(req.getParameter("START_DATE_F")));
+   		conditionMap.put("startDate_T", TypeConvert.str2uDate(req.getParameter("START_DATE_T")));
+   		conditionMap.put("endDate_F", TypeConvert.str2uDate(req.getParameter("END_DATE_F")));
+   		conditionMap.put("endDate_T", TypeConvert.str2uDate(req.getParameter("END_DATE_T")));
+		res.getWriter().print(fpvs.findForPage(pageSize, pageNo, goLastPage, conditionMap, loginId));
 	}
     
     @RequestMapping(value = "/insertFP.do", method = RequestMethod.POST)

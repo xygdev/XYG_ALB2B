@@ -24,10 +24,10 @@ public class UserCustVOService {
 	UserCustVODao ucDao;
 
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long userId,Long loginId) throws Exception{
-		String sql="select * from XYG_ALB2B_USER_CUSTOMER_V WHERE USER_ID = :1 order by "+orderby;
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
+		String sql="select * from XYG_ALB2B_USER_CUSTOMER_V WHERE USER_ID = :1 order by "+conditionMap.get("orderby");
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", userId);
+		paramMap.put("1", conditionMap.get("userId"));
 		return pagePub.qPageForJson(sql, paramMap, pageSize, pageNo, goLastPage);
 	}
 	

@@ -24,12 +24,12 @@ public class CustGroupService {
 	CustGroupDao groupDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForCustPage(int pageSize,int pageNo,boolean goLastPage,Long custId,String orderBy,Long loginId) throws Exception{
+	public String findForCustPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALFR_CUST_ACCOUNT_V A WHERE 1=1");
-		sqlBuff.append(SqlStmtPub.getAndStmt("CUST_ACCOUNT_ID",custId,paramMap));
-		sqlBuff.append(" ORDER BY "+orderBy);
+		sqlBuff.append(SqlStmtPub.getAndStmt("CUST_ACCOUNT_ID",conditionMap.get("custId"),paramMap));
+		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	

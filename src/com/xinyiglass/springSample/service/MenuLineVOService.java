@@ -25,10 +25,11 @@ public class MenuLineVOService {
 	MenuLineVODao menuDao;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long menuId,Long loginId) throws Exception{
-		String sql="SELECT A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_YN',A.ENABLED_FLAG) ENABLED FROM XYG_ALB2B_MENU_LINES_V A WHERE MENU_ID = :1 ORDER BY "+orderby;
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,Map<String,Object> conditionMap,Long loginId) throws Exception{
+		String sql="SELECT A.*,XYG_ALD_COMMON_PKG.GET_LKM_BY_LKCODE('XYG_ALB2B_YN',A.ENABLED_FLAG) ENABLED "
+				+ " FROM XYG_ALB2B_MENU_LINES_V A WHERE MENU_ID = :1 ORDER BY "+conditionMap.get("orderby");
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", menuId);
+		paramMap.put("1", conditionMap.get("menuId"));
 		return pagePub.qPageForJson(sql, paramMap, pageSize, pageNo, goLastPage);
 	}
 	

@@ -1,6 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,13 +63,14 @@ public class InvController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby=req.getParameter("orderby");
-		Long organizationId=TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-		Long width=TypeConvert.str2Long(req.getParameter("WIDTH"));
-		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
-		Double thickness=TypeConvert.str2Double(req.getParameter("THICKNESS"));	
-		String coatingType=req.getParameter("COATING_TYPE");
-		res.getWriter().print(lis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, coatingType,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("organizationId", TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
+   		conditionMap.put("width", TypeConvert.str2Long(req.getParameter("WIDTH")));
+   		conditionMap.put("height",TypeConvert.str2Long(req.getParameter("HEIGHT")) );
+   		conditionMap.put("thickness", TypeConvert.str2Double(req.getParameter("THICKNESS")));
+   		conditionMap.put("coatingType", req.getParameter("COATING_TYPE"));
+		res.getWriter().print(lis.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping("/ffInvQuery.do")
@@ -81,15 +84,16 @@ public class InvController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby=req.getParameter("orderby");
-		Long organizationId=TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-		Long width=TypeConvert.str2Long(req.getParameter("WIDTH"));
-		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
-		Double thickness=TypeConvert.str2Double(req.getParameter("THICKNESS"));	
-		String colour=req.getParameter("COLOUR");
-		String grade=req.getParameter("GRADE");
-		String packCode=req.getParameter("PACK_CODE");
-		res.getWriter().print(fis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, colour, grade, packCode,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("organizationId", TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
+   		conditionMap.put("width", TypeConvert.str2Long(req.getParameter("WIDTH")));
+   		conditionMap.put("height",TypeConvert.str2Long(req.getParameter("HEIGHT")) );
+   		conditionMap.put("thickness",TypeConvert.str2Double(req.getParameter("THICKNESS")) );
+   		conditionMap.put("colour", req.getParameter("COLOUR"));
+   		conditionMap.put("grade", req.getParameter("GRADE"));
+   		conditionMap.put("packCode",req.getParameter("PACK_CODE") );
+		res.getWriter().print(fis.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping("/resnInvQuery.do")
@@ -103,13 +107,14 @@ public class InvController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderby=req.getParameter("orderby");
-		Long custId=TypeConvert.str2Long(req.getParameter("CUSTOMER_ID"));
-		Long width=TypeConvert.str2Long(req.getParameter("WIDTH"));
-		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
-		String coatingType=req.getParameter("COATING_TYPE");
-	    String packCode=req.getParameter("PACK_CODE");
-		res.getWriter().print(ris.findForPage(pageSize, pageNo, goLastPage, orderby, custId, width, height, coatingType, packCode,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("custId", TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
+   		conditionMap.put("width", TypeConvert.str2Long(req.getParameter("WIDTH")));
+   		conditionMap.put("height", TypeConvert.str2Long(req.getParameter("HEIGHT")));
+   		conditionMap.put("coatingType", req.getParameter("COATING_TYPE"));
+   		conditionMap.put("packCode", req.getParameter("PACK_CODE"));
+		res.getWriter().print(ris.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping("/onhandSet.do")
@@ -123,9 +128,10 @@ public class InvController {
 		int pageSize =Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo = Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage = Boolean.parseBoolean(req.getParameter("goLastPage"));
-		String orderBy = req.getParameter("orderby");
-		Long organId = TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
-		res.getWriter().print(oss.findForPage(pageSize, pageNo, goLastPage, organId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("organId", TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID")));
+		res.getWriter().print(oss.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping(value = "/preUpdateOS.do", method = RequestMethod.POST)

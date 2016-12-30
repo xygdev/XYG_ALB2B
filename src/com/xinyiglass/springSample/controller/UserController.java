@@ -1,7 +1,8 @@
 package com.xinyiglass.springSample.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,14 +111,15 @@ public class UserController {
 		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-		Long userId = TypeConvert.str2Long(req.getParameter("USER_ID"));
-		Long respId = TypeConvert.str2Long(req.getParameter("RESP_ID"));
-		String userType = req.getParameter("USER_TYPE");
-		Date startDate_F = TypeConvert.str2uDate(req.getParameter("START_DATE_F"));
-		Date startDate_T = TypeConvert.str2uDate(req.getParameter("START_DATE_T"));
-		Date endDate_F = TypeConvert.str2uDate(req.getParameter("END_DATE_F"));
-		Date endDate_T = TypeConvert.str2uDate(req.getParameter("END_DATE_T"));
-		String orderBy=req.getParameter("orderby");
+		Map<String,Object> conditionMap=new HashMap<String,Object>();
+		conditionMap.put("userId", TypeConvert.str2Long(req.getParameter("USER_ID")));
+		conditionMap.put("respId", TypeConvert.str2Long(req.getParameter("RESP_ID")));
+		conditionMap.put("userType", req.getParameter("USER_TYPE"));
+		conditionMap.put("startDate_F", TypeConvert.str2uDate(req.getParameter("START_DATE_F")));
+		conditionMap.put("startDate_T", TypeConvert.str2uDate(req.getParameter("START_DATE_T")));
+		conditionMap.put("endDate_F", TypeConvert.str2uDate(req.getParameter("END_DATE_F")));
+		conditionMap.put("endDate_T", TypeConvert.str2uDate(req.getParameter("END_DATE_T")));
+		conditionMap.put("orderBy", req.getParameter("orderby"));
 		//test并发安全
 		/*if(loginId==75){//uvos.getLoginId()!=null&&uvos.getLoginId()
 			System.out.println(Thread.currentThread().getId()+":WAITTING...该线程应该的登录ID:"+loginId+",会话:"+sess);
@@ -130,7 +132,7 @@ public class UserController {
 		 }
 		System.out.println(Thread.currentThread().getId()+":-->该线程匹配的longId:"+loginId+",会话:"+sess+",Serv:"+UVS);
 		 */
-		res.getWriter().print(UVS.findForPage(pageSize, pageNo, goLastPage, userId, respId, userType, startDate_F, startDate_T, endDate_F, endDate_T, orderBy,loginId));
+		res.getWriter().print(UVS.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     
     @RequestMapping(value = "/userPreUpdate.do", method = RequestMethod.POST)

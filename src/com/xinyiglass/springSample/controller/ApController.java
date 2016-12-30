@@ -3,6 +3,8 @@ package com.xinyiglass.springSample.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -66,9 +68,10 @@ public class ApController {
    		int pageSize=Integer.parseInt(req.getParameter("pageSize"));
    		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
    		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
-   		String orderBy=req.getParameter("orderby");
-   		Long userId = (Long)sess.getAttribute("USER_ID");
-   		res.getWriter().print(as.findForPage(pageSize, pageNo, goLastPage, userId, orderBy,loginId));
+   		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("orderBy", req.getParameter("orderby"));
+   		conditionMap.put("userId", (Long)sess.getAttribute("USER_ID"));
+   		res.getWriter().print(as.findForPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
    	}
 
     @RequestMapping(value = "/getApOutput.do")
