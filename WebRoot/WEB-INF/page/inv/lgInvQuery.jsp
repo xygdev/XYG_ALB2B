@@ -147,7 +147,7 @@
           </form>
         </div>
         <div class='foot'>             
-          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query">查询</button>
+          <button class="right pointer"  data-buttonframe="table" data-keyup="enter" data-crudtype="query" data-pageframe="query" data-func="$().beforeQuery();">查询</button>
         </div> 
       </div>
       <!-- 条件查询区域 end -->    
@@ -165,13 +165,35 @@
     		
     		$().crudListener();	
     		
+    		$.fn.beforeQuery = function(){
+    		    RegExpValidate('^[0-9]+(.[0-9]{1})?$','THICKNESS','regExpError("请输入小数点后至多一位的正实数！");');
+    		    RegExpValidate('^\\+?[1-9][0-9]*$','WIDTH','regExpError("请输入非零正整数!");');
+    		    RegExpValidate('^\\+?[1-9][0-9]*$','HEIGHT','regExpError("请输入非零正整数!");');
+    		}
+    		
     		$.fn.validateOrgan = function(){
     		   organizationId = $('#ORGANIZATION_ID').val();
     		   if(organizationId==null||organizationId==''){
     		       $('.ajax_loading').hide();
     		       layer.alert('必须选择库存组织才能查询库存！',{skin:'layui-layer-lan',title:'警告',offset:[150]});
     		       throw new error('必须选择库存组织才能查询库存！');
-    		   }  
+    		   }else{
+    		       sync = "SYNC_CODE=SYNC_ONHAND";
+    		       $.ajax({
+				       type:'post', 
+				       data:sync,
+				       url:'perm/getEdiLog.do',
+				       dataType:'json',
+				       success: function (data) {
+				    	   if(data.rows[0].COUNT=='1'){
+				    	       layer.alert('正在同步最新库存,现有库存可能存在部分差异！请知悉！',{skin:'layui-layer-lan',title:'警告',offset:[150]});
+				    	   }					  
+				       },
+				       error: function () {
+				    	   layer.alert("获取数据失败",{title:'警告',offset: [150]});
+				       }	
+                   });  
+    		   }    
     		} 		
         });
         
@@ -229,6 +251,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

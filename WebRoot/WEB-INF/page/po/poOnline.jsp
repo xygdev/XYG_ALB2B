@@ -357,8 +357,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="po/updatePoLine.do" data-refresh="sub_refresh">保存</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="po/insertPoLine.do" data-refresh="sub_refresh">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="po/updatePoLine.do" data-refresh="sub_refresh" data-func="$().beforeUpdateDetail();">保存</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="po/insertPoLine.do" data-refresh="sub_refresh" data-func="$().beforeInsertDetail();">新增</button>
         </div>    
       </div>   
     <!-- 菜单明细新增/更新区域 end -->  
@@ -480,7 +480,8 @@
     		    if(sqm_price==null||sqm_price==''){
     		        return;
     		    }
-    		    amount = parseInt(sqm) * parseInt(sqm_price);
+    		    amount = parseFloat(sqm) * parseFloat(sqm_price);
+    		    amount = amount.toFixed(2);
     		    $('#AMOUNT_D').val(amount);
     		});
     		
@@ -533,7 +534,22 @@
     		    	$('#STATUS_DESC_LINES').val(statusDesc);
     		    	$('#sub_refresh').click();
     		    });    		   
-    		} 	  	
+    		} 	  
+    		
+    		$.fn.beforeInsertDetail = function(){
+    			RegExpValidate('^[0-9]+(.[0-9]{2})?$','THICKNESS_D','regExpError("厚度只能输入小数点后至多一位的正实数");');
+    			RegExpValidate('^\\+?[1-9][0-9]*$','WIDTH_D','regExpError("宽度只能输入非零正整数!");');
+    			RegExpValidate('^\\+?[1-9][0-9]*$','HEIGHT_D','regExpError("高度只能输入非零正整数!");');
+    			RegExpValidate('^\\+?[1-9][0-9]*$','PIE_QUANTITY_D','regExpError("片数只能输入非零正整数!");');
+    		
+    		}
+    		$.fn.beforeUpdateDetail = function(){
+    		   RegExpValidate('^[0-9]+(.[0-9]{2})?$','THICKNESS_D','regExpError("厚度只能输入小数点后至多一位的正实数");');
+    		   RegExpValidate('^\\+?[1-9][0-9]*$','WIDTH_D','regExpError("宽度只能输入非零正整数!");');
+    		   RegExpValidate('^\\+?[1-9][0-9]*$','HEIGHT_D','regExpError("高度只能输入非零正整数!");');
+    		   RegExpValidate('^\\+?[1-9][0-9]*$','PIE_QUANTITY_D','regExpError("片数只能输入非零正整数!");');
+    		   RegExpValidate('^[0-9]+(.[0-9]{2})?$','SQM_UNIT_PRICE_D','regExpError("单位面积必须是精确到小数点后两位的正实数");');
+    		}	
     		
     		$.fn.autoAddSeq = function(){
     		    poHeaderId = $('#PO_HEADER_ID_LINES').val();
@@ -732,6 +748,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

@@ -116,7 +116,7 @@
       <jsp:include page="../public/lov.jsp"></jsp:include>
       <!-- lov区域 end -->
      
-      <!-- 更新/新增用户区域 start -->
+      <!-- 更新/新增职责区域 start -->
       <div id='ui' class='update_frame'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-globe fa-1x" aria-hidden="true"></i>&nbsp;更新职责</span>
@@ -145,11 +145,11 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="resp/update.do" data-updateparam=["RESP_ID","#RESP_ID"] >提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="resp/insert.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="resp/update.do" data-func="$().beforeUpdate();">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="resp/insert.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
-      <!-- 更新/新增用户区域 end -->
+      <!-- 更新/新增职责区域 end -->
      
       <!-- 条件查询区域 start -->
       <div id='query' class='query_frame'>     
@@ -195,7 +195,15 @@
     		$("#query").draggable({ handle: ".title" });
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
-    		$().revealListener(); 	 	
+    		$().revealListener(); 	 
+    		$.fn.beforeInsert = function(){
+    			RegExpValidate('^\\w+$','RESP_CODE','regExpError("职责编码格式不符合规范!");');
+    			RegExpValidate('^[\u4e00-\u9fa5]{0,}$','RESP_NAME','regExpError("职责名称必须为汉字!");');
+    		}
+    		$.fn.beforeUpdate = function(){
+    		    RegExpValidate('^\\w+$','RESP_CODE','regExpError("职责编码格式不符合规范!");');
+    		    RegExpValidate('^[\u4e00-\u9fa5]{0,}$','RESP_NAME','regExpError("职责名称必须为汉字!");');
+    		}	
     		$.fn.afterReveal = function(){
     		    $('#START_DATE').val(new Date().format('yyyy-MM-dd hh:mm:ss'));
     		    $('label[for="RESP_CODE"]').click();
@@ -280,6 +288,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

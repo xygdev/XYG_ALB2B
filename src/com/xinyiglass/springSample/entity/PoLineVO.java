@@ -23,7 +23,7 @@ public class PoLineVO implements FactoryBean,RowMapper<PoLineVO>,Cloneable{
 	   private Long heightEn;
 	   private Long pieQuantity;
 	   private Long sqm;
-	   private Long sqmUnitPrice;
+	   private Double sqmUnitPrice;
 	   private Long pieUnitPrice;
 	   private Long amount;
 	   private String status;
@@ -126,10 +126,10 @@ public class PoLineVO implements FactoryBean,RowMapper<PoLineVO>,Cloneable{
 	   public void setSqm(Long sqm) {
 	      this.sqm = sqm;
 	   }
-	   public Long getSqmUnitPrice() {
+	   public Double getSqmUnitPrice() {
 	      return sqmUnitPrice;
 	   }
-	   public void setSqmUnitPrice(Long sqmUnitPrice) {
+	   public void setSqmUnitPrice(Double sqmUnitPrice) {
 	      this.sqmUnitPrice = sqmUnitPrice;
 	   }
 	   public Long getPieUnitPrice() {
@@ -221,7 +221,7 @@ public class PoLineVO implements FactoryBean,RowMapper<PoLineVO>,Cloneable{
 		   lpl.setHeightEn(rs.getObject("height_en")==null?null:rs.getLong("height_en"));
 		   lpl.setPieQuantity(rs.getLong("pie_quantity"));
 		   lpl.setSqm(rs.getObject("sqm")==null?null:rs.getLong("sqm"));
-		   lpl.setSqmUnitPrice(rs.getObject("sqm_unit_price")==null?null:rs.getLong("sqm_unit_price"));
+		   lpl.setSqmUnitPrice(rs.getObject("sqm_unit_price")==null?null:rs.getDouble("sqm_unit_price"));
 		   lpl.setPieUnitPrice(rs.getObject("pie_unit_price")==null?null:rs.getLong("pie_unit_price"));
 		   lpl.setAmount(rs.getObject("amount")==null?null:rs.getLong("amount"));
 		   lpl.setStatus(rs.getString("status"));

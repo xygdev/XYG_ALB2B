@@ -133,8 +133,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="func/update.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="func/insert.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="func/update.do" data-func="$().beforeUpdate();">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="func/insert.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -176,7 +176,18 @@
 	 
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
-    		$().revealListener(); 	
+    		$().revealListener(); 
+    		
+    		$.fn.beforeInsert = function(){
+    			RegExpValidate('^\\w+$','FUNCTION_CODE','regExpError("功能编码格式不符合规范!");');
+    			RegExpValidate('^[\u4e00-\u9fa5]{0,}$','FUNCTION_NAME','regExpError("功能名称必须为汉字!");');
+    			RegExpValidate('[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?','FUNCTION_HREF','regExpError("功能链接格式不符合url规范!");');
+    		}
+    		$.fn.beforeUpdate = function(){	
+    		    RegExpValidate('^\\w+$','FUNCTION_CODE','regExpError("功能编码格式不符合规范!");');
+    		    RegExpValidate('^[\u4e00-\u9fa5]{0,}$','FUNCTION_NAME','regExpError("功能名称必须为汉字!");');
+    		    RegExpValidate('[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?','FUNCTION_HREF','regExpError("功能链接格式不符合url规范!");');
+    		}	
         });
         
         jQuery.json={
@@ -235,6 +246,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 $(function() {
 	 	errorMSG=$('#errorMsg').val();
 	 	if(errorMSG!=null&&errorMSG!=''){
-	    	alert(errorMSG);
+			layer.alert(errorMSG,{title:'警告',offset:[150]});
 	 	}
 	 	
 	 	$('i[data-pwd]').on('click',function(){
@@ -68,13 +68,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      	    e.preventDefault();
      	    newPwd=$('#N_PASSWORD').val();
      	    oldPwd=$('#O_PASSWORD').val();
+     	    if(oldPwd==null||oldPwd==''){
+				layer.alert('原密码不能为空！',{title:'警告',offset:[150]});
+				return;
+     	    }else if(newPwd==null||newPwd==''){
+     	        layer.alert('新密码不能为空！',{title:'警告',offset:[150]});
+     	        return;
+     	    }
+     	    RegExpValidate('^[a-zA-Z]\\w{5,14}$','N_PASSWORD','regExpError("密码格式错误，必须是由字母开头的6-15位字符");');
      	    if(newPwd==oldPwd){
-     	      alert('新密码不能与原密码相同,请重新输入!');
-     	      return;
+				layer.alert('新密码不能与原密码相同,请重新输入!',{title:'警告',offset:[150]});
+     	        return;
      	    }    
      	    $('#updateData').submit();
      	});
+     	
+     	
+     	$('body').off().keyup();
+		$('body').keyup(function(e) {
+		    if(e.which===13){
+                $('#confirm').trigger('click');
+		    }
+		 });	
      });
 	 </script>
+	 <script type="text/javascript" src="plugin/layer/layer.js"></script>
+     <script type="text/javascript" src="plugin/js/data.validate.js"></script>
   </body>
 </html>

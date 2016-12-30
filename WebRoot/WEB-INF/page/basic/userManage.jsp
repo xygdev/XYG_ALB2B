@@ -81,7 +81,7 @@
           <i class="fa fa-search pointer" data-reveal-id="query" data-key="true" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-user-plus pointer" data-reveal-id="ui" data-key="true" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforeInsert(); " data-revealfunc="$().afterReveal(); " ></i>
+          <i class="fa fa-user-plus pointer" data-reveal-id="ui" data-key="true" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforePreInsert(); " data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -211,7 +211,7 @@
         </div>
         <div class='foot'>       
           <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="user/update.do" data-func="$().validateUserType();">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="user/insert.do" data-func="$().validateUserType();">新增</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="user/insert.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -332,6 +332,7 @@
       <input type="hidden" id="HEADER_ID" value=""/> 
       <!-- 用户信息存放区域 end -->  
     </div>   
+    
     <script>       
         $(function() {
             //设置拖拽
@@ -370,9 +371,14 @@
     			});
     		}
     		
-    		$.fn.beforeInsert = function(){
+    		$.fn.beforePreInsert = function(){	    
     		    $('#PASSWORD').attr('required','required');
     		    $('#USER_NAME').removeAttr('readonly');
+    		}
+    		
+    		$.fn.beforeInsert = function(){
+    		    RegExpValidate('^[a-zA-Z]\\w{5,14}$','USER_NAME','regExpError("用户名格式错误，必须是由字母开头的6-15位字符");');
+                $().validateUserType();
     		}
     		
     		$.fn.afterReveal = function(){
@@ -580,6 +586,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

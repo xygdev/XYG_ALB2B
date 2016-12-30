@@ -18,7 +18,7 @@ public class FfInvService {
 	PagePub pagePub;
 	
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long organizationId,Long width,Long height,Long thickness,String colour,String grade,String packCode,Long loginId) throws Exception{
+	public String findForPage(int pageSize,int pageNo,boolean goLastPage,String orderby,Long organizationId,Long width,Long height,Double thickness,String colour,String grade,String packCode,Long loginId) throws Exception{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("SELECT * FROM XYG_ALB2B_FF_ONHAND_V WHERE 1=1");

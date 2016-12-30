@@ -127,8 +127,8 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="inv/updateOS.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="inv/insertOS.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="inv/updateOS.do" data-func="$().beforeUpdate();">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="inv/insertOS.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
       <!-- 更新/新增用户区域 end -->
@@ -170,7 +170,16 @@
     		
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
-    		$().revealListener(); 	 		
+    		$().revealListener(); 
+    		
+    		$.fn.beforeInsert = function(){
+    			RegExpValidate('^\\+?[1-9][0-9]*$','GREATER_BOX','regExpError("上限值请输入非零正整数!");');
+    			RegExpValidate('^\\+?[1-9][0-9]*$','DISPLAY_BOX','regExpError("显示值请输入非零正整数!");');
+    		}
+    		$.fn.beforeUpdate = function(){
+    		    RegExpValidate('^\\+?[1-9][0-9]*$','GREATER_BOX','regExpError("上限值请输入非零正整数!");');
+    		    RegExpValidate('^\\+?[1-9][0-9]*$','DISPLAY_BOX','regExpError("显示值请输入非零正整数!");');
+    		}	 		
         });
         
         jQuery.json={
@@ -214,6 +223,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

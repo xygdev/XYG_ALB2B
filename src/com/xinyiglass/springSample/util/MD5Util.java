@@ -41,9 +41,22 @@ public class MD5Util {
   
     // 测试主函数  
     public static void main(String args[]) {  
-        String s = new String("123456");  
-        System.out.println("MD5加密前：" + s);  
-        System.out.println("MD5加密后：" + string2MD5(s)); 
+    	StringBuffer sb = new StringBuffer(); 
+    	for(int i=0;i<=1000000;i++){    
+    		if(i==0){
+    			sb.append("B");
+    		}else{
+    			sb.append("A");
+    			if(i==1000000){
+    				System.out.println("length:"+sb.length());
+    				System.out.println("MD5加密后：" + string2MD5(sb.toString())); 
+    				System.out.println("MD5加密后length：" + string2MD5(sb.toString()).length()); 
+    			}
+    		}
+        }
+        //String s = new String("123456");  
+        //System.out.println("MD5加密前：" + s);  
+        //System.out.println("MD5加密后：" + string2MD5(s)); 
     }  
 }  
 

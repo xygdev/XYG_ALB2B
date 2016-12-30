@@ -191,7 +191,7 @@
     		$().crudListener();
     		$().revealListener(); 
     		
-    		$.fn.getCustId = function(tr){
+    		$.fn.getCustId = function(tr){    
     		    param = 'CUST_ACCOUNT_ID='+tr.children('.CUST_ACCOUNT_ID').text()+'&';
     		}	 	
     		

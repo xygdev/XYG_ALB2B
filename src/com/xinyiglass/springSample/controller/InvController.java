@@ -65,7 +65,7 @@ public class InvController {
 		Long organizationId=TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
 		Long width=TypeConvert.str2Long(req.getParameter("WIDTH"));
 		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
-		Long thickness=TypeConvert.str2Long(req.getParameter("THICKNESS"));
+		Double thickness=TypeConvert.str2Double(req.getParameter("THICKNESS"));	
 		String coatingType=req.getParameter("COATING_TYPE");
 		res.getWriter().print(lis.findForPage(pageSize, pageNo, goLastPage, orderby, organizationId, width, height, thickness, coatingType,loginId));
 	}
@@ -85,7 +85,7 @@ public class InvController {
 		Long organizationId=TypeConvert.str2Long(req.getParameter("ORGANIZATION_ID"));
 		Long width=TypeConvert.str2Long(req.getParameter("WIDTH"));
 		Long height=TypeConvert.str2Long(req.getParameter("HEIGHT"));
-		Long thickness=TypeConvert.str2Long(req.getParameter("THICKNESS"));	
+		Double thickness=TypeConvert.str2Double(req.getParameter("THICKNESS"));	
 		String colour=req.getParameter("COLOUR");
 		String grade=req.getParameter("GRADE");
 		String packCode=req.getParameter("PACK_CODE");

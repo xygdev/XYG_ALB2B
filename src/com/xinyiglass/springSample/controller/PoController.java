@@ -199,7 +199,7 @@ public class PoController {
     	pl.setWidth(TypeConvert.str2Long(req.getParameter("WIDTH")));
     	pl.setHeight(TypeConvert.str2Long(req.getParameter("HEIGHT")));
     	pl.setPieQuantity(TypeConvert.str2Long(req.getParameter("PIE_QUANTITY")));
-    	pl.setSqmUnitPrice(TypeConvert.str2Long(req.getParameter("SQM_UNIT_PRICE")));
+    	pl.setSqmUnitPrice(TypeConvert.str2Double(req.getParameter("SQM_UNIT_PRICE")));
     	pl.setStatus(req.getParameter("STATUS"));
     	pl.setRemark(req.getParameter("REMARK"));
     	res.getWriter().print(plvs.update(lockPoLineVO, pl, userType, funcId,loginId).toJsonStr());

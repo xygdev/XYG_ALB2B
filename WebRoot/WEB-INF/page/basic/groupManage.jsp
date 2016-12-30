@@ -106,7 +106,7 @@
       <jsp:include page="../public/lov.jsp"></jsp:include>
       <!-- lov区域 end -->
      
-      <!-- 更新/新增用户区域 start -->
+      <!-- 更新/新增工作组头区域 start -->
       <div id='ui' class='update_frame'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-users fa-1x" aria-hidden="true"></i>&nbsp;更新工作组</span>
@@ -126,11 +126,11 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-keyup="enter" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateGroupHeader.do">提交更新</button>
-          <button class="right update_confirm pointer" data-keyup="enter" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="group/insertGroupHeader.do">新增</button>
+          <button class="right update_confirm pointer" data-keyup="enter" data-type="update" data-crudtype="update" data-pageframe="ui" data-updateurl="group/updateGroupHeader.do" data-func="$().beforeUpdate();">提交更新</button>
+          <button class="right update_confirm pointer" data-keyup="enter" data-type="insert" data-crudtype="insert" data-pageframe="ui" data-inserturl="group/insertGroupHeader.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
-      <!-- 更新/新增用户区域 end -->
+      <!-- 更新/新增工组组头区域 end -->
      
       <!-- 条件查询区域 start -->
       <div id='query' class='query_frame'>     
@@ -242,11 +242,11 @@
           <select class='left long' id='GROUP_ENABLED_FLAG' name='ENABLED_FLAG' data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
           <br style="clear:both"/>
           <label for='SUB_GROUP_CODE' class='left'>工作组编码</label> 
-          <input type="text" id="SUB_GROUP_CODE" name="SUB_GROUP_CODE" data-update="db" class="left short" readonly="readonly" required='required'/>
+          <input type="text" id="SUB_GROUP_CODE" name="SUB_GROUP_CODE" data-update="db" class="left short" readonly="readonly" required="required"/>
           <input type='hidden' id='SUB_GROUP_ID' name='SUB_GROUP_ID' data-update="db"/>
           <input type="button" id="SUB_GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["LOV_GROUP_ID","LOV_GROUP_CODE","LOV_GROUP_NAME","LOV_DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".LOV_GROUP_ID",".LOV_GROUP_CODE",".LOV_GROUP_NAME"] data-recid=["#SUB_GROUP_ID","#SUB_GROUP_CODE","#SUB_GROUP_NAME"]  value="···"/> 
           <label for='SUB_GROUP_NAME' class='left'>工作组名称</label> 
-          <input type="text" id="SUB_GROUP_NAME" name="SUB_GROUP_NAME" data-update="db" class="left long" readonly="readonly"/>
+          <input type="text" id="SUB_GROUP_NAME" name="SUB_GROUP_NAME" data-update="db" class="left long" readonly="readonly" required="required"/>
         </form>
       </div>
       <div class='foot'>       
@@ -274,6 +274,15 @@
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
     		$().revealListener(); 
+    		
+    		$.fn.beforeInsert = function(){
+    			RegExpValidate('^\\w+$','GROUP_CODE','regExpError("职责编码格式不符合规范!");');
+    			RegExpValidate('^[\u4e00-\u9fa5]{0,}$','GROUP_NAME','regExpError("职责名称必须为汉字!");');
+    		}
+    		$.fn.beforeUpdate = function(){
+    		    RegExpValidate('^\\w+$','GROUP_CODE','regExpError("职责编码格式不符合规范!");');
+    		    RegExpValidate('^[\u4e00-\u9fa5]{0,}$','GROUP_NAME','regExpError("职责名称必须为汉字!");');
+    		}	
     		
     		$.fn.setParam = function(){
     		    groupId=$('#GROUP_ID_LINES').val();
@@ -381,6 +390,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

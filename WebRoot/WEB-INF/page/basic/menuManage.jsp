@@ -110,7 +110,7 @@
       <jsp:include page="../public/lov.jsp"></jsp:include>
       <!-- lov区域 end -->
      
-      <!-- 更新/新增用户区域 start -->
+      <!-- 更新/新增菜单区域 start -->
       <div id='ui' class='update_frame'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list fa-1x" aria-hidden="true"></i>&nbsp;更新菜单</span>
@@ -134,11 +134,11 @@
           </form>
         </div>
         <div class='foot'>       
-          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="menu/updateMenuHeader.do">提交更新</button>
-          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="menu/insertMenuHeader.do">新增</button>
+          <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="ui" data-updateurl="menu/updateMenuHeader.do" data-func="$().beforeUpdate();">提交更新</button>
+          <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="ui" data-inserturl="menu/insertMenuHeader.do" data-func="$().beforeInsert();">新增</button>
         </div>    
       </div> 
-      <!-- 更新/新增用户区域 end -->
+      <!-- 更新/新增菜单区域 end -->
      
       <!-- 条件查询区域 start -->
       <div id='query' class='query_frame'>     
@@ -292,6 +292,15 @@
     		$().crudListener();	
     		$().revealListener(); 
     		
+    		$.fn.beforeInsert = function(){
+    			RegExpValidate('^\\w+$','MENU_CODE','regExpError("菜单编码格式不符合规范!");');
+    			RegExpValidate('^[\u4e00-\u9fa5]{0,}$','MENU_NAME','regExpError("菜单名称必须为汉字!");');
+    		}
+    		$.fn.beforeUpdate = function(){
+    		    RegExpValidate('^\\w+$','MENU_CODE','regExpError("菜单编码格式不符合规范!");');
+    		    RegExpValidate('^[\u4e00-\u9fa5]{0,}$','MENU_NAME','regExpError("菜单名称必须为汉字!");');
+    		}
+    		
     		$.fn.setParam = function(){
     		    menuId=$('#MENU_ID_LINES').val();
     		    param=param+'&MENU_ID='+menuId;
@@ -429,6 +438,7 @@
        	}
     </script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 

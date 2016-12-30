@@ -150,11 +150,12 @@
 			/******预更新方法******/
 			else if(options.crudtype=='pre-update'){
 				pageframe=$(this).attr('data-reveal-id');
-				var param = '';
+				param = '';
 				tr=$(this).parent().parent();
 				if(options.func!=null||options.func!=''){
 					eval(options.func);
 				}
+				console.log(param);
 				$('#'+pageframe+' input[data-update="db"]').val('');
 				$('#'+pageframe+' input[type="checkbox"]').prop('checked',false);
                 $('#'+pageframe+' select[data-update="db"]').val('');
@@ -164,7 +165,7 @@
                 $('#'+pageframe+' span[data-type="'+options.type+'"]').show();
                 $('#'+pageframe+' button[data-type="'+options.type+'"]').show();
 				param=param+options.updateparam[0]+'='+tr.children(options.updateparam[1]).text();/****设置参数****/
-				console.log('开始pre-update');
+				console.log(param);
 		        $.ajax({
 					type:'post', 
 					data:param,
