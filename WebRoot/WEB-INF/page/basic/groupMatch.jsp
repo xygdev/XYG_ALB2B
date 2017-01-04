@@ -159,13 +159,10 @@
             <input type='text' id="GROUP_NAME_Q" name="GROUP_NAME" data-update="db" class="left mid" data-modify="true" data-pageframe="ui" data-validurl="lov/validGroupName.do" data-queryurl="lov/getGroupId.do" data-lovbtn="GROUP_LOV_Q" data-hiddenid=["GROUP_ID_Q"] data-hiddenval=["GROUP_ID"] data-param="groupName"/>
             <input type='hidden' id='GROUP_ID_Q' name='GROUP_ID' data-update="db"/>
             <input type="button" id="GROUP_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_NAME"] data-recid=["#GROUP_ID_Q","#GROUP_NAME_Q"]  value="···"/>
-            <br style="clear:both"/>
             <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
             <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" readonly="readonly"/>
             <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
             <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q","#ACCOUNT_NUMBER_Q"] value="···"/> 
-            <label for="ACCOUNT_NUMBER_Q" class="left mid">账号编码:</label>
-            <input type="text" id="ACCOUNT_NUMBER_Q" name="ACCOUNT_NUMBER" class="left long" readonly="readonly"/>
             <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q","ACCOUNT_NUMBER_Q"]></i>
           </form>
         </div>

@@ -8,13 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">    
-    <title>信义玻璃</title>    
+    <title>信义玻璃</title>   
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9,chrome=1">   
     <!-- 图标cdn引入 -->
     <link rel="stylesheet" href="plugin/css/font-awesome.min.css">
     <!-- 新 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="plugin/bootstrap/css/bootstrap.min.css">
 	<!-- 核心布局 CSS文件 -->
-	<link rel="stylesheet" href="plugin/css/login.css">
+	<link rel="stylesheet" href="plugin/css/login/login.css">
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
@@ -22,11 +23,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+    <!--[if lte IE 9]>
+      <script>
+        href=$('base').attr('href')+'login-ie.do';
+        window.location.href(href);
+      </script>
+    <!--<![endif]-->
     
     <!-- 欢迎页区域 start -->
     <div id="welcome-page" style="opacity:1">
       <div class="reveal-modal-bg"></div>
       <!-- 右上角区域 start -->
+      <!-- 
       <div class="dropdown langue-frame">
    		<button type="button" class="btn dropdown-toggle langue-btn" id="dropdownMenu1" data-toggle="dropdown">
                             语言<span class="caret"></span>
@@ -40,6 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </li>
         </ul>
       </div>
+       -->
       <!-- 右上角区域 end -->
       <!-- 左上角区域 start -->
       <div class="logo-frame">

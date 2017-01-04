@@ -28,7 +28,7 @@ public class SecurityServlet extends HttpServlet implements Filter {
            System.out.println("ReqURI:"+url);*/
            if(user==null || "".equals(user) || resp == null ||loginId==null|| "".equals(resp)) {        
                 //判断获取的路径不为空且不是访问登录页面或执行登录操作时跳转     
-                if(url!=null && !url.equals("") && (url.indexOf("login.do")<0 ) && (url.indexOf("404.do")<0) && (url.indexOf("logout.do")<0)) {     
+                if(url!=null && !url.equals("") && (url.indexOf("login.do")<0 ) && (url.indexOf("404.do")<0) && (url.indexOf("logout.do")<0)&& (url.indexOf("login-ie.do")<0)) {     
                     //res.sendRedirect(req.getContextPath() + "/error/sessionTimeout");    
                     req.getRequestDispatcher("/WEB-INF/page/error/sessionTimeout.jsp").forward(req,res);
                     return ;     

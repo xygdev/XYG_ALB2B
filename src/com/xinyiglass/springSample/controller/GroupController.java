@@ -66,6 +66,7 @@ public class GroupController {
    		Map<String,Object> conditionMap=new HashMap<String,Object>();
    		conditionMap.put("orderBy", req.getParameter("orderby"));
    		conditionMap.put("custId", TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
+   		conditionMap.put("groupId", TypeConvert.str2Long(req.getParameter("GROUP_ID")));
 		res.getWriter().print(gvs.findForCustPage(pageSize, pageNo, goLastPage, conditionMap,loginId));
 	}
     

@@ -49,8 +49,13 @@ public class LoginController {
     } 
 	
 	@RequestMapping("/")
-	public String index(){
-		return "login-ch";
+	public String login(){
+		return "login/login-ch";
+	}
+	
+	@RequestMapping("/login-ie.do")
+	public String login_ie(){
+		return "login/login-ie";
 	}
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
@@ -119,7 +124,7 @@ public class LoginController {
 			sess.removeAttribute(sessionKeys.nextElement());
 		}*/
 		//LogUtil.log("TEST LOGIN_ID:"+sess.getAttribute("LOGIN_ID"));
-		mv.setViewName("login-ch");
+		mv.setViewName("login/login-ch");
 		return mv;
 	}
 	

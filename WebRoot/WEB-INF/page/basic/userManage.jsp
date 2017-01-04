@@ -401,10 +401,10 @@
     		            throw new error('员工必须维护工作组!',{title:'警告',offset: [150]});
     		        }
     		    }else if($('#USER_TYPE').val()=='CUSTOMER'){
-    		        if($('#EMP_ID').val()!=null||$('#EMP_ID').val()!=''){
+    		        if($('#EMP_ID').val()){
     		            layer.alert('客户不能维护员工名称!',{title:'警告',offset: [150]});
     		            throw new error('客户不能维护员工名称!');
-    		        }else if($('#GROUP_ID').val()!=null||$('#GROUP_ID').val()!=''){
+    		        }else if($('#GROUP_ID').val()){
     		            layer.alert('客户不能维护工作组!');
     		            throw new error('客户不能必须维护工作组!',{title:'警告',offset: [150]});
     		        }

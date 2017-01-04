@@ -29,6 +29,7 @@ public class CustGroupService {
 		StringBuffer sqlBuff = new StringBuffer();
 		sqlBuff.append("SELECT * FROM XYG_ALFR_CUST_ACCOUNT_V A WHERE 1=1");
 		sqlBuff.append(SqlStmtPub.getAndStmt("CUST_ACCOUNT_ID",conditionMap.get("custId"),paramMap));
+		sqlBuff.append(SqlStmtPub.getAndStmt("GROUP_ID",conditionMap.get("groupId"),paramMap));
 		sqlBuff.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuff.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
