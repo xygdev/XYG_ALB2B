@@ -28,6 +28,8 @@
 		               如果为false,则存在值为空的必填项
 		   2016.8.26   优化代码，减少输入参数
 		   2016.8.31   新增条件查询功能
+		   2017.1.5 新增匿名函数功能：afterdatafunc，作用是数据完成后自动执行的
+ 						对应的crudtype方法：pre-update/update/insert/lovquery
 ***************************************************************************************/
 (function($) {
 	/******************listener start***********************
@@ -155,7 +157,7 @@
 				if(options.func!=null||options.func!=''){
 					eval(options.func);
 				}
-				console.log(param);
+				//console.log(param);
 				$('#'+pageframe+' input[data-update="db"]').val('');
 				$('#'+pageframe+' input[type="checkbox"]').prop('checked',false);
                 $('#'+pageframe+' select[data-update="db"]').val('');
@@ -165,7 +167,7 @@
                 $('#'+pageframe+' span[data-type="'+options.type+'"]').show();
                 $('#'+pageframe+' button[data-type="'+options.type+'"]').show();
 				param=param+options.updateparam[0]+'='+tr.children(options.updateparam[1]).text();/****设置参数****/
-				console.log(param);
+				//console.log(param);
 		        $.ajax({
 					type:'post', 
 					data:param,
@@ -173,6 +175,9 @@
 					dataType:'json',
 					success: function (data) {
 						jQuery.json.getUpdateJSON(data,pageframe);/****获取目标更新行数据****/
+						if(options.afterdatafunc!=null||options.afterdatafunc!=''){//2017.1.5新增匿名函数功能：数据完成后自动执行的
+							eval(options.afterdatafunc);
+						}
 					},
 					error: function () {
 						//alert("获取Json数据失败");
@@ -189,7 +194,7 @@
 	       	        if(options.func!=null||options.func!=''){
 						eval(options.func);
 					}
-	       	        console.log(param);
+	       	        //console.log(param);
 				    //param=options.updateparam[0]+'='+$(options.updateparam[1]).val()+'&'+param;/****设置参数****/
 				    //modify by bird 2016.10.26
 	       	        $.ajax({
@@ -204,7 +209,10 @@
 				    			$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/
 				    		}else{
 				    			layer.alert("更新处理失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
-				    		}						  
+				    		}		
+							if(options.afterdatafunc!=null||options.afterdatafunc!=''){//2017.1.5新增匿名函数功能：数据完成后自动执行的
+								eval(options.afterdatafunc);
+							}				  
 				    	},
 				    	error: function () {
 				    		layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
@@ -241,7 +249,7 @@
 	       	        if(options.func!=null||options.func!=''){
 						eval(options.func);
 					}
-	       	        console.log(param);
+	       	        //console.log(param);
 				    $.ajax({
 				    	type:'post', 
 				    	data:param,
@@ -254,7 +262,10 @@
 				    			$('#'+options.refresh).click();/****点击刷新当前页按钮，刷新数据****/
 				    		}else{
 				    			layer.alert("新增处理失败！错误信息:"+data.errbuf,{title:'警告',offset:[150]});
-				    		}						  
+				    		}		
+							if(options.afterdatafunc!=null||options.afterdatafunc!=''){//2017.1.5新增匿名函数功能：数据完成后自动执行的
+								eval(options.afterdatafunc);
+							}				  
 				    	},
 				    	error: function () {
 				    		layer.alert('获取Json数据失败',{title:'警告',offset:[150]});
@@ -271,7 +282,7 @@
 				if(options.func!=null||options.func!=''){
 					eval(options.func);
 				}
-       	        console.log(cond);
+       	        //console.log(cond);
        	        $('#'+options.buttonframe+' input[data-type="cond"]').val(cond);
        	        $('#'+options.buttonframe+' input[data-type="number"]').val(1);   
        	        $('#'+options.pageframe+' a[data-type="close"]').click();
@@ -308,6 +319,10 @@
 					dataType:'json',
 					success: function (data) {
 						$('table[data-table="'+tablename+'"] td').html('');
+						if(data.rows.length==0){
+							layer.msg('提示: 查询无数据！');
+							return false;
+						}
 						jQuery.json.getMSG(data);
 						$('table[data-table="'+tablename+'"] tr').css('display','');
 						jsontype=$('#'+options.pageframe+' input[data-type="jsontype"]').val();
@@ -321,6 +336,9 @@
 						}
 						width='-'+parseInt($('#'+options.pageframe).css('width'))/2+'px';
 			        	$('#'+options.pageframe).css('margin-left',width);
+						if(options.afterdatafunc!=null||options.afterdatafunc!=''){//2017.1.5新增匿名函数功能：数据完成后自动执行的
+							eval(options.afterdatafunc);
+						}
 					},
 					error: function () {
 						layer.alert('获取Json数据失败',{title:'警告',offset:[150]});

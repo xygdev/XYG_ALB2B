@@ -33,21 +33,7 @@ public class LovService {
 		sqlBuf.append(" ORDER BY USER_ID ");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
-	
-	public String countByUserName(String userName,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_USER WHERE (END_DATE IS NULL OR END_DATE > SYSDATE) AND USER_NAME=:1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", userName);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForUserId(String userName,Long loginId) throws Exception{
-		String sql = "SELECT USER_ID,DESCRIPTION FROM XYG_ALB2B_USER WHERE (END_DATE IS NULL OR END_DATE > SYSDATE) AND USER_NAME=:1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", userName);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
+
 	/***职责LOV***/
 	public String findRespForPage(int pageSize,int pageNo,boolean goLastPage,String respCode,String respName,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
@@ -59,21 +45,7 @@ public class LovService {
 		sqlBuf.append(" ORDER BY RESP_ID ");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}	
-	
-	public String countByRespName(String respName,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_RESPONSIBILITY WHERE (END_DATE IS NULL OR END_DATE > SYSDATE) AND RESP_NAME=:1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", respName);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForRespId(String respName,Long loginId) throws Exception{
-		String sql = "SELECT RESP_ID FROM XYG_ALB2B_RESPONSIBILITY WHERE (END_DATE IS NULL OR END_DATE > SYSDATE) AND RESP_NAME=:1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", respName);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
+
 	/***客户LOV***/
 	public String findCustForPage(int pageSize,int pageNo,boolean goLastPage,String accountNumber,String partyName,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
@@ -143,21 +115,7 @@ public class LovService {
 		sqlBuf.append(" ORDER BY MENU_ID");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}	
-	
-	public String countByMenuCode(String menuCode,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_MENU_HEADERS WHERE MENU_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", menuCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForMenuId(String menuCode,Long loginId) throws Exception{
-		String sql = "SELECT * FROM XYG_ALB2B_MENU_HEADERS WHERE MENU_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", menuCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
+
 	/***图标LOV***/
 	public String findIconForPage(int pageSize,int pageNo,boolean goLastPage,String iconCode,String iconDesc,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
@@ -182,20 +140,6 @@ public class LovService {
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public String countByFuncCode(String funcCode,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_FUNCTIONS WHERE FUNCTION_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", funcCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForFuncId(String funcCode,Long loginId) throws Exception{
-		String sql = "SELECT FUNCTION_ID,FUNCTION_NAME FROM XYG_ALB2B_FUNCTIONS WHERE FUNCTION_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", funcCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
 	/***员工LOV***/
 	public String findEmpForPage(int pageSize,int pageNo,boolean goLastPage,String ename,String eno,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
@@ -208,20 +152,6 @@ public class LovService {
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public String countByEmpName(String ename,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALH_PER_PEOPLE WHERE FULL_NAME = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", ename);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForEmpId(String ename,Long loginId) throws Exception{
-		String sql = "SELECT PERSON_ID EMP_ID FROM XYG_ALH_PER_PEOPLE WHERE FULL_NAME = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", ename);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
 	/***工作组LOV***/
 	public String findGroupForPage(int pageSize,int pageNo,boolean goLastPage,String groupCode,String groupName,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
@@ -232,20 +162,6 @@ public class LovService {
 		sqlBuf.append(SqlStmtPub.getAndStmt("GROUP_NAME", groupName,paramMap));
 		sqlBuf.append(" ORDER BY GROUP_ID");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
-	}
-	
-	public String countByGroupCode(String groupName,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALB2B_GROUP_HEADERS WHERE GROUP_NAME = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", groupName);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForGroupId(String groupName,Long loginId) throws Exception{
-		String sql = "SELECT * FROM XYG_ALB2B_GROUP_HEADERS WHERE GROUP_NAME = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", groupName);
-		return pagePub.qSqlForJson(sql, paramMap);
 	}
 	
     /***库存组织LOV***/
@@ -261,29 +177,13 @@ public class LovService {
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
-	public String countByOrganCode(String organCode,Long loginId) throws Exception{
-		String sql = "SELECT COUNT(*) COUNT FROM XYG_ALI_ORGANIZATION_VL WHERE ORGANIZATION_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", organCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
-	public String findForOrganId(String organCode,Long loginId) throws Exception{
-		String sql = "SELECT * FROM XYG_ALI_ORGANIZATION_VL WHERE ORGANIZATION_CODE = :1";
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", organCode);
-		return pagePub.qSqlForJson(sql, paramMap);
-	}
-	
 	/***用户库存组织LOV***/
 	public String findUserOrganForPage(int pageSize,int pageNo,boolean goLastPage,Long userId,String organCode,String organName,String glassIndustry,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", userId);
-		paramMap.put("2", glassIndustry);
-		sqlBuf.append("SELECT ORGANIZATION_ID,ORGANIZATION_CODE,ORGANIZATION_NAME FROM XYG_ALB2B_ONHAND_PERM_V");
-		sqlBuf.append(" WHERE USER_ID = :1");
-		sqlBuf.append(" AND GLASS_INDUSTRY = :2");
+		sqlBuf.append("SELECT ORGANIZATION_ID,ORGANIZATION_CODE,ORGANIZATION_NAME FROM XYG_ALB2B_ONHAND_PERM_V WHERE 1=1 ");
+		sqlBuf.append(SqlStmtPub.getAndStmt("USER_ID",userId,paramMap,true));
+		sqlBuf.append(SqlStmtPub.getAndStmt("GLASS_INDUSTRY",glassIndustry,paramMap,true));
 		sqlBuf.append(SqlStmtPub.getAndStmt("ORGANIZATION_CODE",organCode,paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("ORGANIZATION_NAME", organName,paramMap));
 		sqlBuf.append(" ORDER BY ORGANIZATION_ID");
@@ -291,19 +191,17 @@ public class LovService {
 	}
 	
 	/***物料LOV***/
-	public String findItemForPage(int pageSize,int pageNo,boolean goLastPage,Long thickness,String coatingCode,Long organizationId,String itemNumber,Long loginId) throws Exception{
+	public String findItemForPage(int pageSize,int pageNo,boolean goLastPage,Long thickness,String coatingCode,Long organizationId,String itemNumber,String itemDesc,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", thickness);
-		paramMap.put("2", coatingCode);
-		paramMap.put("3", organizationId);
-		sqlBuf.append("SELECT INVENTORY_ITEM_ID,ITEM_NUMBER,DESCRIPTION,LONG_DESCRIPTION FROM XYG_ALI_ITEMS_VL");
-		sqlBuf.append(" WHERE THICKNESS = :1");
-		sqlBuf.append(" AND COATING_TYPE = :2");
-		sqlBuf.append(" AND ORGANIZATION_ID = :3");
-		sqlBuf.append(" AND PRODUCT_FINANCE_TYPE IN ('204001','204002','204003','204004','204005','204006','204014')");
+		sqlBuf.append("SELECT INVENTORY_ITEM_ID,ITEM_NUMBER,DESCRIPTION ITEM_DESC,LONG_DESCRIPTION ITEM_LONG_DESC FROM XYG_ALI_ITEMS_VL");
+		sqlBuf.append(" WHERE PRODUCT_FINANCE_TYPE IN ('204001','204002','204003','204004','204005','204006','204014')");
+		sqlBuf.append(SqlStmtPub.getAndStmt("THICKNESS",thickness,paramMap,true));
+		sqlBuf.append(SqlStmtPub.getAndStmt("COATING_TYPE",coatingCode,paramMap,true));
+		sqlBuf.append(SqlStmtPub.getAndStmt("ORGANIZATION_ID",organizationId,paramMap,true));
 		sqlBuf.append(SqlStmtPub.getAndStmt("ITEM_NUMBER",itemNumber,paramMap));
-		sqlBuf.append(" ORDER BY INVENTORY_ITEM_ID");
+		sqlBuf.append(SqlStmtPub.getAndStmt("DESCRIPTION",itemDesc,paramMap));
+		sqlBuf.append(" ORDER BY DESCRIPTION ");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 	
@@ -312,44 +210,14 @@ public class LovService {
 	public String findLookupForPage(int pageSize,int pageNo,boolean goLastPage,String lookupType,String lookupCode,String meaning,Long loginId) throws Exception{
 		StringBuffer sqlBuf=new StringBuffer();
 		Map<String,Object> paramMap=new HashMap<String,Object>();
-		paramMap.put("1", lookupType);
 		sqlBuf.append("SELECT * FROM XYG_ALD_LOOKUP_VALUES");
-		sqlBuf.append(" WHERE 1 = 1 AND LOOKUP_TYPE=:1");
+		sqlBuf.append(" WHERE 1 = 1 ");
 		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
 		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
+		sqlBuf.append(SqlStmtPub.getAndStmt("LOOKUP_TYPE", lookupType,paramMap,true));
 		sqlBuf.append(SqlStmtPub.getAndStmt("LOOKUP_CODE",lookupCode,paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("MEANING", meaning,paramMap));
 		sqlBuf.append(" ORDER BY LOOKUP_CODE");
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
-	
-	public String countByLookupMeaning(String meaning,String lookupType,Long loginId) throws Exception{
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", meaning);
-		paramMap.put("2", lookupType);
-		StringBuffer sqlBuf=new StringBuffer();
-		sqlBuf.append("SELECT COUNT(*) COUNT FROM XYG_ALD_LOOKUP_VALUES");
-		sqlBuf.append(" WHERE 1 = 1");
-		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
-		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
-		sqlBuf.append("   AND MEANING = :1");
-		sqlBuf.append("   AND LOOKUP_TYPE=:2");
-		return pagePub.qSqlForJson(sqlBuf.toString(), paramMap);
-	}
-	
-	public String findForLookupCode(String meaning,String lookupType,Long loginId) throws Exception{
-		Map<String,Object> paramMap=new  HashMap<String,Object>();
-		paramMap.put("1", meaning);
-		paramMap.put("2", lookupType);
-		StringBuffer sqlBuf=new StringBuffer();
-		sqlBuf.append("SELECT LOOKUP_CODE FROM XYG_ALD_LOOKUP_VALUES");
-		sqlBuf.append(" WHERE 1 = 1");
-		sqlBuf.append("   AND ENABLED_FLAG = 'Y'");
-		sqlBuf.append("   AND SYSDATE BETWEEN START_DATE_ACTIVE AND NVL(END_DATE_ACTIVE,SYSDATE+1)");
-		sqlBuf.append("   AND MEANING = :1");
-		sqlBuf.append("   AND LOOKUP_TYPE=:2");
-		return pagePub.qSqlForJson(sqlBuf.toString(), paramMap);
-	}
-	
-
 }

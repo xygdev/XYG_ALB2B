@@ -53,7 +53,7 @@ public class UserController {
 	public void insret() throws Exception
 	{ 
     	UserVO u = new UserVO();
-    	u.setUserName(req.getParameter("USER_NAME"));
+    	u.setUserName(req.getParameter("USER_NAME").toUpperCase());
     	u.setDescription(req.getParameter("DESC"));
     	u.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	u.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));
@@ -80,7 +80,7 @@ public class UserController {
 		UserVO u = new UserVO();//复制对象！
 		u = (UserVO) lockUserVO.clone();		
 		u.setUserId(userId);
-		u.setUserName(req.getParameter("USER_NAME"));
+		u.setUserName(req.getParameter("USER_NAME").toUpperCase());
     	u.setDescription(req.getParameter("DESC"));
     	u.setStartDate(TypeConvert.str2uDate(req.getParameter("START_DATE")));
     	u.setEndDate(TypeConvert.str2uDate(req.getParameter("END_DATE")));

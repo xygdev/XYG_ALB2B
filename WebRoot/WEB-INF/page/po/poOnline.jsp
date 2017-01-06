@@ -156,7 +156,7 @@
             <label for='PARTY_NAME' class='left mid'>客户名称</label> 
             <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID' data-update="db"/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司","库存id","库存组织"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID","ORG_NAME","ORGANIZATION_ID","ORGANIZATION_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID",".ORG_NAME",".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID","#ORG_NAME","#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>
+            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司","库存id","库存组织"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID&none","ORG_NAME","ORGANIZATION_ID&none","ORGANIZATION_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID",".ORG_NAME",".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID","#ORG_NAME","#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>
             <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号</label>
             <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' data-update="db" required='required' class='left long' readonly="readonly"/> 
             <input type="hidden" id="ORG_ID" name="SALES_ORG_ID" data-update="db"/>
@@ -165,7 +165,7 @@
             <label for='ORGANIZATION_NAME' class='left mid'>发货组织</label> 
             <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID' data-update="db"/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>         
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID&none","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>         
             <input type="hidden" id="CURR_CODE" name="CURR_CODE" required="required" value="CNY"/>
             <input type="hidden" id="STATUS" name="STATUS" data-update="db"/>
             <br style="clear:both"/>
@@ -198,9 +198,9 @@
             <label for="STATUS_Q" class="left mid">订单状态:</label> 
             <select class='left long' id='STATUS_Q' name='STATUS' data-notnull="false" data-listurl="list/getPoStatus.do"></select>
             <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
-            <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" readonly="readonly"/>
+            <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" data-modify="true" data-pageframe="query"  data-lovbtn="PARTY_LOV_Q"  data-param="PARTY_NAME"/>
             <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
-            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID","ORG_NAME","CUST_ID","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
+            <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID&none","ORG_NAME","CUST_ID&none","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
             <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q"]></i>
           </form>
         </div>
@@ -328,16 +328,16 @@
             <label for='LINE_NUM_D' class='left mid'>行号</label> 
             <input type="text" id="LINE_NUM_D" name="LINE_NUM" data-update="db" class="left long" required="required" readonly="readonly"/>
             <label for='COATING_NAME_D' class='left'>膜系</label> 
-            <input type='text' id='COATING_NAME_D' name='COATING_NAME' data-update="db" class='left short clean_item' required="required" data-modify="true" data-pageframe="query" data-validurl="lov/validCoating.do" data-queryurl="lov/getCoatingCode.do" data-lovbtn="COATING_LOV" data-hiddenid=["COATING_CODE_D"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
+            <input type='text' id='COATING_NAME_D' name='COATING_NAME' data-update="db" class='left short clean_item' required="required" data-modify="true" data-pageframe="query"  data-lovbtn="COATING_LOV"  data-param="MEANING"/>          
             <input type='hidden' id='COATING_CODE_D' name='COATING_TYPE' data-update="db"/>
-            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME_D","#COATING_CODE_D"] data-clickfunc="$().lovClickExtends();" value="···"/>  
+            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#COATING_CODE_D","#COATING_NAME_D"] data-clickfunc="$().lovClickExtends();" value="···"/>  
             <br style="clear:both"/>
             <label for="THICKNESS_D" class="left mid">厚度</label> 
             <input type="text" id="THICKNESS_D" name="THICKNESS" data-update="db" class="left long clean_item" required="required"/> 
             <label for='ITEM_D' class='left'>物料</label> 
-            <input type='text' id='ITEM_D' name='INVENTORY_ITEM' data-update="db" class='left short' required="required" readonly="readonly"/>          
+            <input type='text' id='ITEM_D' name='INVENTORY_ITEM' data-update="db" class='left short' required="required" data-modify="true"  data-lovbtn="ITEM_LOV" data-suffixflag="false" data-param="ITEM_DESC"/>          
             <input type='hidden' id='ITEM_ID_D' name='INVENTORY_ITEM_ID'/>
-            <input type='button' id="ITEM_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="物料查询" data-queryurl="lov/getItemPage.do" data-jsontype="item" data-defaultquery="true" data-func="$().lovExtends();" data-th=["物料ID","物料编码","物料描述","明细"] data-td=["ITEM_ID","ITEM_NUMBER","ITEM_DESC","LONG_DESC"] data-selectname=["物料编码"] data-selectvalue=["ITEM_NUMBER"] data-choose=[".ITEM_ID",".ITEM_DESC"] data-recid=["#ITEM_ID_D","#ITEM_D"] value="···"/> 
+            <input type='button' id="ITEM_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="物料查询" data-queryurl="lov/getItemPage.do" data-jsontype="item" data-defaultquery="true" data-extparam=["THICKNESS","COATING_CODE","ORGANIZATION_ID"] data-extparamid=["#THICKNESS_D","#COATING_CODE_D","#ORGANIZATION_ID_LINES"] data-th=["物料ID","物料编码","物料描述","明细"] data-td=["INVENTORY_ITEM_ID&none","ITEM_NUMBER","ITEM_DESC","ITEM_LONG_DESC"] data-selectname=["物料描述","物料编码"] data-selectvalue=["ITEM_DESC","ITEM_NUMBER"] data-choose=[".INVENTORY_ITEM_ID",".ITEM_DESC"] data-recid=["#ITEM_ID_D","#ITEM_D"] value="···"/> 
             <br style="clear:both"/>
             <label for="WIDTH_D" class="left mid">宽度(mm)</label> 
             <input type="text" id="WIDTH_D" name="WIDTH" data-update="db" class="left long sqm_calc" required="required"/> 
@@ -571,13 +571,14 @@
 				});	
     		}	
     		
+    		/*
     		$.fn.lovExtends = function(){
     		    thickness = $('#THICKNESS_D').val();
     		    coatingCode = $('#COATING_CODE_D').val();
     		    organizationId = $('#ORGANIZATION_ID_LINES').val();
     		    param = '&ORGANIZATION_ID=' + organizationId + '&THICKNESS=' + thickness +'&COATING_CODE=' + coatingCode;
     		    $('#lov input[data-type="extend_param"]').val(param);
-    		}
+    		}*/
     		
     		$.fn.lovClickExtends = function(){
     		    $('#ITEM_D').val('');
@@ -698,8 +699,8 @@
         	            for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
        	            	    $('td:eq(0)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].INVENTORY_ITEM_ID);  
        	            	    $('td:eq(1)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_NUMBER);     	                    
-       	            	    $('td:eq(2)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION); 
-       	            	    $('td:eq(3)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].LONG_DESCRIPTION);   	               	        
+       	            	    $('td:eq(2)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_DESC); 
+       	            	    $('td:eq(3)',$('.contentbox tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_LONG_DESC);   	               	        
        	            	} 
         	        }       	            	    
         	    }     	            	   	

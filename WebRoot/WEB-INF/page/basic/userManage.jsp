@@ -138,15 +138,15 @@
         <div class='content'>
           <form>
             <label for='USER_NAME_Q' class='left mid'>用户账号:</label> 
-            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
+            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query"  data-lovbtn='USER_LOV_Q'  data-param="USER_NAME" />          
             <input type='hidden' id='USER_ID_Q' name='USER_ID'/>
-            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov"  data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
+            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov"  data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID&none","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
             <label for='DESCRIPTION_Q' class='left mid'>用户名称:</label> 
             <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/>  
             <label for='RESP_NAME_Q' class='left mid'>职责:</label> 
-            <input type='text' id='RESP_NAME_Q' name='RESP_NAME' data-update="db" class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validRespName.do' data-queryurl='lov/getRespId.do' data-lovbtn='RESP_LOV' data-hiddenid=["RESP_ID_Q"] data-hiddenval=["RESP_ID"] data-param="respname"/>
+            <input type='text' id='RESP_NAME_Q' name='RESP_NAME' data-update="db" class='left mid' data-modify='true' data-pageframe="query" data-lovbtn='RESP_LOV_Q' data-param="RESP_NAME"/>
             <input type='hidden' id='RESP_ID_Q' name='RESP_ID' data-update="db"/>
-            <input type='button' id="RESP_LOV_Q" class='left button pointer' data-pageframe="lov"  data-key="true" data-callback="query" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="职责查询" data-queryurl="lov/getRespPage.do" data-jsontype="resp" data-defaultquery="true" data-th=["职责ID","职责编码","职责名称","描述"] data-td=["RESP_ID","RESP_CODE","RESP_NAME","RESP_DESC"] data-selectname=["职责编码","职责名称"] data-selectvalue=["RESP_CODE","RESP_NAME"] data-choose=[".RESP_ID",".RESP_NAME"] data-recid=["#RESP_ID_Q","#RESP_NAME_Q"] value="···"/>
+            <input type='button' id="RESP_LOV_Q" class='left button pointer' data-pageframe="lov"  data-key="true" data-callback="query" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="职责查询" data-queryurl="lov/getRespPage.do" data-jsontype="resp" data-defaultquery="true" data-th=["职责ID","职责编码","职责名称","描述"] data-td=["RESP_ID&none","RESP_CODE","RESP_NAME","RESP_DESC"] data-selectname=["职责编码","职责名称"] data-selectvalue=["RESP_CODE","RESP_NAME"] data-choose=[".RESP_ID",".RESP_NAME"] data-recid=["#RESP_ID_Q","#RESP_NAME_Q"] value="···"/>
             <label for='USER_TYPE_Q' class='left mid'>用户类型:</label>
             <select class='left long' id='USER_TYPE_Q' name='USER_TYPE' data-update="db" required='required' data-notnull="true" data-listurl="list/getUserType.do"></select> 
             <br style="clear:both"/>
@@ -194,12 +194,12 @@
             <input type="hidden" id="ENCRYPTED_USER_PASSWORD" name="ENCRYPTED_USER_PASSWORD" data-update="db"/>
             <input type="hidden" id="PASSWORD_DATE" name="PASSWORD_DATE" data-update="db"/>
             <label for="RESP_NAME" class="left">职责</label> 
-            <input type="text" id="RESP_NAME" name="RESP_NAME" data-update="db" class="left short" data-modify="true" required="required" data-pageframe="ui" data-validurl="lov/validRespName.do" data-queryurl="lov/getRespId.do" data-lovbtn="RESP_LOV" data-hiddenid=["RESP_ID"] data-hiddenval=["RESP_ID"] data-param="respname"/>
+            <input type="text" id="RESP_NAME" name="RESP_NAME" data-update="db" class="left short" data-modify="true" required="required" data-pageframe="ui"  data-lovbtn="RESP_LOV" data-param="RESP_NAME"/>
             <input type="hidden" id="RESP_ID" name="RESP_ID" data-update="db"/>
             <input type="button" id="RESP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass="close-lov" data-lovname="职责查询" data-queryurl="lov/getRespPage.do" data-jsontype="resp" data-defaultquery="true" data-th=["职责ID","职责编码","职责名称","描述"] data-td=["RESP_ID","RESP_CODE","RESP_NAME","RESP_DESC"] data-selectname=["职责编码","职责名称"] data-selectvalue=["RESP_CODE","RESP_NAME"] data-choose=[".RESP_ID",".RESP_NAME"] data-recid=["#RESP_ID","#RESP_NAME"] value="···"/>
             <br style="clear:both"/>
             <label for="EMP_NAME" class="left">员工名称</label> 
-            <input type="text" id="EMP_NAME" name="EMP_NAME" data-update="db" class="left short" data-modify="true" data-pageframe="ui" data-validurl="lov/validEmpName.do" data-queryurl="lov/getEmpId.do" data-lovbtn="EMP_LOV" data-hiddenid=["EMP_ID"] data-hiddenval=["EMP_ID"] data-param="ename"/>
+            <input type="text" id="EMP_NAME" name="EMP_NAME" data-update="db" class="left short" data-modify="true" data-pageframe="ui" data-lovbtn="EMP_LOV"  data-param="ENAME"/>
             <input type="hidden" id='EMP_ID' name="EMP_ID" data-update="db"/>
             <input type="button" id="EMP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass="close-lov" data-lovname="员工查询" data-queryurl="lov/getEmpPage.do" data-jsontype="emp" data-defaultquery="true" data-th=["员工ID","员工姓名","工号"] data-td=["EMP_ID","ENAME","ENO"] data-selectname=["员工姓名","工号"] data-selectvalue=["ENAME","ENO"] data-choose=[".EMP_ID",".ENAME"] data-recid=["#EMP_ID","#EMP_NAME"] value="···"/>
             <label for="GROUP_NAME" class="left">工作组</label>
