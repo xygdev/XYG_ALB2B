@@ -421,6 +421,95 @@
 	    }
 	});	
     
+    //2017.1.9 二次封装返回数据匹配json的方法
+    /*
+     * data:返回的分页数据
+     * table:mapContent对应的table的选择器
+     * mapRowArray:匹配关系数组定义。
+     * 是一个数组，可以是匹配完整模式：[['.HEADER_ID','HEADER_ID'],['.DEPARTMENT_CODE',DEPARTMENT_CODE],...]
+     * 也可以是简写：['HEADER_ID','DEPARTMENT_CODE',...]
+     */
+    $.fn.mapContentJson = function(data,table,mapRowArray){
+    	var minRow=parseInt(data.pageMinRow);
+    	var maxRow=parseInt(data.pageMaxRow);
+    	if(maxRow==0&&minRow==0){
+            console.log('no data');
+            return false;
+        }
+    	for(i=0;i<(maxRow-minRow+1);i++){
+        	var $trRow=$(table).find('tr:eq('+(i+1)+')');
+        	//console.log('typeof:'+typeof mapRowArray);console.log($trRow[0]);
+        	for(var n in mapRowArray){
+            	if(typeof mapRowArray[n]=='object'){
+                	//console.log('col:'+mapRowArray[n][0]+',json:'+data.rows[i][mapRowArray[n][1]]);
+                	$trRow.find(mapRowArray[n][0]).html(data.rows[i][mapRowArray[n][1]]); 
+                	if(mapRowArray[n][2]&&typeof mapRowArray[n][2]== "function"){
+                		mapRowArray[n][2].call();
+                	}
+            	}else if(typeof mapRowArray[n]=='string'){
+                	$trRow.find('.'+mapRowArray[n]).html(data.rows[i][mapRowArray[n]]);
+            	}else{
+            		alert('mapRowArray 定义有误！请联系ERP确认处理！');
+            	}
+        	}
+    	}
+        /*“原生”的执行方式：
+        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
+        	var $trRow=$('#worklogHeader tr:eq('+(i+1)+')');
+        	$('.HEADER_ID',$trRow).html(data.rows[i].HEADER_ID); 
+       	 	$('.DEPARTMENT_CODE',$trRow).html(data.rows[i].DEPARTMENT_CODE); 
+        	$('.DEPARTMENT_DESC',$trRow).html(data.rows[i].DEPARTMENT_DESC); 
+        	$('.WORK_GROUP',$trRow).html(data.rows[i].WORK_GROUP);   
+        	$('.WORK_GROUP_DESC',$trRow).html(data.rows[i].WORK_GROUP_DESC); 
+        	$('.WORK_ITEM',$trRow).html(data.rows[i].WORK_ITEM); 
+        	$('.WORK_REQ_DOCUMENT',$trRow).html(data.rows[i].WORK_REQ_DOCUMENT); 
+        	$('.WORK_REQUEST_NAME',$trRow).html(data.rows[i].WORK_REQUEST_NAME); 
+        	$('.WORK_OWNER_NAME',$trRow).html(data.rows[i].WORK_OWNER_NAME); 
+        	$('.WORK_DATE',$trRow).html(data.rows[i].WORK_DATE); 
+        	$('.DESCRIPTION',$trRow).html(data.rows[i].DESCRIPTION); 
+    	}*/
+    }
+
+
+    /*
+     * data:返回的更新的数据
+     * mapRowArray:匹配关系数组定义。
+     * 是一个数组，可以是匹配完整模式：[['#H_ID','HEADER_ID'],['#DEPARTMENT_CODE',DEPARTMENT_CODE],...]
+     * 如果可以确定ID匹配的代码和json的名称是一样，也可以是简写：['HEADER_ID','DEPARTMENT_CODE',...]
+     * 注意：匹配完整模式，第三个参数可以是一个匿名函数。如果有定义，则会自动执行。
+     * 例如：['#WORK_GROUP','WORK_GROUP',function(){$().listCreator($('#WORK_GROUP')[0]);}]
+     */
+    $.fn.mapUpdateJson = function(data,mapRowArray){
+    	for(var n in mapRowArray){
+        	if(typeof mapRowArray[n]=='object'){
+            	$(mapRowArray[n][0]).val(data.rows[0][mapRowArray[n][1]]);
+            	if(mapRowArray[n][2]&&typeof mapRowArray[n][2]== "function"){
+            		mapRowArray[n][2].call();
+            	}
+        	}else if(typeof mapRowArray[n]=='string'){
+            	$('#'+mapRowArray[n]).val(data.rows[0][mapRowArray[n]]);
+        	}else{
+        		alert('mapUpdateJson-->mapRowArray 定义有误！请联系ERP确认处理！');
+        	}
+    	}
+       	/*需要注意的是：如果有些特殊的代码要写在定义json的时候赋值的，
+       	 * 可以考虑用最原生的脚本写。
+       	 * 例如下面的自动刷新List的逻辑。
+       	 * 也可以用定义匿名函数自动执行。
+       	$('#H_ID').val(data.rows[0].H_ID);
+       	$('#DEPARTMENT_CODE').val(data.rows[0].DEPARTMENT_CODE);
+        $().listCreator($('#WORK_GROUP')[0]);//需要在这里自动重新刷新list
+       	$('#WORK_GROUP').val(data.rows[0].WORK_GROUP);
+       	$('#WORK_ITEM').val(data.rows[0].WORK_ITEM);
+       	$('#WORK_REQ_DOCUMENT').val(data.rows[0].WORK_REQ_DOCUMENT);
+       	$('#WORK_REQUEST_PID').val(data.rows[0].WORK_REQUEST_PID);
+       	$('#WORK_REQUEST_NAME').val(data.rows[0].WORK_REQUEST_NAME);
+       	$('#WORK_OWNER_PID').val(data.rows[0].WORK_OWNER_PID);
+       	$('#WORK_OWNER_NAME').val(data.rows[0].WORK_OWNER_NAME);
+       	$('#WORK_DATE').val(data.rows[0].WORK_DATE);
+       	$('#DESCRIPTION').val(data.rows[0].DESCRIPTION);*/
+    }
+    
 })(jQuery);
 
 /*****************************插件配置说明*****************************

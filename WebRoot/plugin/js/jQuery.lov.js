@@ -330,6 +330,17 @@
         })
     }
     
+    //2017.1.7新增函数：自动初始化(清空)所有带有extParamid的list。初始化用！
+    $.fn.listExtInit = function() {
+        var $listExtInit=$('select[data-listurl]');
+        $listExtInit.each(function(c,listObj){
+        	var extParamid=$(listObj).attr('data-extparamid');
+        	if(extParamid){
+        		$(listObj).empty();
+        	}
+        })
+    }
+    
     //刷新所有带有父定义list。注意：该功能暂时不需要用到了！
     $.fn.listRef = function(){
         var $refLists=$('select[data-listurl]');
