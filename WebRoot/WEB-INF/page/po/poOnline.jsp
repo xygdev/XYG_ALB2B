@@ -139,37 +139,37 @@
       <!-- lov区域 end -->
      
       <!-- 更新/新增PO头信息区域 start -->
-      <div id='ui' class='update_frame'>     
+      <div id='ui' class="pop_frame row-6">     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list fa-1x" aria-hidden="true"></i>&nbsp;更新PO采购单</span>
           <span data-type="insert"><i class="fa fa-th-list fa-1x" aria-hidden="true"></i>&nbsp;新增PO采购单</span>
         </div>
         <a class="close-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-6">
           <form id='updateData'>
             <input type='hidden' id='PO_HEADER_ID' name="PO_HEADER_ID" data-update="db"/>
-            <label for='PO_NUMBER' class='left'>PO单号</label>
-            <input type='text' id='PO_NUMBER' name='PO_NUMBER' data-update="db" class='left long'/>
-            <label for='CUSTOMER_CONTRACT_NUMBER' class='left'>客订单号</label>
-            <input type='text' id='CUSTOMER_CONTRACT_NUMBER' name='CUSTOMER_CONTRACT_NUMBER' data-update="db" class='left long'/>
-            <label for='PARTY_NAME' class='left mid'>客户名称</label> 
-            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
+            <label for='PO_NUMBER' class='left md'>PO单号</label>
+            <input type='text' id='PO_NUMBER' name='PO_NUMBER' data-update="db" class='left lg'/>
+            <label for='CUSTOMER_CONTRACT_NUMBER' class='left md'>客订单号</label>
+            <input type='text' id='CUSTOMER_CONTRACT_NUMBER' name='CUSTOMER_CONTRACT_NUMBER' data-update="db" class='left lg'/>
+            <label for='PARTY_NAME' class='left md'>客户名称</label> 
+            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left md' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID' data-update="db"/>
             <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司","库存id","库存组织"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID&none","ORG_NAME","ORGANIZATION_ID&none","ORGANIZATION_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID",".ORG_NAME",".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID","#ORG_NAME","#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>
-            <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号</label>
-            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' data-update="db" required='required' class='left long' readonly="readonly"/> 
+            <label for='ACCOUNT_NUMBER' class='left md'>客户帐号</label>
+            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' data-update="db" required='required' class='left lg' readonly="readonly"/> 
             <input type="hidden" id="ORG_ID" name="SALES_ORG_ID" data-update="db"/>
-            <label for="ORG_NAME" class="left">销售公司</label>
-            <input type="text" id="ORG_NAME" name="SALES_ORG_NAME" data-update="db" required="required" class="left long" readonly="readonly"/>
-            <label for='ORGANIZATION_NAME' class='left mid'>发货组织</label> 
-            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
+            <label for="ORG_NAME" class="left md">销售公司</label>
+            <input type="text" id="ORG_NAME" name="SALES_ORG_NAME" data-update="db" required="required" class="left lg" readonly="readonly"/>
+            <label for='ORGANIZATION_NAME' class='left md'>发货组织</label> 
+            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' class='left md' data-update="db" required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID' data-update="db"/>
             <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID&none","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_NAME"] value="···"/>         
             <input type="hidden" id="CURR_CODE" name="CURR_CODE" required="required" value="CNY"/>
             <input type="hidden" id="STATUS" name="STATUS" data-update="db"/>
             <br style="clear:both"/>
-            <label for="REMARK" class="left">备注</label>
+            <label for="REMARK" class="left md">备注</label>
             <textarea id="REMARK" name="REMARK" data-update="db" cols="100"></textarea>
           </form>
           </form>
@@ -182,26 +182,25 @@
       <!-- 更新/新增用户区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-2">     
         <div class='title pointer'>      
           <span><i class="fa fa-th-list"></i>&nbsp;PO单查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-2">
           <form>
-            <label for='PO_NUMBER_Q' class='left mid'>PO单号:</label> 
-            <input type="text" id="PO_NUMBER_Q" name="PO_NUMBER" class="left long"/>
-            <label for="CUSTOMER_CONTRACT_NUMBER_Q" class='left mid'>客订单号:</label>
-            <input type="text" id="CUSTOMER_CONTRACT_NUMBER_Q" name="CUSTOMER_CONTRACT_NUMBER"  class="left long"/>
+            <label for='PO_NUMBER_Q' class='left md'>PO单号:</label> 
+            <input type="text" id="PO_NUMBER_Q" name="PO_NUMBER" class="left lg"/>
+            <label for="CUSTOMER_CONTRACT_NUMBER_Q" class='left md'>客订单号:</label>
+            <input type="text" id="CUSTOMER_CONTRACT_NUMBER_Q" name="CUSTOMER_CONTRACT_NUMBER"  class="left lg"/>
             <br style="clear:both"/>
-            <label for="STATUS_Q" class="left mid">订单状态:</label> 
-            <select class='left long' id='STATUS_Q' name='STATUS' data-notnull="false" data-listurl="list/getPoStatus.do"></select>
-            <label for="PARTY_NAME_Q" class="left mid">客户名称:</label> 
-            <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left mid" data-modify="true" data-pageframe="query"  data-lovbtn="PARTY_LOV_Q"  data-param="PARTY_NAME"/>
+            <label for="STATUS_Q" class="left md">订单状态:</label> 
+            <select class='left lg' id='STATUS_Q' name='STATUS' data-notnull="false" data-listurl="list/getPoStatus.do"></select>
+            <label for="PARTY_NAME_Q" class="left md">客户名称:</label> 
+            <input type="text" id="PARTY_NAME_Q" name="PARTY_NAME" class="left md" data-modify="true" data-pageframe="query"  data-lovbtn="PARTY_LOV_Q"  data-param="PARTY_NAME"/>
             <input type="hidden" id="CUSTOMER_ID_Q" name="CUSTOMER_ID"/>
             <input type="button" id="PARTY_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust_q" data-defaultquery="true" data-th=["销售公司ID","销售公司","客户ID","客户名称","客户账号"] data-td=["ORG_ID&none","ORG_NAME","CUST_ID&none","PARTY_NAME","ACCOUNT_NUMBER"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUST_ID",".PARTY_NAME"] data-recid=["#CUSTOMER_ID_Q","#PARTY_NAME_Q"] value="···"/> 
-            <i class="left fa fa-eraser pointer" title="清空栏位" data-eraser=["PARTY_NAME_Q","CUSTOMER_ID_Q"]></i>
           </form>
         </div>
         <div class='foot'>             
@@ -312,47 +311,47 @@
     
     
     <!-- PO明细新增/更新区域 start -->
-    <div id='detail_ui' class='detail_update_frame'>     
+    <div id='detail_ui' class="pop_frame row-9" style="z-index:104">     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list  fa-1x" aria-hidden="true"></i>&nbsp;更新PO明细</span>
           <span data-type="insert"><i class="fa fa-th-list  fa-1x" aria-hidden="true"></i>&nbsp;新增PO明细</span>
         </div>
         <a class="close-detail-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-9">
           <form id='updateDetailData'>
             <input type='hidden' id='PO_HEADER_ID_D' name="PO_HEADER_ID" data-update="db" value=""/>
             <input type='hidden' id='PO_LINE_ID_D' name="PO_LINE_ID" data-update="db" value=""/>
             <input type='hidden' id='STATUS_D' name="STATUS" data-update="db" value=""/>
             <input type='hidden' id='SHIP_FROM_ORG_ID_D' name="SHIP_FROM_ORG_ID" data-update="db" value=""/>
-            <label for='LINE_NUM_D' class='left mid'>行号</label> 
-            <input type="text" id="LINE_NUM_D" name="LINE_NUM" data-update="db" class="left long" required="required" readonly="readonly"/>
-            <label for='COATING_NAME_D' class='left'>膜系</label> 
-            <input type='text' id='COATING_NAME_D' name='COATING_NAME' data-update="db" class='left short clean_item' required="required" data-modify="true" data-pageframe="query"  data-lovbtn="COATING_LOV"  data-param="MEANING"/>          
+            <label for='LINE_NUM_D' class='left md'>行号</label> 
+            <input type="text" id="LINE_NUM_D" name="LINE_NUM" data-update="db" class="left lg" required="required" readonly="readonly"/>
+            <label for='COATING_NAME_D' class='left md'>膜系</label> 
+            <input type='text' id='COATING_NAME_D' name='COATING_NAME' data-update="db" class='left md clean_item' required="required" data-modify="true" data-pageframe="query"  data-lovbtn="COATING_LOV"  data-param="MEANING"/>          
             <input type='hidden' id='COATING_CODE_D' name='COATING_TYPE' data-update="db"/>
             <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#COATING_CODE_D","#COATING_NAME_D"] data-clickfunc="$().lovClickExtends();" value="···"/>  
             <br style="clear:both"/>
-            <label for="THICKNESS_D" class="left mid">厚度</label> 
-            <input type="text" id="THICKNESS_D" name="THICKNESS" data-update="db" class="left long clean_item" required="required"/> 
-            <label for='ITEM_D' class='left'>物料</label> 
-            <input type='text' id='ITEM_D' name='INVENTORY_ITEM' data-update="db" class='left short' required="required" data-modify="true"  data-lovbtn="ITEM_LOV" data-suffixflag="false" data-param="ITEM_DESC"/>          
+            <label for="THICKNESS_D" class="left md">厚度</label> 
+            <input type="text" id="THICKNESS_D" name="THICKNESS" data-update="db" class="left lg clean_item" required="required"/> 
+            <label for='ITEM_D' class='md left'>物料</label> 
+            <input type='text' id='ITEM_D' name='INVENTORY_ITEM' data-update="db" class='left md' required="required" data-modify="true"  data-lovbtn="ITEM_LOV" data-suffixflag="false" data-param="ITEM_DESC"/>          
             <input type='hidden' id='ITEM_ID_D' name='INVENTORY_ITEM_ID'/>
             <input type='button' id="ITEM_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="物料查询" data-queryurl="lov/getItemPage.do" data-jsontype="item" data-defaultquery="true" data-extparam=["THICKNESS","COATING_CODE","ORGANIZATION_ID"] data-extparamid=["#THICKNESS_D","#COATING_CODE_D","#ORGANIZATION_ID_LINES"] data-th=["物料ID","物料编码","物料描述","明细"] data-td=["INVENTORY_ITEM_ID&none","ITEM_NUMBER","ITEM_DESC","ITEM_LONG_DESC"] data-selectname=["物料描述","物料编码"] data-selectvalue=["ITEM_DESC","ITEM_NUMBER"] data-choose=[".INVENTORY_ITEM_ID",".ITEM_DESC"] data-recid=["#ITEM_ID_D","#ITEM_D"] value="···"/> 
             <br style="clear:both"/>
-            <label for="WIDTH_D" class="left mid">宽度(mm)</label> 
-            <input type="text" id="WIDTH_D" name="WIDTH" data-update="db" class="left long sqm_calc" required="required"/> 
-            <label for="HEIGHT_D" class="left">高度(mm)</label> 
-            <input type="text" id="HEIGHT_D" name="HEIGHT" data-update="db" class="left long sqm_calc" required="required"/> 
-            <label for="PIE_QUANTITY_D" class="left mid">片数</label> 
-            <input type="text" id="PIE_QUANTITY_D" name="PIE_QUANTITY" data-update="db" class="left long sqm_calc" required="required"/> 
-            <label for="SQM_D" class="left">面积(m²)</label> 
-            <input type="text" id="SQM_D" name="SQM" data-update="db" class="left long" readonly="readonly"/>
-            <label for="SQM_UNIT_PRICE_D" class="left mid" style="display:none">面积单价</label> 
-            <input type="text" id="SQM_UNIT_PRICE_D" name="SQM_UNIT_PRICE" data-update="db" class="left long amount_calc" style="display:none"/> 
-            <label for="AMOUNT_D" class="left" style="display:none">金额</label> 
-            <input type="text" id="AMOUNT_D" name="AMOUNT" data-update="db" class="left long" style="display:none" readonly="readonly"/>
+            <label for="WIDTH_D" class="left md">宽度(mm)</label> 
+            <input type="text" id="WIDTH_D" name="WIDTH" data-update="db" class="left lg sqm_calc" required="required"/> 
+            <label for="HEIGHT_D" class="left md">高度(mm)</label> 
+            <input type="text" id="HEIGHT_D" name="HEIGHT" data-update="db" class="left lg sqm_calc" required="required"/> 
+            <label for="PIE_QUANTITY_D" class="left md">片数</label> 
+            <input type="text" id="PIE_QUANTITY_D" name="PIE_QUANTITY" data-update="db" class="left lg sqm_calc" required="required"/> 
+            <label for="SQM_D" class="left md">面积(m²)</label> 
+            <input type="text" id="SQM_D" name="SQM" data-update="db" class="left lg" readonly="readonly"/>
+            <label for="SQM_UNIT_PRICE_D" class="left md" style="display:none">面积单价</label> 
+            <input type="text" id="SQM_UNIT_PRICE_D" name="SQM_UNIT_PRICE" data-update="db" class="left lg amount_calc" style="display:none"/> 
+            <label for="AMOUNT_D" class="left md" style="display:none">金额</label> 
+            <input type="text" id="AMOUNT_D" name="AMOUNT" data-update="db" class="left lg" style="display:none" readonly="readonly"/>
             <br style="clear:both"/>
-            <label for="REMARK_D" class="left mid">备注</label>
+            <label for="REMARK_D" class="left md">备注</label>
             <textarea id="REMARK_D" name="REMARK" data-update="db" cols="100"></textarea>
           </form>
         </div>
@@ -361,7 +360,7 @@
           <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="po/insertPoLine.do" data-refresh="sub_refresh" data-func="$().beforeInsertDetail();">新增</button>
         </div>    
       </div>   
-    <!-- 菜单明细新增/更新区域 end -->  
+    <!-- PO明细新增/更新区域 end -->  
 
 <!----------------------------------------------菜单明细-------------------------------------------------------- -->       
       

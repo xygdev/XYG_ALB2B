@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/basic/func.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -108,28 +107,28 @@
       <!-- lov区域 end -->
      
       <!-- 更新/新增用户区域 start -->
-      <div id='ui' class='update_frame'>     
-        <div class='title pointer'>      
+      <div id="ui" class="pop_frame row-3">     
+        <div class="title pointer">      
           <span data-type="update"><i class="fa fa-cogs fa-1x" aria-hidden="true"></i>&nbsp;更新功能</span>
           <span data-type="insert"><i class="fa fa-cogs fa-1x" aria-hidden="true"></i>&nbsp;新增功能</span>
         </div>
         <a class="close-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-3">
           <form id='updateData'>
             <input type="hidden" id="FUNCTION_ID" name="FUNCTION_ID" data-update="db"/>
-            <label for='FUNCTION_CODE' class='left'>功能编码</label>
-            <input type='text' id='FUNCTION_CODE' name='FUNCTION_CODE' data-update="db" required='required' class='left'/>
-            <label for='FUNCTION_NAME' class='left'>功能名称</label>
-            <input type='text' id='FUNCTION_NAME' name='FUNCTION_NAME' data-update="db" required='required' class='left'/>
-            <label for='FUNCTION_HREF' class='left'>功能链接</label>
-            <input type='text' id='FUNCTION_HREF' name='FUNCTION_HREF' data-update="db" required='required' class='left'/>
-            <label for='DESCRIPTION' class='left'>功能描述</label>
-            <input type='text' id='DESCRIPTION' name='DESCRIPTION' data-update="db" class='left'/>
-            <label for='ICON_CODE' class='left'>图标编码</label> 
-            <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left short" required="required" readonly="readonly"/>
+            <label for='FUNCTION_CODE' class='left md'>功能编码</label>
+            <input type='text' id='FUNCTION_CODE' name='FUNCTION_CODE' data-update="db" required='required' class='left lg'/>
+            <label for='FUNCTION_NAME' class='left md'>功能名称</label>
+            <input type='text' id='FUNCTION_NAME' name='FUNCTION_NAME' data-update="db" required='required' class='left lg'/>
+            <label for='FUNCTION_HREF' class='left md'>功能链接</label>
+            <input type='text' id='FUNCTION_HREF' name='FUNCTION_HREF' data-update="db" required='required' class='left lg'/>
+            <label for='DESCRIPTION' class='left md'>功能描述</label>
+            <input type='text' id='DESCRIPTION' name='DESCRIPTION' data-update="db" class='left lg'/>
+            <label for='ICON_CODE' class='left md'>图标编码</label> 
+            <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left md" required="required" readonly="readonly"/>
             <input type='hidden' id='ICON_ID' name='ICON_ID' data-update="db"/>
-            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>           
+            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID&none","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>           
           </form>
         </div>
         <div class='foot'>       
@@ -140,20 +139,20 @@
       <!-- 更新/新增用户区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
-        <div class='title pointer'>      
+      <div id="query" class="pop_frame row-1">     
+        <div class="title pointer">      
           <span><i class="fa fa-cogs"></i>&nbsp;功能查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
-        <div class='line'></div>
-        <div class='content'>
+        <div class="line"></div>
+        <div class="content row-1">
           <form> 
-            <label for='FUNCTION_CODE_Q' class='left mid'>功能编码:</label> 
-            <input type="text" id="FUNCTION_CODE_Q" name="FUNCTION_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validFuncCode.do" data-queryurl="lov/getFuncId.do" data-lovbtn="FUNCTION_LOV" data-hiddenid=["FUNCTION_ID_Q","FUNCTION_NAME_Q"] data-hiddenval=["FUNCTION_ID","FUNCTION_NAME"] data-param="funccode"/>
-            <input type='hidden' id='FUNCTION_ID_Q' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
-            <label for='FUNCTION_NAME_Q' class='left mid'>功能名称:</label> 
-            <input type="text" id="FUNCTION_NAME_Q" name="FUNCTION_NAME" data-update="db" class="left long"  readonly="readonly"/>
+            <label for="FUNCTION_CODE_Q" class="left md">功能编码:</label> 
+            <input type="text" id="FUNCTION_CODE_Q" name="FUNCTION_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="query" data-lovbtn="FUNCTION_LOV_Q" data-param="FUNCTION_CODE" />
+            <input type="hidden" id="FUNCTION_ID_Q" name="FUNCTION_ID" data-update="db"/>
+            <input type="button" id="FUNCTION_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNCTION_ID&none","FUNCTION_CODE","FUNCTION_NAME","DESCRIPTION"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNCTION_ID",".FUNCTION_CODE",".FUNCTION_NAME"] data-recid=["#FUNCTION_ID_Q","#FUNCTION_CODE_Q","#FUNCTION_NAME_Q"] value="···"/>  
+            <label for='FUNCTION_NAME_Q' class='left md'>功能名称:</label> 
+            <input type="text" id="FUNCTION_NAME_Q" name="FUNCTION_NAME" data-update="db" class="left lg"  readonly="readonly"/>
           </form>
         </div>
         <div class='foot'>             

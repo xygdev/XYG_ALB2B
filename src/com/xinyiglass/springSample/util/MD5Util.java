@@ -12,8 +12,10 @@ public class MD5Util {
     /*** 
      * MD5加码 生成32位md5码 
      */  
-    public static String string2MD5(String inStr){  
-        MessageDigest md5 = null;  
+	
+	//添加盐值  一次加密
+	public static String string2MD5(String inStr,String salt){ 
+		MessageDigest md5 = null;  
         try{  
             md5 = MessageDigest.getInstance("MD5");  
         }catch (Exception e){  
@@ -21,6 +23,9 @@ public class MD5Util {
             e.printStackTrace();  
             return "";  
         }  
+        if(salt!=null){
+        	inStr = inStr +salt;
+        }
         char[] charArray = inStr.toCharArray();  
         byte[] byteArray = new byte[charArray.length];  
   
@@ -36,11 +41,42 @@ public class MD5Util {
             hexValue.append(Integer.toHexString(val));  
         }  
         return hexValue.toString();  
-  
-    }    
+	}
+	
+	//不添加盐值 一次加密
+    public static String string2MD5(String inStr){  
+        return string2MD5(inStr,null);
+    }  
+    
+    //不添加盐值 多次加密
+    public static String string2MD5(String inStr,int times){  
+    	String hexValue = null;
+    	for(int j = 0;j<times;j++){
+    		if(j==0){
+    			hexValue = string2MD5(inStr);
+    		}else{
+    			hexValue = string2MD5(hexValue);
+    		}
+    	}
+    	return hexValue;
+    }
+    
+    //不添加盐值 多次加密
+    public static String string2MD5(String inStr,int times,String salt){  
+    	String hexValue = null;
+    	for(int j = 0;j<times;j++){
+    		if(j==0){
+    			hexValue = string2MD5(inStr,salt);
+    		}else{
+    			hexValue = string2MD5(hexValue);
+    		}
+    	}
+    	return hexValue;
+    }
   
     // 测试主函数  
     public static void main(String args[]) {  
+    	/*
     	StringBuffer sb = new StringBuffer(); 
     	for(int i=0;i<=1000000;i++){    
     		if(i==0){
@@ -54,9 +90,15 @@ public class MD5Util {
     			}
     		}
         }
-        //String s = new String("123456");  
-        //System.out.println("MD5加密前：" + s);  
-        //System.out.println("MD5加密后：" + string2MD5(s)); 
+        */
+        String s = new String("123456");  
+        int times = 3;
+        String salt = "@X@Y@G@";
+        System.out.println("MD5加密前：" + s);  
+        System.out.println("MD5不加盐加密一次后：" + string2MD5(s)); 
+        System.out.println("MD5加盐加密一次后：" + string2MD5(s,salt)); 
+        System.out.println("MD5不加盐加密三次后：" + string2MD5(s,times));
+        System.out.println("MD5加盐加密三次后：" + string2MD5(s,times,salt));
     }  
 }  
 

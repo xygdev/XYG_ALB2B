@@ -24,10 +24,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <!--[if lte IE 9]>
-      <script>
-        href=$('base').attr('href')+'login-ie.do';
-        window.location.href(href);
-      </script>
     <!--<![endif]-->
     
     <!-- 欢迎页区域 start -->

@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/po/poRate.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -116,36 +115,37 @@
       <!-- lov区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-4">     
         <div class='title pointer'>      
           <span><i class="fa fa-cubes"></i>&nbsp;查询条件</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-4">
           <form>
-            <label for='PARTY_NAME' class='left mid'>客户名称:</label> 
-            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' readonly="readonly"/>          
+            <label for='PARTY_NAME' class='left md'>客户名称:</label> 
+            <input type='text' id='PARTY_NAME' name="PARTY_NAME" class="left md" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID'/>
             <input type='hidden' id='ORG_ID' name='ORG_ID'/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID"] value="···"/>
-            <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号:</label>
-            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' class='left long' readonly="readonly"/>
+            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID&none","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID"] value="···"/>
+            <label for='ACCOUNT_NUMBER' class='left md'>客户帐号:</label>
+            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' class='left lg' readonly="readonly"/>
             <br style="clear:both"/>            
-            <label for='COATING_NAME' class='left mid'>膜系:</label> 
-            <input type='text' id='COATING_NAME' name='COATING_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validCoating.do" data-queryurl="lov/getCoatingCode.do" data-lovbtn="COATING_LOV" data-hiddenid=["COATING_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
+            <label for='COATING_NAME' class='left md'>膜系:</label> 
+            <input type='text' id='COATING_NAME' name='COATING_NAME' class='left md' data-modify="true" data-pageframe="query" data-lovbtn="COATING_LOV" data-param="LOOKUP_CODE"/>          
             <input type='hidden' id='COATING_CODE' name='COATING_TYPE'/>
-            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
-            <label for='THICKNESS' class='left mid'>厚度:</label> 
-            <input type='text' id='THICKNESS' name='THICKNESS' class='left long'/>
-            <label for='WIDTH' class='left mid'>宽度:</label> 
-            <input type='text' id='WIDTH' name='WIDTH' class='left long'/>
-            <label for='HEIGHT' class='left mid'>高度:</label> 
-            <input type='text' id='HEIGHT' name='HEIGHT' class='left long'/>  
+            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
+            <label for='THICKNESS' class='left md'>厚度:</label> 
+            <input type='text' id='THICKNESS' name='THICKNESS' class='left lg'/>
+            <label for='WIDTH' class='left md'>宽度:</label> 
+            <input type='text' id='WIDTH' name='WIDTH' class='left lg'/>
+            <label for='HEIGHT' class='left md'>高度:</label> 
+            <input type='text' id='HEIGHT' name='HEIGHT' class='left lg'/>  
             <br style="clear:both"/>
-            <label for="APPROVAL_DATE_F" class="left mid">终审时间:</label>
-            <input type="text" id="APPROVAL_DATE_F" name="APPROVAL_DATE_F" class="left long_spec" data-datatype="date" placeholder="起始终审时间"/>
-            <input type="text" id="APPROVAL_DATE_T" name="APPROVAL_DATE_T" class="left long" data-datatype="date" placeholder="截止终审时间"/>         
+            <label for="APPROVAL_DATE_F" class="left md">终审时间:</label>
+            <input type="text" id="APPROVAL_DATE_F" name="APPROVAL_DATE_F" class="left lg" data-datatype="date" placeholder="起始终审时间"/>
+            <label class="left blank"></label>
+            <input type="text" id="APPROVAL_DATE_T" name="APPROVAL_DATE_T" class="left lg" data-datatype="date" placeholder="截止终审时间"/>         
           </form>
         </div>
         <div class='foot'>             

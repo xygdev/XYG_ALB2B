@@ -133,31 +133,33 @@
       <!-- 邮件详情区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class='pop_frame row-4'>     
         <div class='title pointer'>      
           <span><i class="fa fa-envelope"></i>&nbsp;邮件查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-4'>
           <form>
-            <label for='USER_NAME_Q' class='left mid'>发件账号:</label> 
-            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
+            <label for='USER_NAME_Q' class='left md'>发件账号:</label> 
+            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left md' data-modify='true' data-pageframe="query" data-lovbtn='USER_LOV_Q' data-param="USER_NAME" />          
             <input type='hidden' id='USER_ID_Q' name='SEND_ID'/>
-            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
-            <label for='DESCRIPTION_Q' class='left mid'>发件人:</label> 
-            <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/>
+            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID&none","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
+            <label for='DESCRIPTION_Q' class='left md'>发件人:</label> 
+            <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="left lg" readonly="readonly"/>
             <br style="clear:both"/>
-            <label for="MAIL_TITLE_Q" class="left mid">邮件标题:</label>
-            <input type="text" id="MAIL_TITLE_Q" name="MAIL_TITLE" class="left long_x2"/>
+            <label for="MAIL_TITLE_Q" class="left md">邮件标题:</label>
+            <input type="text" id="MAIL_TITLE_Q" name="MAIL_TITLE" class="left lgx2"/>
             <br style="clear:both"/>
-            <label for='SEND_DATE_F' class='left mid'>发件时间:</label> 
-            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long_x1" data-datatype="date" placeholder="起始发件时间"/>
-            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long_x1" data-datatype="date" placeholder="截止发件时间"/>
+            <label for='SEND_DATE_F' class='left md'>发件时间:</label> 
+            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left lg" data-datatype="date" placeholder="起始发件时间"/>
+            <label class='left blank'></label> 
+            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left lg" data-datatype="date" placeholder="截止发件时间"/>
             <br style="clear:both"/>
-            <label for='READ_DATE_F' class='left mid'>阅件时间:</label> 
-            <input type="text" id="READ_DATE_F" name="READ_DATE_F" class="left long_x1" data-datatype="date" placeholder="起始阅件时间"/>
-            <input type="text" id="READ_DATE_T" name="READ_DATE_T" class="left long_x1" data-datatype="date" placeholder="截止阅件时间"/>
+            <label for='READ_DATE_F' class='left md'>阅件时间:</label> 
+            <input type="text" id="READ_DATE_F" name="READ_DATE_F" class="left lg" data-datatype="date" placeholder="起始阅件时间"/>
+            <label class='left blank'></label> 
+            <input type="text" id="READ_DATE_T" name="READ_DATE_T" class="left lg" data-datatype="date" placeholder="截止阅件时间"/>
           </form>
         </div>
         <div class='foot'>             

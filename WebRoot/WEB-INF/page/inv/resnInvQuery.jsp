@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/inv/inv.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -110,34 +109,34 @@
       <!-- lov区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-3">     
         <div class='title pointer'>      
           <span><i class="fa fa-cube"></i>&nbsp;查询条件</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-3">
           <form>
-            <label for='PARTY_NAME' class='left mid'>客户名称</label> 
-            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' required="required" readonly="readonly"/>          
+            <label for='PARTY_NAME' class="left md">客户名称</label> 
+            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class="left md" required="required" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID'/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","销售公司"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER"] value="···"/>
-            <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号</label>
-            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class='left long' readonly="readonly"/>
+            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","销售公司"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER"] value="···"/>
+            <label for='ACCOUNT_NUMBER' class="left md">客户帐号</label>
+            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class="left lg" readonly="readonly"/>
             <br style="clear:both"/>
-            <label for='COATING_NAME' class='left mid'>膜系</label> 
-            <input type='text' id='COATING_NAME' name='COATING_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validCoating.do" data-queryurl="lov/getCoatingCode.do" data-lovbtn="COATING_LOV" data-hiddenid=["COATING_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
+            <label for='COATING_NAME' class='left md'>膜系</label> 
+            <input type='text' id='COATING_NAME' name='COATING_NAME' class="left md" data-modify="true" data-pageframe="query" data-lovbtn="COATING_LOV" data-param="LOOKUP_CODE"/>          
             <input type='hidden' id='COATING_CODE' name='COATING_TYPE'/>
-            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
-            <label for='PACK_NAME' class='left mid'>包装方式</label> 
-            <input type='text' id='PACK_NAME' name='PACK_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validPack.do" data-queryurl="lov/getPackCode.do" data-lovbtn="PACK_LOV" data-hiddenid=["PACK_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
+            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
+            <label for='PACK_NAME' class='left md'>包装方式</label> 
+            <input type='text' id='PACK_NAME' name='PACK_NAME' class='left md' data-modify="true" data-pageframe="query" data-lovbtn="PACK_LOV" data-param="LOOKUP_CODE"/>          
             <input type='hidden' id='PACK_CODE' name='PACK_CODE'/>
-            <input type='button' id="PACK_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="包装方式查询" data-queryurl="lov/getPackPage.do" data-jsontype="pack" data-defaultquery="true" data-th=["包装编码","包装名称","描述"] data-td=["PACK_CODE","PACK_NAME","PACK_DESC"] data-selectname=["包装编码","包装名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".PACK_CODE",".PACK_NAME"] data-recid=["#PACK_NAME","#PACK_CODE"] value="···"/>    
+            <input type='button' id="PACK_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="包装方式查询" data-queryurl="lov/getPackPage.do" data-jsontype="pack" data-defaultquery="true" data-th=["包装编码","包装名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["包装编码","包装名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#PACK_NAME","#PACK_CODE"] value="···"/>    
             <br style="clear:both"/>
-            <label for='WIDTH' class='left mid'>宽度</label> 
-            <input type='text' id='WIDTH' name='WIDTH' class='left long'/>
-            <label for='HEIGHT' class='left mid'>高度</label> 
-            <input type='text' id='HEIGHT' name='HEIGHT' class='left long'/>
+            <label for='WIDTH' class='left md'>宽度</label> 
+            <input type='text' id='WIDTH' name='WIDTH' class='left lg'/>
+            <label for='HEIGHT' class='left md'>高度</label> 
+            <input type='text' id='HEIGHT' name='HEIGHT' class='left lg'/>
           </form>
         </div>
         <div class='foot'>             

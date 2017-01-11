@@ -138,20 +138,21 @@
       <!-- 邮件详情区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class='pop_frame row-2'>     
         <div class='title pointer'>      
           <span><i class="fa fa-envelope"></i>&nbsp;邮件查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-2'>
           <form>
-            <label for="SEND_TITLE_Q" class="left mid">邮件标题:</label>
-            <input type="text" id="SEND_TITLE_Q" name="SEND_TITLE" class="left maxlong"/>
+            <label for="SEND_TITLE_Q" class="left md">邮件标题:</label>
+            <input type="text" id="SEND_TITLE_Q" name="SEND_TITLE" class="left lgx2"/>
             <br style="clear:both"/>
-            <label for='SEND_DATE_F' class='left mid'>发件时间:</label> 
-            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left long" data-datatype="date" placeholder="起始发件时间"/>
-            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left long" data-datatype="date" placeholder="截止发件时间"/>
+            <label for='SEND_DATE_F' class='left md'>发件时间:</label> 
+            <input type="text" id="SEND_DATE_F" name="SEND_DATE_F" class="left lg" data-datatype="date" placeholder="起始发件时间"/>
+            <label class='left blank'></label> 
+            <input type="text" id="SEND_DATE_T" name="SEND_DATE_T" class="left lg" data-datatype="date" placeholder="截止发件时间"/>
             <br style="clear:both"/>
           </form>
         </div>

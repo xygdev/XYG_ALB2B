@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/basic/onhandPerm.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
 	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
@@ -115,33 +114,34 @@
       <!-- lov区域 end -->
      
       <!-- 更新/新增用户区域 start -->
-      <div id='ui' class='update_frame'>     
+      <div id='ui' class='pop_frame row-3'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-truck fa-1x" aria-hidden="true"></i>&nbsp;更新库存权限</span>
           <span data-type="insert"><i class="fa fa-truck fa-1x" aria-hidden="true"></i>&nbsp;新增库存权限</span>
         </div>
         <a class="close-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-3'>
           <form id='updateData'>
             <input type='hidden' id='P_ID' name="P_ID" data-update="db"/>
-            <label for='USER_NAME' class='left mid'>用户账号</label> 
-            <input type='text' id='USER_NAME' name='USER_NAME' class='left short' data-update="db" required="required" readonly="readonly"/>          
-            <input type='hidden' id='U_ID' name='USER_ID'/>
-            <input type='button' id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","用户账号","用户姓名"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["用户账号","用户姓名"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#U_ID","#USER_NAME","#USER_DESC"] value="···"/>
-            <label for='USER_DESC' class='left'>用户姓名</label>
-            <input type='text' id='USER_DESC' name='USER_DESC' data-update="db" required='required' class='left' readonly="readonly"/>
-            <label for='ORGANIZATION_CODE' class='left mid'>库存编码</label> 
-            <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left short' data-update="db" required="required" readonly="readonly"/>          
+            <input type="hidden" id="P_ID" name="P_ID" data-update="db"/>
+            <label for="USER_NAME" class="left md">用户账号:</label> 
+            <input type="text" id="USER_NAME" name="USER_NAME" class="left md" data-update="db" data-modify='true' data-pageframe="query"  data-lovbtn="USER_LOV"  data-param="USER_NAME" required="required"/>          
+            <input type="hidden" id="U_ID" name="USER_ID" data-update="db"/>
+            <input type="button" id="USER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov"  data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID&none","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID","#USER_NAME","#DESCRIPTION"] value="···"/>
+            <label for='DESCRIPTION' class='left md'>用户名称:</label> 
+            <input type='text' id='DESCRIPTION' name="DESCRIPTION" data-update="db" class="left lg" readonly="readonly" required="required"/>         
+            <label for='ORGANIZATION_CODE' class='left md'>库存编码</label> 
+            <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left md' data-update="db" required="required" data-modify="true" data-pageframe="query" data-lovbtn="ORGANIZATION_LOV" data-param="ORGANIZATION_CODE"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID'/>
             <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
-            <label for='ORGANIZATION_NAME' class='left'>库存组织</label>
-            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' data-update="db" required='required' class='left' readonly="readonly"/>
+            <label for='ORGANIZATION_NAME' class='left md'>库存组织</label>
+            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' data-update="db" required='required' class='left lg' readonly="readonly"/>
             <br style="clear:both"/>
-            <label for='START_DATE' class='left'>启用日期</label>
-            <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left'/>
-            <label for='END_DATE' class='left'>失效日期</label>
-            <input type='text' id='END_DATE' name='END_DATE' data-update="db" data-datatype="date" class='left'/>  
+            <label for='START_DATE' class='left md'>启用日期</label>
+            <input type='text' id='START_DATE' name='START_DATE' data-update="db" data-datatype="date" required='required' class='left lg'/>
+            <label for='END_DATE' class='left md'>失效日期</label>
+            <input type='text' id='END_DATE' name='END_DATE' data-update="db" data-datatype="date" class='left lg'/>  
           </form>
         </div>
         <div class='foot'>       
@@ -152,34 +152,37 @@
       <!-- 更新/新增用户区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class='pop_frame row-4'>     
         <div class='title pointer'>      
           <span><i class="fa fa-truck"></i>&nbsp;库存权限查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-4'>
           <form>
-            <label for='USER_NAME_Q' class='left mid'>用户账号:</label> 
-            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left mid' data-modify='true' data-pageframe="query" data-validurl='lov/validUserName.do' data-queryurl='lov/getUserId.do' data-lovbtn='USER_LOV_Q' data-hiddenid=["USER_ID_Q","DESCRIPTION_Q"] data-hiddenval=["USER_ID","DESCRIPTION"] data-param="username" />          
+            <label for='USER_NAME_Q' class='left md'>用户账号:</label> 
+            <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left md' data-modify='true' data-pageframe="query"  data-lovbtn='USER_LOV_Q'  data-param="USER_NAME" />          
             <input type='hidden' id='USER_ID_Q' name='USER_ID'/>
-            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
-            <label for='DESCRIPTION_Q' class='left mid'>用户名:</label> 
-            <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="long" readonly="readonly"/>             
-            <label for='ORGANIZATION_CODE_Q' class='left mid'>库存编码</label> 
-            <input type='text' id='ORGANIZATION_CODE_Q' name='ORGANIZATION_CODE' class='left mid' data-update="db" data-modify="true" data-pageframe="query" data-validurl="lov/validOrganCode.do" data-queryurl="lov/getOrganId.do" data-lovbtn="ORGANIZATION_LOV_Q" data-hiddenid=["ORGANIZATION_ID_Q","ORGANIZATION_NAME_Q"] data-hiddenval=["ORGANIZATION_ID","ORGANIZATION_NAME"] data-param="organCode"/>          
+            <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov"  data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="用户查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID&none","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
+            <label for='DESCRIPTION_Q' class='left md'>用户名称:</label> 
+            <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="left lg" readonly="readonly"/>                          
+            
+            <label for='ORGANIZATION_CODE_Q' class='left md'>库存编码</label> 
+            <input type='text' id='ORGANIZATION_CODE_Q' name='ORGANIZATION_CODE' class='left md' data-update="db" data-modify="true" data-pageframe="query" data-lovbtn="ORGANIZATION_LOV_Q" data-param="ORGANIZATION_CODE"/>          
             <input type='hidden' id='ORGANIZATION_ID_Q' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
-            <label for='ORGANIZATION_NAME_Q' class='left mid'>库存组织</label>
-            <input type='text' id='ORGANIZATION_NAME_Q' name='ORGANIZATION_NAME' data-update="db" class='left long' readonly="readonly"/>           
+            <input type='button' id="ORGANIZATION_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织","产业"] data-td=["ORGANIZATION_ID&none","ORGANIZATION_CODE","ORGANIZATION_NAME","GLASS_INDUSTRY"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID_Q","#ORGANIZATION_CODE_Q","#ORGANIZATION_NAME_Q"] value="···"/>
+            <label for='ORGANIZATION_NAME_Q' class='left md'>库存组织</label>
+            <input type='text' id='ORGANIZATION_NAME_Q' name='ORGANIZATION_NAME' data-update="db" class='left lg' readonly="readonly"/>           
             <br style="clear:both"/>
-            <label for="START_DATE_F" class="left mid">启用日期:</label>
-            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left long" data-datatype="date" placeholder="起始启用日期"/>
-            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left long" data-datatype="date" placeholder="截止启用日期"/>
+            <label for="START_DATE_F" class="left md">启用日期:</label>
+            <input type="text" id="START_DATE_F" name="START_DATE_F" class="left lg" data-datatype="date" placeholder="起始启用日期"/>
+            <label class="left blank"></label>
+            <input type="text" id="START_DATE_T" name="START_DATE_T" class="left lg" data-datatype="date" placeholder="截止启用日期"/>
             <br style="clear:both"/>
-            <label for="END_DATE_F" class="left mid">失效日期:</label>
-            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left long" data-datatype="date" placeholder="起始失效日期"/>
-            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left long" data-datatype="date" placeholder="截止失效日期"/>
+            <label for="END_DATE_F" class="left md">失效日期:</label>
+            <input type="text" id="END_DATE_F" name="END_DATE_F" class="left lg" data-datatype="date" placeholder="起始失效日期"/>
+            <label class="left blank"></label>
+            <input type="text" id="END_DATE_T" name="END_DATE_T" class="left lg" data-datatype="date" placeholder="截止失效日期"/>
           </form>
         </div>
         <div class='foot'>             

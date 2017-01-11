@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/basic/menu.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -111,26 +110,26 @@
       <!-- lov区域 end -->
      
       <!-- 更新/新增菜单区域 start -->
-      <div id='ui' class='update_frame'>     
+      <div id='ui' class='pop_frame row-2'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list fa-1x" aria-hidden="true"></i>&nbsp;更新菜单</span>
           <span data-type="insert"><i class="fa fa-th-list fa-1x" aria-hidden="true"></i>&nbsp;新增菜单</span>
         </div>
         <a class="close-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-2'>
           <form id='updateData'>
             <input type='hidden' id='MENU_ID' name="MENU_ID" data-update="db"/>
-            <label for='MENU_CODE' class='left'>菜单编码</label>
-            <input type='text' id='MENU_CODE' name='MENU_CODE' data-update="db" required='required' class='left'/>
-            <label for='MENU_NAME' class='left'>菜单名称</label>
-            <input type='text' id='MENU_NAME' name='MENU_NAME' data-update="db" required='required' class='left'/>
-            <label for='DESCRIPTION' class='left'>菜单描述</label>
-            <input type='text' id='DESCRIPTION' name='DESCRIPTION' data-update="db" class='left'/>
-            <label for='ICON_CODE' class='left'>图标编码</label> 
-            <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left short" required="required" readonly="readonly"/>
+            <label for="MENU_CODE" class='left md'>菜单编码</label>
+            <input type='text' id="MENU_CODE" name="MENU_CODE" data-update="db" required="required" class="left lg"/>
+            <label for="MENU_NAME" class="left md">菜单名称</label>
+            <input type="text" id="MENU_NAME" name="MENU_NAME" data-update="db" required="required" class="left lg"/>
+            <label for="DESCRIPTION" class="left md">菜单描述</label>
+            <input type="text" id="DESCRIPTION" name="DESCRIPTION" data-update="db" class="left lg"/>
+            <label for="ICON_CODE" class="left md">图标编码</label> 
+            <input type="text" id="ICON_CODE" name="ICON_CODE" data-update="db" class="left md" required="required" readonly="readonly"/>
             <input type='hidden' id='ICON_ID' name='ICON_ID' data-update="db"/>
-            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>  
+            <input type='button' id="ICON_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="图标查询" data-queryurl="lov/getIconPage.do" data-jsontype="icon" data-defaultquery="true" data-th=["图标ID","图标编码","图标描述","来源"] data-td=["ICON_ID&none","ICON_CODE","ICON_DESC","ICON_SOURCE"] data-selectname=["图标编码","图标描述"] data-selectvalue=["ICON_CODE","ICON_DESC"] data-choose=[".ICON_ID",".ICON_CODE"] data-recid=["#ICON_ID","#ICON_CODE"] value="···"/>  
           </form>
         </div>
         <div class='foot'>       
@@ -141,20 +140,20 @@
       <!-- 更新/新增菜单区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
-        <div class='title pointer'>      
+      <div id="query" class="pop_frame row-1">     
+        <div class="title pointer">      
           <span><i class="fa fa-th-list"></i>&nbsp;菜单查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
-        <div class='line'></div>
-        <div class='content'>
+        <div class="line"></div>
+        <div class="content row-1">
           <form>
-            <label for='MENU_CODE_Q' class='left mid'>菜单编码:</label> 
-            <input type="text" id="MENU_CODE_Q" name="MENU_CODE" data-update="db" class="left mid" data-modify="true" data-pageframe="query" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="MENU_LOV_Q" data-hiddenid=["MENU_ID_Q","MENU_NAME_Q","MENU_CODE_Q"] data-hiddenval=["MENU_ID","MENU_NAME","MENU_CODE"] data-param="menucode"/>
+            <label for='MENU_CODE_Q' class='left md'>菜单编码:</label> 
+            <input type="text" id="MENU_CODE_Q" name="MENU_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="query" data-lovbtn="MENU_LOV_Q" data-param="MENU_CODE"/>
             <input type='hidden' id='MENU_ID_Q' name='MENU_ID' data-update="db"/>
-            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_CODE_Q","#MENU_NAME_Q"] value="···"/>
-            <label for="MENU_NAME_Q" class='left mid'>菜单名称:</label>
-            <input type="text" id="MENU_NAME_Q" name="MENU_NAME"  class="left long"/>
+            <input type='button' id="MENU_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID&none","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#MENU_ID_Q","#MENU_CODE_Q","#MENU_NAME_Q"] value="···"/>
+            <label for="MENU_NAME_Q" class='left md'>菜单名称:</label>
+            <input type="text" id="MENU_NAME_Q" name="MENU_NAME"  class="left lg"/>
           </form>
         </div>
         <div class='foot'>             
@@ -236,33 +235,33 @@
     
     
     <!-- 菜单明细新增/更新区域 start -->
-    <div id='detail_ui' class='detail_update_frame'>     
+    <div id="detail_ui" class="pop_frame row-3" style="z-index:104">     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list  fa-1x" aria-hidden="true"></i>&nbsp;更新菜单明细</span>
           <span data-type="insert"><i class="fa fa-th-list  fa-1x" aria-hidden="true"></i>&nbsp;新增菜单明细</span>
         </div>
         <a class="close-detail-ui-frame" data-type="close">&#215;</a>
-        <div class='line'></div>
-        <div class='content'>
-          <form id='updateDetailData'>
-            <input type='hidden' id='MENU_ID_DETAIL' name="MENU_ID" data-update="db" value=""/>
-            <label for='MENU_SEQUENCE' class='left'>菜单序号</label> 
-            <input type="text" id="MENU_SEQUENCE" name="MENU_SEQUENCE" data-update="db" class="left long" required="required"/>
-            <label for='MENU_ENABLED_FLAG' class='left'>是否启用</label> 
-            <select class='left long' id='MENU_ENABLED_FLAG' name='ENABLED_FLAG' data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
+        <div class="line"></div>
+        <div class="content row-3">
+          <form id="updateDetailData">
+            <input type="hidden" id="MENU_ID_DETAIL" name="MENU_ID" data-update="db" value=""/>
+            <label for="MENU_SEQUENCE" class="left md">菜单序号</label> 
+            <input type="text" id="MENU_SEQUENCE" name="MENU_SEQUENCE" data-update="db" class="left lg" required="required"/>
+            <label for="MENU_ENABLED_FLAG" class="left md">是否启用</label> 
+            <select class="left lg" id="MENU_ENABLED_FLAG" name="ENABLED_FLAG" data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
             <br style="clear:both"/>
-            <label for='SUB_MENU_CODE' class='left'>子菜单编码</label> 
-            <input type="text" id="SUB_MENU_CODE" name="SUB_MENU_CODE" data-update="db" class="left short" data-modify="true" data-pageframe="detail_ui" data-validurl="lov/validMenuCode.do" data-queryurl="lov/getMenuId.do" data-lovbtn="SUB_MENU_LOV" data-hiddenid=["SUB_MENU_ID"] data-hiddenval=["MENU_ID"] data-param="menucode"/>
+            <label for="SUB_MENU_CODE" class="left md">子菜单编码</label> 
+            <input type="text" id="SUB_MENU_CODE" name="SUB_MENU_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="detail_ui" data-lovbtn="SUB_MENU_LOV" data-param="MENU_CODE"/>
             <input type='hidden' id='SUB_MENU_ID' name='SUB_MENU_ID' data-update="db"/>
-            <input type='button' id="SUB_MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#SUB_MENU_ID","#SUB_MENU_CODE","#SUB_MENU_NAME"] value="···"/>  
-            <label for='SUB_MENU_NAME' class='left'>子菜单名称</label> 
-            <input type="text" id="SUB_MENU_NAME" name="SUB_MENU_NAME" data-update="db" class="left long" readonly="readonly"/>
-            <label for='FUNCTION_CODE' class='left'>功能编码</label> 
-            <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left short" data-modify="true" data-pageframe="detail_ui" data-validurl="lov/validFuncCode.do" data-queryurl="lov/getFuncId.do" data-lovbtn="FUNCTION_LOV" data-hiddenid=["FUNCTION_ID","FUNCTION_NAME"] data-hiddenval=["FUNCTION_ID","FUNCTION_NAME"] data-param="funccode"/>
+            <input type='button' id="SUB_MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID&none","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#SUB_MENU_ID","#SUB_MENU_CODE","#SUB_MENU_NAME"] value="···"/>  
+            <label for='SUB_MENU_NAME' class="left md">子菜单名称</label> 
+            <input type="text" id="SUB_MENU_NAME" name="SUB_MENU_NAME" data-update="db" class="left lg" readonly="readonly"/>
+            <label for='FUNCTION_CODE' class="left md">功能编码</label> 
+            <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="detail_ui" data-lovbtn="FUNCTION_LOV" data-param="FUNC_CODE"/>
             <input type='hidden' id='FUNCTION_ID' name='FUNCTION_ID' data-update="db"/>
-            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
-            <label for='FUNCTION_NAME' class='left'>功能名称</label> 
-            <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left long"  readonly="readonly"/>
+            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID&none","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
+            <label for='FUNCTION_NAME' class="left md">功能名称</label> 
+            <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left lg"  readonly="readonly"/>
           </form>
         </div>
         <div class='foot'>       

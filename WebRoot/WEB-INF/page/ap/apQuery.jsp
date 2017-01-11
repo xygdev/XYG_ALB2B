@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/ap/ap.css">
 	<link rel="stylesheet" href="plugin/css/cutpic.css" type="text/css" />
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
@@ -117,24 +116,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <!-- lov区域 end -->
       
       <!-- 条件查询区域 start -->
-    <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-2">     
         <div class='title'>      
           <span><i class="fa fa-file-pdf-o"></i>&nbsp;对账单</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-2">
           <form>
-            <label for='PARTY_NAME' class='left mid'>客户名称</label> 
-            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left short' required="required" readonly="readonly"/>          
+            <label for='PARTY_NAME' class='left md'>客户名称</label> 
+            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class='left md' required="required" readonly="readonly"/>          
             <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID'/>
             <input type='hidden' id='ORG_ID' name='ORG_ID'/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司"] data-td=["CUSTOMER_ID","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID"] value="···"/>
-            <label for='ACCOUNT_NUMBER' class='left mid'>客户帐号</label>
-            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class='left long' readonly="readonly"/>
+            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","公司id","销售公司"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_ID&none","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER",".ORG_ID"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER","#ORG_ID"] value="···"/>
+            <label for='ACCOUNT_NUMBER' class='left md'>客户帐号</label>
+            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class='left lg' readonly="readonly"/>
             <br style="clear:both"/>
-            <label for='AP_DATE' class='left mid'>对账单时间</label>
-            <input type='text' id='AP_DATE' name='AP_DATE' data-update="db" required='required' data-datatype="date" class='left long'/>
+            <label for='AP_DATE' class='left md'>对账单时间</label>
+            <input type='text' id='AP_DATE' name='AP_DATE' data-update="db" required='required' data-datatype="date" class='left lg'/>
           </form>
         </div>
         <div class='foot'>             

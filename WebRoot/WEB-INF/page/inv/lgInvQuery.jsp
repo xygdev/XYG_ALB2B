@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/inv/inv.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -120,30 +119,30 @@
       <!-- lov区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-3">     
         <div class='title'>      
           <span><i class="fa fa-cubes"></i>&nbsp;查询条件</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class="content row-3">
           <form>
-            <label for='ORGANIZATION_CODE' class='left mid'>库存编码</label> 
-            <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left short' required="required" readonly="readonly"/>          
+            <label for='ORGANIZATION_CODE' class='left md'>库存编码</label> 
+            <input type='text' id='ORGANIZATION_CODE' name='ORGANIZATION_CODE' class='left md' required="required" readonly="readonly"/>          
             <input type='hidden' id='ORGANIZATION_ID' name='ORGANIZATION_ID'/>
-            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
-            <label for='ORGANIZATION_NAME' class='left mid'>库存组织</label>
-            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' required='required' class='left long' readonly="readonly"/>
-            <label for='COATING_NAME' class='left mid'>膜系</label> 
-            <input type='text' id='COATING_NAME' name='COATING_NAME' class='left short' data-modify="true" data-pageframe="query" data-validurl="lov/validCoating.do" data-queryurl="lov/getCoatingCode.do" data-lovbtn="COATING_LOV" data-hiddenid=["COATING_CODE"] data-hiddenval=["LOOKUP_CODE"] data-param="meaning"/>          
+            <input type='button' id="ORGANIZATION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="库存组织查询" data-queryurl="lov/getJbUserOrganPage.do" data-jsontype="organ" data-defaultquery="true" data-th=["库存id","库存编码","库存组织"] data-td=["ORGANIZATION_ID&none","ORGANIZATION_CODE","ORGANIZATION_NAME"] data-selectname=["库存编码","库存组织"] data-selectvalue=["ORGANIZATION_CODE","ORGANIZATION_NAME"] data-choose=[".ORGANIZATION_ID",".ORGANIZATION_CODE",".ORGANIZATION_NAME"] data-recid=["#ORGANIZATION_ID","#ORGANIZATION_CODE","#ORGANIZATION_NAME"] value="···"/>
+            <label for='ORGANIZATION_NAME' class='left md'>库存组织</label>
+            <input type='text' id='ORGANIZATION_NAME' name='ORGANIZATION_NAME' required='required' class='left lg' readonly="readonly"/>
+            <label for='COATING_NAME' class='left md'>膜系</label> 
+            <input type='text' id='COATING_NAME' name='COATING_NAME' class='left md' data-modify="true" data-pageframe="query" data-lovbtn="COATING_LOV" data-param="LOOKUP_CODE"/>          
             <input type='hidden' id='COATING_CODE' name='COATING_TYPE'/>
-            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["COATING_CODE","COATING_NAME","COATING_DESC"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".COATING_CODE",".COATING_NAME"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
-            <label for='THICKNESS' class='left mid'>厚度</label> 
-            <input type='text' id='THICKNESS' name='THICKNESS' class='left long'/>
-            <label for='WIDTH' class='left mid'>宽度</label> 
-            <input type='text' id='WIDTH' name='WIDTH' class='left long'/>
-            <label for='HEIGHT' class='left mid'>高度</label> 
-            <input type='text' id='HEIGHT' name='HEIGHT' class='left long'/>
+            <input type='button' id="COATING_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="膜系查询" data-queryurl="lov/getCoatingPage.do" data-jsontype="coating" data-defaultquery="true" data-th=["膜系编码","膜系名称","描述"] data-td=["LOOKUP_CODE","MEANING","DESCRIPTION"] data-selectname=["膜系编码","膜系名称"] data-selectvalue=["LOOKUP_CODE","MEANING"] data-choose=[".LOOKUP_CODE",".MEANING"] data-recid=["#COATING_NAME","#COATING_CODE"] value="···"/>    
+            <label for='THICKNESS' class='left md'>厚度</label> 
+            <input type='text' id='THICKNESS' name='THICKNESS' class='left lg'/>
+            <label for='WIDTH' class='left md'>宽度</label> 
+            <input type='text' id='WIDTH' name='WIDTH' class='left lg'/>
+            <label for='HEIGHT' class='left md'>高度</label> 
+            <input type='text' id='HEIGHT' name='HEIGHT' class='left lg'/>
           </form>
         </div>
         <div class='foot'>             

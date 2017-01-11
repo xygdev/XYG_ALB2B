@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
-	<link rel="stylesheet" type="text/css" href="plugin/css/basic/group.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
   </head> 
@@ -107,22 +106,22 @@
       <!-- lov区域 end -->
      
       <!-- 更新/新增工作组头区域 start -->
-      <div id='ui' class='update_frame'>     
+      <div id='ui' class='pop_frame row-2'>     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-users fa-1x" aria-hidden="true"></i>&nbsp;更新工作组</span>
           <span data-type="insert"><i class="fa fa-users fa-1x" aria-hidden="true"></i>&nbsp;新增工作组</span>
         </div>
         <a class="close-ui-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-2'>
           <form id='updateData'>
             <input type='hidden' id='GROUP_ID' name="GROUP_ID" data-update="db"/>
-            <label for='GROUP_CODE' class='left'>工作组编码</label>
-            <input type='text' id='GROUP_CODE' name='GROUP_CODE' data-update="db" required='required' class='left'/>
-            <label for='GROUP_NAME' class='left'>工作组名称</label>
-            <input type='text' id='GROUP_NAME' name='GROUP_NAME' data-update="db" required='required' class='left'/>
-            <label for='DESCRIPTION' class='left'>工作组描述</label>
-            <input type='text' id='DESCRIPTION' name='DESCRIPTION' data-update="db" class='left long'/>
+            <label for='GROUP_CODE' class='left md'>组编码</label>
+            <input type='text' id='GROUP_CODE' name='GROUP_CODE' data-update="db" required='required' class='left lg'/>
+            <label for='GROUP_NAME' class='left md'>组名称</label>
+            <input type='text' id='GROUP_NAME' name='GROUP_NAME' data-update="db" required='required' class='left lg'/>
+            <label for='DESCRIPTION' class='left md'>组描述</label>
+            <input type='text' id='DESCRIPTION' name='DESCRIPTION' data-update="db" class='left lg'/>
           </form>
         </div>
         <div class='foot'>       
@@ -133,20 +132,20 @@
       <!-- 更新/新增工组组头区域 end -->
      
       <!-- 条件查询区域 start -->
-      <div id='query' class='query_frame'>     
+      <div id='query' class="pop_frame row-1">     
         <div class='title'>      
           <span><i class="fa fa-users"></i>&nbsp;工作组查询</span>
         </div>
         <a class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
-        <div class='content'>
+        <div class='content row-1'>
           <form>
-            <label for='GROUP_NAME_Q' class='left mid'>组名称:</label> 
-            <input type="text" id="GROUP_NAME_Q" name="GROUP_NAME" data-update="db" class="left mid" data-modify='true' data-pageframe="query" data-validurl='lov/validGroupName.do' data-queryurl='lov/getGroupId.do' data-lovbtn='GROUP_LOV_Q' data-hiddenid=["GROUP_ID_Q,GROUP_CODE_Q"] data-hiddenval=["GROUP_ID,GROUP_CODE"] data-param="respname"/>
+            <label for='GROUP_NAME_Q' class='left md'>组名称:</label> 
+            <input type="text" id="GROUP_NAME_Q" name="GROUP_NAME" data-update="db" class="left md" data-modify='true' data-pageframe="query" data-lovbtn='GROUP_LOV_Q' data-param="GROUP_NAME"/>
             <input type='hidden' id='GROUP_ID_Q' name='GROUP_ID' data-update="db"/>
-            <input type="button" id="GROUP_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["LOV_GROUP_ID","LOV_GROUP_CODE","LOV_GROUP_NAME","LOV_DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".LOV_GROUP_ID",".LOV_GROUP_CODE",".LOV_GROUP_NAME"] data-recid=["#GROUP_ID_Q","#GROUP_CODE_Q","#GROUP_NAME_Q"]  value="···"/> 
-            <label for='GROUP_CODE_Q' class='left mid'>组编码:</label> 
-            <input type="text" id="GROUP_CODE_Q" name="GROUP_CODE" data-update="db" class="left long" readonly="readonly"/>
+            <input type="button" id="GROUP_LOV_Q" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID&none","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组名称","工作组编码"] data-selectvalue=["GROUP_NAME","GROUP_CODE"] data-choose=[".GROUP_ID",".GROUP_CODE",".GROUP_NAME"] data-recid=["#GROUP_ID_Q","#GROUP_CODE_Q","#GROUP_NAME_Q"]  value="···"/> 
+            <label for='GROUP_CODE_Q' class='left md'>组编码:</label> 
+            <input type="text" id="GROUP_CODE_Q" name="GROUP_CODE" data-update="db" class="left lg" readonly="readonly"/>
           </form>
         </div>
         <div class='foot'>             
@@ -226,27 +225,27 @@
     </div>       
     
     <!-- 工作组明细新增/更新区域 start -->
-    <div id='detail_ui' class='detail_update_frame'>     
+    <div id='detail_ui' class='pop_frame row-2' style="z-index:104">     
       <div class='title pointer'>      
         <span data-type="update"><i class="fa fa-users fa-1x" aria-hidden="true"></i>&nbsp;更新工作组明细</span>
         <span data-type="insert"><i class="fa fa-users fa-1x" aria-hidden="true"></i>&nbsp;新增工作组明细</span>
       </div>
       <a class="close-detail-ui-frame" data-type="close">&#215;</a>
-      <div class='line'></div>
-      <div class='content'>
+      <div class="line"></div>
+      <div class="content row-2">
         <form id='updateDetailData'>
           <input type='hidden' id='GROUP_ID_DETAIL' name="GROUP_ID" data-update="db" value=""/>
-          <label for='GROUP_SEQUENCE' class='left'>工作组序号</label> 
-          <input type="text" id="GROUP_SEQUENCE" name="GROUP_SEQUENCE" data-update="db" class="left long" required="required"/>
-          <label for='GROUP_ENABLED_FLAG' class='left'>是否启用</label> 
-          <select class='left long' id='GROUP_ENABLED_FLAG' name='ENABLED_FLAG' data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
+          <label for="GROUP_SEQUENCE" class="left md">组序号</label> 
+          <input type="text" id="GROUP_SEQUENCE" name="GROUP_SEQUENCE" data-update="db" class="left lg" required="required"/>
+          <label for="GROUP_ENABLED_FLAG" class="left md">是否启用</label> 
+          <select class='left lg' id='GROUP_ENABLED_FLAG' name='ENABLED_FLAG' data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
           <br style="clear:both"/>
-          <label for='SUB_GROUP_CODE' class='left'>工作组编码</label> 
-          <input type="text" id="SUB_GROUP_CODE" name="SUB_GROUP_CODE" data-update="db" class="left short" readonly="readonly" required="required"/>
-          <input type='hidden' id='SUB_GROUP_ID' name='SUB_GROUP_ID' data-update="db"/>
-          <input type="button" id="SUB_GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["LOV_GROUP_ID","LOV_GROUP_CODE","LOV_GROUP_NAME","LOV_DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".LOV_GROUP_ID",".LOV_GROUP_CODE",".LOV_GROUP_NAME"] data-recid=["#SUB_GROUP_ID","#SUB_GROUP_CODE","#SUB_GROUP_NAME"]  value="···"/> 
-          <label for='SUB_GROUP_NAME' class='left'>工作组名称</label> 
-          <input type="text" id="SUB_GROUP_NAME" name="SUB_GROUP_NAME" data-update="db" class="left long" readonly="readonly" required="required"/>
+          <label for="SUB_GROUP_CODE" class="left md">组编码</label> 
+          <input type="text" id="SUB_GROUP_CODE" name="SUB_GROUP_CODE" data-update="db" class="left md" class="left md" data-modify='true' data-pageframe="query" data-lovbtn='SUB_GROUP_LOV' data-param="GROUP_CODE" required="required"/>
+          <input type="hidden" id="SUB_GROUP_ID" name="SUB_GROUP_ID" data-update="db"/>
+          <input type="button" id="SUB_GROUP_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="工作组查询" data-queryurl="lov/getGroupPage.do" data-jsontype="group" data-defaultquery="true" data-th=["工作组ID","工作组编码","工作组名称","描述"] data-td=["GROUP_ID&none","GROUP_CODE","GROUP_NAME","DESCRIPTION"] data-selectname=["工作组编码","工作组名称"] data-selectvalue=["GROUP_CODE","GROUP_NAME"] data-choose=[".GROUP_ID",".GROUP_CODE",".GROUP_NAME"] data-recid=["#SUB_GROUP_ID","#SUB_GROUP_CODE","#SUB_GROUP_NAME"]  value="···"/> 
+          <label for="SUB_GROUP_NAME" class="left md">组名称</label> 
+          <input type="text" id="SUB_GROUP_NAME" name="SUB_GROUP_NAME" data-update="db" class="left lg" readonly="readonly" required="required"/>
         </form>
       </div>
       <div class='foot'>       

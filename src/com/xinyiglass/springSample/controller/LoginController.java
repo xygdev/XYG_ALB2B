@@ -53,11 +53,6 @@ public class LoginController {
 		return "login/login-ch";
 	}
 	
-	@RequestMapping("/login-ie.do")
-	public String login_ie(){
-		return "login/login-ie";
-	}
-	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
 	public ModelAndView postLogin(String username,String password,String lang) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -66,7 +61,7 @@ public class LoginController {
 		PlsqlRetValue ret=ls.handleLogin(password, username, lang,ipAddress);
 		int retCode = ret.getRetcode();
 		if(retCode==2){
-			mv.setViewName("login-ch");
+			mv.setViewName("login/login-ch");
 			sess.setAttribute("errorMsg", ret.getErrbuf());
 		 }else{
 			 UserVO user=uvos.findForUserVOByName(username,null);
