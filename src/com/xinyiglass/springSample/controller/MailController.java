@@ -75,6 +75,7 @@ public class MailController {
    		Map<String,Object> conditionMap=new HashMap<String,Object>();
    		conditionMap.put("orderBy", req.getParameter("orderby"));
    		conditionMap.put("userId", (Long)sess.getAttribute("USER_ID"));
+   		conditionMap.put("sendUserId", TypeConvert.str2Long(req.getParameter("SEND_USER_ID")));
    		conditionMap.put("sendId", TypeConvert.str2Long(req.getParameter("SEND_ID")));
    		conditionMap.put("mailTitle", req.getParameter("MAIL_TITLE"));
    		conditionMap.put("sendDate_F", TypeConvert.str2uDate(req.getParameter("SEND_DATE_F")));

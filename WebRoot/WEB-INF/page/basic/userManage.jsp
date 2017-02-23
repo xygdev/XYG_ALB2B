@@ -254,7 +254,7 @@
      	      <td class="START_DATE" data-column="db"></td>
      	      <td class="END_DATE" data-column="db"></td>
      	      <td class="ACTION" data-column="normal">
-     	        <i class="fa fa-pencil fa-fw update pointer" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="cust/preUpdate.do" data-type="update" data-updateparam=["USER_CUST_ID",".USER_CUST_ID"] data-func="$().preUpdateUC();"></i>
+     	        <i class="fa fa-pencil fa-fw update pointer" data-show="true" data-reveal-id="detail_ui" data-key="true" data-bg="detail-modal-bg" data-dismissmodalclass="close-detail-ui-frame" data-crudtype="pre-update" data-preupdateurl="cust/preUpdate.do" data-type="update" data-updateparam=["USER_CUST_ID",".USER_CUST_ID"] data-func="$().preUpdateUC();"></i>
      	      </td>
      	      <td class="USER_CUST_ID" style="display:none" data-column="hidden">&nbsp;</td>     	     
      	    </tr>

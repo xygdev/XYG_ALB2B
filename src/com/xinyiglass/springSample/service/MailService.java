@@ -29,7 +29,8 @@ public class MailService {
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		StringBuffer sqlBuf=new StringBuffer();
 		sqlBuf.append("select * FROM XYG_ALB2B_RECEIVE_V A WHERE RECEIVE_USER_ID = :1");
-		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_USER_ID",conditionMap.get("sendId"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_USER_ID",conditionMap.get("sendUserId"),paramMap));
+		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_ID",conditionMap.get("sendId"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("MAIL_TITLE",conditionMap.get("mailTitle"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("SEND_DATE",conditionMap.get("sendDate_F"), conditionMap.get("sendDate_T"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("READ_DATE",conditionMap.get("readDate_F"), conditionMap.get("readDate_T"),paramMap));

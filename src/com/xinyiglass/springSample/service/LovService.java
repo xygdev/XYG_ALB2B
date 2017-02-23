@@ -72,6 +72,7 @@ public class LovService {
 		if(userType.equals("EMP")){
 			paramMap.put("1", userId);
 			//sqlBuf.append("SELECT ORG_ID,ORG_NAME,PARTY_NAME,ACCOUNT_NUMBER,CUST_ACCOUNT_ID CUSTOMER_ID FROM XYG_ALB2B_ONHAND_PERM XAOP,XYG_ALI_ORGANIZATION XAO,XYG_ALFR_CUST_ACCOUNT_V XACA");	
+			/*
 			sqlBuf.append("SELECT XACA.ORG_ID,XACA.ORG_NAME,XACA.PARTY_NAME,XACA.ACCOUNT_NUMBER,XACA.CUST_ACCOUNT_ID CUSTOMER_ID,XAO.ORGANIZATION_ID,XAO.ORGANIZATION_NAME FROM XYG_ALB2B_ONHAND_PERM XAOP,XYG_ALI_ORGANIZATION_VL XAO,XYG_ALFR_CUST_ACCOUNT_V XACA");		
 			sqlBuf.append(" WHERE 1 = 1");
 			sqlBuf.append(" AND XAOP.ORGANIZATION_ID=XAO.ORGANIZATION_ID");
@@ -80,6 +81,27 @@ public class LovService {
 			sqlBuf.append(SqlStmtPub.getAndStmt("ACCOUNT_NUMBER",accountNumber,paramMap));
 			sqlBuf.append(SqlStmtPub.getAndStmt("PARTY_NAME", partyName,paramMap));
 			sqlBuf.append(" ORDER BY CUSTOMER_ID");
+			*/
+			sqlBuf.append("SELECT CUST_ACCOUNT_ID CUSTOMER_ID,ORG_ID,ORG_NAME,PARTY_NAME,ACCOUNT_NUMBER");
+			sqlBuf.append("  FROM XYG_ALFR_CUST_ACCOUNT_V");
+			sqlBuf.append(" WHERE GROUP_ID IN (SELECT L.SUB_GROUP_ID");
+			sqlBuf.append("						 FROM XYG_ALB2B_GROUP_HEADERS H");
+			sqlBuf.append(" 						 ,XYG_ALB2B_GROUP_LINES L");
+			sqlBuf.append("						WHERE 1=1");
+			sqlBuf.append(" 					  AND L.GROUP_ID=H.GROUP_ID");
+			sqlBuf.append("				   CONNECT BY H.GROUP_ID = prior  L.SUB_GROUP_ID");
+			sqlBuf.append("                START WITH H.GROUP_ID=(SELECT USER_GROUP_ID");
+			sqlBuf.append("											FROM XYG_ALB2B_USER");
+			sqlBuf.append("										   WHERE USER_ID = :1)");
+			sqlBuf.append("                     UNION ALL SELECT USER_GROUP_ID");
+			sqlBuf.append("                                 FROM XYG_ALB2B_USER");
+			sqlBuf.append("                                WHERE USER_ID = :1)");
+			sqlBuf.append("   AND ((SELECT USER_TYPE");
+			sqlBuf.append("           FROM XYG_ALB2B_USER");
+			sqlBuf.append("          WHERE USER_ID = :1) = 'EMP')");
+			sqlBuf.append(SqlStmtPub.getAndStmt("ACCOUNT_NUMBER",accountNumber,paramMap));
+			sqlBuf.append(SqlStmtPub.getAndStmt("PARTY_NAME", partyName,paramMap));
+			sqlBuf.append(" ORDER BY CUST_ACCOUNT_ID");
 		}else if(userType.equals("CUSTOMER")){
 			paramMap.put("1", userId);
 			//sqlBuf.append("SELECT * FROM XYG_ALB2B_USER_CUSTOMER_V");		
@@ -88,6 +110,7 @@ public class LovService {
 			sqlBuf.append("  FROM XYG_ALB2B_USER_CUSTOMER_V XAUC");
 			sqlBuf.append("      ,(SELECT OPERATING_UNIT,MAX(ORGANIZATION_ID) ORGANIZATION_ID");
 			sqlBuf.append("          FROM XYG_ALI_ORGANIZATION");
+			sqlBuf.append("         WHERE ORGANIZATION_CODE <> 'MAS'");
 			sqlBuf.append("         GROUP BY OPERATING_UNIT) XAO");
 			sqlBuf.append("      ,XYG_ALI_ORGANIZATION_TL XAOT");
 			sqlBuf.append(" WHERE USER_ID = :1");

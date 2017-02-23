@@ -546,7 +546,7 @@
     		   RegExpValidate('^[0-9]+(.[0-9]{2})?$','THICKNESS_D','regExpError("厚度只能输入小数点后至多一位的正实数");');
     		   RegExpValidate('^\\+?[1-9][0-9]*$','WIDTH_D','regExpError("宽度只能输入非零正整数!");');
     		   RegExpValidate('^\\+?[1-9][0-9]*$','HEIGHT_D','regExpError("高度只能输入非零正整数!");');
-    		   RegExpValidate('^\\+?[1-9][0-9]*$','PIE_QUANTITY_D','regExpError("片数只能输入非零正整数!");');
+    		   RegExpValidate('^\\d+$','PIE_QUANTITY_D','regExpError("片数只能输入正整数!");');
     		   RegExpValidate('^[0-9]+(.[0-9]{2})?$','SQM_UNIT_PRICE_D','regExpError("单位面积必须是精确到小数点后两位的正实数");');
     		}	
     		

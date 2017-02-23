@@ -261,7 +261,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	record=data.rows.length;
 				if(record>3){
 				    for(i=0;i<3;i++){
-				        newmail='<li><a href="javascript:void(0)"><div class="pull-left"><img src="/image/login/mail.png" class="img-circle" alt="User Image"></div><h4>'
+				        newmail='<li><a class="pointer" data-iframehref="mail/RecMail.do?autoQuery=Y&sendId='+data.rows[i].SEND_ID+'" data-title="收件箱"><div class="pull-left"><img src="/image/login/mail.png" class="img-circle" alt="User Image"></div><h4>'
                 		+(data.rows[i].MAIL_TITLE).substring(0, 15)+'...<small><i class="fa fa-clock-o"></i>'
                 		+data.rows[i].SEND_DATE+'</small></h4><p>From:<span>'
                 		+data.rows[i].SEND_USER_DESC+'</span></p></a></li>';
@@ -269,13 +269,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    }	
 				}else{
 				    for(i=0;i<record;i++){
-				        newmail='<li><a href="javascript:void(0)"><div class="pull-left"><img src="/image/login/mail.png" class="img-circle" alt="User Image"></div><h4>'
+				        newmail='<li><a class="pointer" data-iframehref="mail/RecMail.do?autoQuery=Y&sendId='+data.rows[i].SEND_ID+'" data-title="收件箱"><div class="pull-left"><img src="/image/login/mail.png" class="img-circle" alt="User Image"></div><h4>'
                 		+(data.rows[i].MAIL_TITLE).substring(0, 15)+'...</h4><p>From:<span>'
                 		+data.rows[i].SEND_USER_DESC+'</span></p><p><small><i class="fa fa-clock-o"></i>'
                 		+data.rows[i].SEND_DATE+'</small></p></a></li>';
 				        $('#unread_menu').append(newmail); 		
 				    }
 				}
+				$().iframeListener();
             	
             }
         }

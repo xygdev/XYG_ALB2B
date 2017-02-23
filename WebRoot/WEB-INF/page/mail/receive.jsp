@@ -3,13 +3,20 @@
 <%
   String path = request.getContextPath();
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+  String sendId = null;
+  sendId = request.getParameter("sendId");
+  String autoQuery = null;
+  autoQuery = request.getParameter("autoQuery");
+  if(autoQuery == null){
+      autoQuery = "N";
+  }
 %>
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>收件箱</title>
     <base href="<%=basePath%>"> 
-    <meta http-equiv="content-type" content="text/html;charset=gb2312">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
 	<link rel="stylesheet" href="plugin/css/font-awesome.min.css">
 	<link rel="stylesheet" href="plugin/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
@@ -50,7 +57,7 @@
      	    <td class="SEND_DATE" data-column="db"></td>
      	    <td class="READ_DATE" data-column="db"></td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa fa-eye view pointer" title="邮件详情" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getRecMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"] data-mailtype="detail" data-btn="#mailrefresh" data-mailurl="mail/updateRecMail.do" data-mailparam=[".READ_DATE","RECEIVE_ID",".RECEIVE_ID"]></i>
+     	      <i class="fa fa fa-eye hidden view pointer" title="邮件详情" data-show="true" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame" data-crudtype="pre-update" data-preupdateurl="mail/getRecMailDetail.do" data-type="detail" data-updateparam=["SEND_ID",".SEND_ID"] data-mailtype="detail" data-btn="#mailrefresh" data-mailurl="mail/updateRecMail.do" data-mailparam=[".READ_DATE","RECEIVE_ID",".RECEIVE_ID"]></i>
      	    </td>
      	    <td class="SEND_ID" style="display:none" data-column="hidden">&nbsp;</td>
      	    <td class="RECEIVE_ID" style="display:none" data-column="hidden">&nbsp;</td>
@@ -89,7 +96,7 @@
           <input type="hidden" data-type="number" id="page_no" value="1"/>
           <input type="hidden" data-type="orderby" id="ORDER_BY" value="SEND_DATE DESC"/> 
           <input type="hidden" data-type="cond"/>
-          <input type="hidden" data-type="autoquery" value="N"/>
+          <input type="hidden" data-type="autoquery" value=<%=autoQuery %> />
           <input type="hidden" data-type="url" value="mail/getRecMail.do"/>
           <input type="hidden" data-type="jsontype" value="table"/> 
         </div>
@@ -137,13 +144,13 @@
         <div class='title pointer'>      
           <span><i class="fa fa-envelope"></i>&nbsp;邮件查询</span>
         </div>
-        <a class="close-query-frame" data-type="close">&#215;</a>
+        <a id="mailclose" class="close-query-frame" data-type="close">&#215;</a>
         <div class='line'></div>
         <div class='content row-4'>
           <form>
             <label for='USER_NAME_Q' class='left md'>发件账号:</label> 
             <input type='text' id='USER_NAME_Q' name='USER_NAME' class='left md' data-modify='true' data-pageframe="query" data-lovbtn='USER_LOV_Q' data-param="USER_NAME" />          
-            <input type='hidden' id='USER_ID_Q' name='SEND_ID'/>
+            <input type='hidden' id='USER_ID_Q' name='SEND_USER_ID'/>
             <input type='button' id="USER_LOV_Q" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="发件人查询" data-queryurl="lov/getUserPage.do" data-jsontype="user" data-defaultquery="true" data-th=["用户id","发件账号","发件人"] data-td=["USER_ID&none","USER_NAME","DESCRIPTION"] data-selectname=["发件账号","发件人"] data-selectvalue=["USER_NAME","DESCRIPTION"] data-choose=[".USER_ID",".USER_NAME",".DESCRIPTION"] data-recid=["#USER_ID_Q","#USER_NAME_Q","#DESCRIPTION_Q"] value="···"/>
             <label for='DESCRIPTION_Q' class='left md'>发件人:</label> 
             <input type='text' id='DESCRIPTION_Q' name="DESCRIPTION" class="left lg" readonly="readonly"/>
@@ -174,9 +181,9 @@
       <input type="hidden" id="HEADER_ID" value=""/> 
       <!-- 用户信息存放区域 end -->  
     </div>
-     
-    <script>       
-        $(function() {
+    
+    <script>         
+        $(function() {          
             //设置拖拽
     		$("#detail").draggable({ handle: ".title" });
     		$("#query").draggable({ handle: ".title" });  
@@ -210,7 +217,22 @@
 				  step: 30,
 				  showOnClick: true
 			});
+			
+			
+			/*
+		    if(sendId!='null'){
+			    $('input[data-type="cond"]').val('SEND_ID='+sendId);
+			    //alert($('#mailclose').text());
+			    //$().revealListener();
+			    //alert('debug1');
+			    //console.log($('#mailclose'));
+			    $('#mailclose').click();
+			    $('#refresh').click();	    
+		    }
+		    */
         });
+        
+        
         
         jQuery.json={
         	getContent:function(data,JSONtype){  
@@ -261,14 +283,23 @@
        	    }
        	}
     </script>
-    <script type="text/javascript" src="plugin/layer/layer.js"></script>
-    <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
+    <script type="text/javascript" src="plugin/layer/layer.js"></script> 
+    <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script>   
     <script type="text/javascript" src="plugin/js/jQuery.page.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.lov.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.mail.js"></script> 
     <script type="text/javascript" src="plugin/js/jQuery.crud.js"></script>    
     <script type="text/javascript" src="plugin/js/jQuery.rowdefine.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.irr.orderby.js"></script>	
-    <script type="text/javascript" src="plugin/js/jQuery.irr.init.js"></script>	    
+    <script type="text/javascript" src="plugin/js/jQuery.irr.init.js"></script>	   
+    <script type="text/javascript">
+        window.onload=function(){
+            var sendId = '<%=sendId %>';
+            if(sendId!='null'){
+			    $('input[data-type="cond"]').val('SEND_ID='+sendId);
+			    $('#refresh').click();    
+		    }
+        }
+    </script>  
   </body>
 </html>

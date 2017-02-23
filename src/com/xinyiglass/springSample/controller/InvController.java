@@ -108,6 +108,7 @@ public class InvController {
 		int pageNo=Integer.parseInt(req.getParameter("pageNo"));
 		boolean goLastPage=Boolean.parseBoolean(req.getParameter("goLastPage"));
    		Map<String,Object> conditionMap=new HashMap<String,Object>();
+   		conditionMap.put("userId", (Long)sess.getAttribute("USER_ID"));
    		conditionMap.put("orderBy", req.getParameter("orderby"));
    		conditionMap.put("custId", TypeConvert.str2Long(req.getParameter("CUSTOMER_ID")));
    		conditionMap.put("width", TypeConvert.str2Long(req.getParameter("WIDTH")));

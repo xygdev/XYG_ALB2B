@@ -83,7 +83,7 @@
           <!-- 分页按钮区域 end -->
           <input type="hidden" data-type="size" id="page_size" value="10"/>
           <input type="hidden" data-type="number" id="page_no" value="1"/>
-          <input type="hidden" data-type="orderby" id="ORDER_BY" value="INVENTORY_ITEM_ID DESC"/> 
+          <input type="hidden" data-type="orderby" id="ORDER_BY" value="INVENTORY_ITEM_ID ASC"/> 
           <input type="hidden" data-type="cond"/>
           <input type="hidden" data-type="autoquery" value="N"/>
           <input type="hidden" data-type="url" value="inv/getResnInvPage.do"/>
@@ -117,12 +117,12 @@
         <div class='line'></div>
         <div class="content row-3">
           <form>
-            <label for='PARTY_NAME' class="left md">客户名称</label> 
-            <input type='text' id='PARTY_NAME' name='PARTY_NAME' class="left md" required="required" readonly="readonly"/>          
-            <input type='hidden' id='CUSTOMER_ID' name='CUSTOMER_ID'/>
-            <input type='button' id="CUSTOMER_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","销售公司"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER"] value="···"/>
-            <label for='ACCOUNT_NUMBER' class="left md">客户帐号</label>
-            <input type='text' id='ACCOUNT_NUMBER' name='ACCOUNT_NUMBER' required='required' class="left lg" readonly="readonly"/>
+            <label for="PARTY_NAME" class="left md">客户名称</label> 
+            <input type="text" id="PARTY_NAME" name="PARTY_NAME" class="left md" data-modify="true" data-pageframe="query"  data-lovbtn="CUSTOMER_LOV"  data-param="PARTY_NAME"/>          
+            <input type="hidden" id="CUSTOMER_ID" name="CUSTOMER_ID"/>
+            <input type="button" id="CUSTOMER_LOV" class="left button pointer" data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="query" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="客户查询" data-queryurl="lov/getUserCustPage.do" data-jsontype="cust" data-defaultquery="true" data-th=["客户id","客户名称","客户帐号","销售公司"] data-td=["CUSTOMER_ID&none","PARTY_NAME","ACCOUNT_NUMBER","ORG_NAME"] data-selectname=["客户名称","客户账号"] data-selectvalue=["PARTY_NAME","ACCOUNT_NUMBER"] data-choose=[".CUSTOMER_ID",".PARTY_NAME",".ACCOUNT_NUMBER"] data-recid=["#CUSTOMER_ID","#PARTY_NAME","#ACCOUNT_NUMBER"] value="···"/>
+            <label for="ACCOUNT_NUMBER" class="left md">客户帐号</label>
+            <input type="text" id="ACCOUNT_NUMBER" name="ACCOUNT_NUMBER" class="left lg"/>
             <br style="clear:both"/>
             <label for='COATING_NAME' class='left md'>膜系</label> 
             <input type='text' id='COATING_NAME' name='COATING_NAME' class="left md" data-modify="true" data-pageframe="query" data-lovbtn="COATING_LOV" data-param="LOOKUP_CODE"/>          
@@ -167,10 +167,13 @@
     		
     		$.fn.validateOrgan = function(){
     		   custId = $('#CUSTOMER_ID').val();
+    		   userType = '${USER_TYPE}';
     		   if(custId==null||custId==''){
-    		       $('.ajax_loading').hide();
-    		       layer.alert('必须选择客户才能查询保留库存！',{title:'警告',offset:[150]});
-    		       throw new error('必须选择客户才能查询保留库存！');
+    		       if(userType=='CUSTOMER'){
+    		           $('.ajax_loading').hide();
+    		           layer.alert('必须选择客户才能查询保留库存！',{title:'警告',offset:[150]});
+    		           throw new error('必须选择客户才能查询保留库存！');
+    		       }
     		   }else{
     		       sync = "SYNC_CODE=SYNC_RESERVATIONS";
     		       $.ajax({

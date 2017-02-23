@@ -15,6 +15,9 @@
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
+	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
+	<script src="plugin/js/xygdev.commons.js"></script>
   </head> 
   <body>
     <div id="container">
@@ -164,6 +167,15 @@
         $(function() {
             //设置拖拽
     		$("#query").draggable({ handle: ".title" });
+    		
+    		//日期选择 2016.1.18 by bird
+    		$('input[data-datatype="date"]').datetimepicker({
+				  lang:"ch",           //语言选择中文
+				  timepicker:true,    //启用时间选项
+				  format:"Y-m-d H:i:s",      //格式化日期
+				  step: 30,
+				  showOnClick: true
+			});
     		
     		$().crudListener();	
     		

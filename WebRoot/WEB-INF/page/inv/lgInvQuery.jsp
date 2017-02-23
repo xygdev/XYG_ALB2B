@@ -93,7 +93,7 @@
           <!-- 分页按钮区域 end -->
           <input type="hidden" data-type="size" id="page_size" value="10"/>
           <input type="hidden" data-type="number" id="page_no" value="1"/>
-          <input type="hidden" data-type="orderby" id="ORDER_BY" value="INVENTORY_ITEM_ID DESC"/> 
+          <input type="hidden" data-type="orderby" id="ORDER_BY" value="INVENTORY_ITEM_ID ASC"/> 
           <input type="hidden" data-type="cond"/>
           <input type="hidden" data-type="autoquery" value="N"/>
           <input type="hidden" data-type="url" value="inv/getLgInvPage.do"/>

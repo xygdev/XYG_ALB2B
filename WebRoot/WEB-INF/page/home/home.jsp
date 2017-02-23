@@ -39,24 +39,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
           <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center inner">
-              <h1 class="animated fadeInDown">信义<span>玻璃</span></h1>
-              <p class="animated fadeInUp delay-05s">融制透明<em>世界</em>&nbsp;建设绿色<em>空间</em></p>
+              <h1 class="animated fadeInDown">信义玻璃</h1>
+              <p class="animated fadeInUp delay-05s">融制透明世界&nbsp;建设绿色<em>空间</em></p>
             </div>
           </div>
         </div>
       </section>
     </header>
-    <section class="intro text-center section-padding" id="intro">
+    <section class="intro text-center section-padding" id="intro-ff">
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-md-offset-2 wp1">
             <h1 class="arrow">浮法玻璃</h1>
-            <p><a href="#">浮法玻璃是透明平板玻璃，广泛用于生产钢化、夹层、热弯中空、镀膜等高档玻璃深加工领域。</a></p>
+            <p>浮法玻璃是透明平板玻璃，广泛用于生产钢化、夹层、热弯中空、镀膜等高档玻璃深加工领域。</p>
           </div>
         </div>
       </div>
     </section>
-    <section class="features text-center section-padding" id="features">
+    <section class="features text-center section-padding" id="features-ff">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
       </section>
-      <section class="text-center" id="responsive">
+      <section class="text-center" id="responsive-ff">
         <div class="container-fluid nopadding responsive-services">
           <div class="wrapper">
             <div class="iphone">
@@ -117,16 +117,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
       </section>
-      <section class="swag text-center">
+      <section class="intro text-center section-padding" id="intro-lg">
         <div class="container">
           <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-              <h1>马来西亚工业园<span>即将<em>投产</em> 敬请期待</span></h1>
-              <a href="#"  data-up="true" class="down-arrow-btn"><i class="fa fa-chevron-up"></i></a>
+            <div class="col-md-8 col-md-offset-2 wp1">
+              <h1 class="arrow">镀膜玻璃</h1>
+              <p>镀膜玻璃就是浮法玻璃经过镀膜一道深加工工序后的玻璃产品。</p>
             </div>
           </div>
         </div>
       </section>
+      <section class="features text-center section-padding" id="features-lg">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="arrow">产品简介</h1>
+              <div class="features-wrapper">
+                <div class="col-md-6 wp2">
+                  <div class="icon">
+                    <img src="/image/home/Coating1.jpg" style="width:100%">
+                  </div>
+                  <h2>热反射镀膜玻璃</h2>
+                  <p>热反射镀膜玻璃是采用真空磁控溅射工艺，在玻璃表面镀上多层金属和金属化合物薄膜而形成的产品。它具有控制可见光透过、遮挡太阳能辐射进入室内，从而降低室内空调能耗的作用，同时它还具有艳丽多彩的外观，可为现代建筑设计提供多种选择。</p>
+                </div>
+                <div class="col-md-6 wp2 delay-05s">
+                  <div class="icon">
+                    <img src="/image/home/Coating2.jpg" style="width:100%">
+                  </div>
+                  <h2>低辐射镀膜玻璃</h2>
+                  <p>低辐射镀膜玻璃也叫Low-E玻璃，Low-E玻璃是在玻璃表面镀低辐射材料银及金属氧化物膜，使玻璃呈现出不同颜色。其主要作用是降低玻璃的U值，同时有选择地降低Sc，全面改善玻璃的节能特性。</p>
+                </div>              
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>  
+      
       <section class="portfolio text-center section-padding hidden-sm hidden-xs" id="portfolio">
         <div class="container">
           <div class="row">
@@ -137,10 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/DG.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义超薄玻璃（东莞）有限公司</h2>
@@ -150,10 +173,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/WH.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义节能玻璃（芜湖）有限公司</h2>
@@ -163,10 +182,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/TJ.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义玻璃（天津）有限公司</h2>
@@ -178,10 +193,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/YK.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义玻璃（营口）有限公司</h2>
@@ -191,10 +202,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/DY.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义节能玻璃（四川）有限公司</h2>
@@ -204,10 +211,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="overlay-effect effects clearfix">
                       <div class="img">
                         <img src="/image/home/JM.png" alt="Portfolio Item">
-                        <div class="overlay">
-                          <a href="#" class="expand"><i class="fa fa-search"></i><br>View More</a>
-                          <a class="close-overlay hidden">x</a>
-                        </div>
                       </div>
                     </div>
                     <h2>信义环保特种玻璃（江门）有限公司</h2>
@@ -219,99 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
         </div>
       </section>
-      <div class="ignite-cta text-center hidden-sm hidden-xs" style="padding:0">
-		<div style="width:100%;padding:70px 0;background-color:black;opacity:0.6">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-12">
-                <a href="#" data-up="true" class="down-arrow-btn"><i class="fa fa-chevron-up"></i></a>
-              </div>
-            </div>
-          </div>
-		</div>
-      </div>
-      <section class="team text-center section-padding hidden-sm hidden-xs" id="team">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1 class="arrow">精英团队</h1>
-            </div>
-          </div>
-          <div class="row">
-            <div class="team-wrapper">
-              <div id="teamSlider">
-                <ul class="slides">
-                  <li>
-                    <div class="col-md-4 wp5">
-                      <img src="/image/home/batman.jpg" alt="Team Member">
-                      <h2>杨镇城</h2>
-                      <p>信义超薄玻璃（东莞）有限公司</p>
-                      <p>电话:0769-85012863,0769-85266666/6110</p>
-					  <p>传真:0769-85265533</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>   
-                    <div class="col-md-4 wp5 delay-05s">
-                      <img src="/image/home/ironman.jpg" alt="Team Member">
-                      <h2>周冬平</h2>
-                      <p>信义节能玻璃（芜湖）有限公司</p>
-                      <p>电话:0553-589 5518</p>
-					  <p>传真:0553-589 5777</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>
-                    <div class="col-md-4 wp5 delay-1s">
-                      <img src="/image/home/american.jpg" alt="Team Member">
-                      <h2>邵玉辉</h2>
-                      <p>信义玻璃（天津）有限公司</p>
-                      <p>电话:022-82971201</p>
-				      <p>传真:022-82159967</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="col-md-4 wp5">
-                      <img src="/image/home/hock.jpg" alt="Team Member">
-                      <h2>陈泽明</h2>
-                      <p>信义玻璃（营口）有限公司</p>
-                      <p>电话:0417-8205178</p>
-				      <p>传真:0417-8203355</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>
-                    <div class="col-md-4 wp5 delay-05s">
-                      <img src="/image/home/thunder.jpg" alt="Team Member">
-                      <h2>李成</h2>
-                      <p>信义节能玻璃（四川）有限公司</p>
-                      <p>电话:18227187260</p>
-				      <p>传真:022-82159967</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>
-                    <div class="col-md-4 wp5 delay-1s">
-                      <img src="/image/home/deadpool.jpg" alt="Team Member">
-                      <h2>郑长乙</h2>
-                      <p>信义环保特种玻璃（江门）有限公司</p>
-                      <p>电话:0750-3798888</p>
-					  <p>传真:0750-3779999</p>
-					  <p>邮箱:xxx@xinyiglass.com</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="subscribe text-center" style="padding:0">
-        <div style="width:100%;padding:120px 0 140px;background-color:black;opacity:0.6">
-          <div class="container">
-            <h1><i class="fa fa-paper-plane"></i><span>填写邮箱订阅公司最新资讯</span></h1>
-            <form action="#">
-              <input type="text" name="" value="" placeholder="" required>
-              <input type="submit" name="" value="提交">
-            </form>
-          </div>
-		</div>
-      </section>
       <section class="dark-bg text-center section-padding contact-wrap hidden-sm hidden-xs" id="contact">
-        <a href="#" data-up="true" class="up-btn"><i class="fa fa-chevron-up"></i></a>
         <div class="container">
           <div class="row">
             <div class="col-md-12">
@@ -334,7 +245,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="col-md-4">
               <div class="light-box box-hover">
                 <h2><i class="fa fa-paper-plane"></i><span>邮箱</span></h2>
-                <p><a href="#">erp@xinyiglass.com</a></p>
+                <p>erp@xinyiglass.com</p>
               </div>
             </div>
           </div>
@@ -345,12 +256,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="row">
             <div class="col-md-6">
               <ul class="legals">
-                <li><a href="#">信义玻璃控股有限公司 版权所有</a></li>
-                <li><a href="#">法律声明</a></li>
+                <li><a href="javascriptvoid(0)">信义玻璃控股有限公司 版权所有</a></li>
+                <li><a href="javascriptvoid(0)">法律声明</a></li>
               </ul>
             </div>
             <div class="col-md-6 credit">
-              <p>设计团队 <a href="http://www.peterfinlan.com/">信义玻璃</a><a href="http://tympanus.net/codrops/"><em>ERP团队</em></a></p>
+              <p>设计团队 <a href="javascriptvoid(0)">信义玻璃</a><a href="javascriptvoid(0)"><em>ERP团队</em></a></p>
             </div>
           </div>
         </div>
