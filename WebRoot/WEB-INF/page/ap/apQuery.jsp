@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="Ap">
+        <table id="main-table" data-table="Ap">
           <tr>
             <th class="REQUEST_ID" data-column="db">请求ID</th>            
      	    <th class="USER_NAME" data-column="db">请求账号</th>
@@ -77,8 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -218,20 +218,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	getContent:function(data,JSONtype){ 
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){ 
-                    	$('.REQUEST_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_ID); 
-                   	 	$('.USER_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
-                    	$('.USER_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
-                    	$('.REQUEST_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_DATE); 
-                    	$('.ACTUAL_START_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ACTUAL_START_DATE);   
-                    	$('.ACTUAL_COMPLETION_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ACTUAL_COMPLETION_DATE);   
-                    	$('.COMPLETION_TEXT',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].COMPLETION_TEXT); 
-                    	$('.REQUEST_LOG_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_LOG_ID); 
-                    	$('.STATUS_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_CODE); 
-                    	$('.ACTION i',$('#tb tr:eq('+(i+1)+')')).show();
+                    	$('.REQUEST_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_ID); 
+                   	 	$('.USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
+                    	$('.USER_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
+                    	$('.REQUEST_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_DATE); 
+                    	$('.ACTUAL_START_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACTUAL_START_DATE);   
+                    	$('.ACTUAL_COMPLETION_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACTUAL_COMPLETION_DATE);   
+                    	$('.COMPLETION_TEXT',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].COMPLETION_TEXT); 
+                    	$('.REQUEST_LOG_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].REQUEST_LOG_ID); 
+                    	$('.STATUS_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_CODE); 
+                    	$('.ACTION i',$('#main-table tr:eq('+(i+1)+')')).show();
                     	if(data.rows[i].STATUS_CODE!='C'){
-                    	  $('.ACTION i',$('#tb tr:eq('+(i+1)+')')).hide();
+                    	  $('.ACTION i',$('#main-table tr:eq('+(i+1)+')')).hide();
                     	}
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().outputShow();
                 	$().revealListener(); 

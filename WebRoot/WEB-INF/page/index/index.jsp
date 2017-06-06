@@ -37,17 +37,109 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         .dark-green{
             background-color:#006633 !important;
         }
-        .green{
-            background-color:#009933 !important;
+        .tab_button_left{
+          	position:absolute;
+          	top:0;
+          	left:0;
+          	height:36px;
+          	border:0;
+          	border-right:1px solid gray;
+          	width:60px;
+          	color:black;
+          	display:block;
+          	text-align:center;
+          	line-height:36px
         }
-        .sidebar-menu >li:hover>a,
-        .sidebar-menu >li.active>a{
-            border-left-color:#006633 !important;
+        .tab_button_right{
+          	position:absolute;
+          	top:0;
+          	right:120px;
+          	height:36px;
+          	border:0;
+          	border-left:1px solid gray;
+          	width:60px;
+          	color:black;
+          	display:block;
+          	text-align:center;
+          	line-height:36px
         }
+        .tab_button_fullscreen{
+          	position:absolute;
+          	top:0;
+          	right:0;
+          	height:36px;
+          	border:0;
+          	border-left:1px solid gray;
+          	width:60px;
+          	color:black;
+          	display:block;
+          	text-align:center;
+          	line-height:36px
+      	}
+      	.tab_selection{
+      	    position:absolute;
+          	top:0;
+          	right:60px;
+          	width:60px;
+      	}
+      	.tab_button_selection{
+          	height:36px;
+          	border:0;
+          	border-left:1px solid gray;
+          	width:60px;
+          	background-color:white;
+          	color:black;
+          	display:block;
+          	text-align:center;
+          	line-height:36px;
+      	}
+      	.content_tab_area{
+          	margin-left:60px;
+          	width:10000px;
+          	height:40px;
+          	overflow:hidden;
+      	}
+      	.content_tab_frame{
+          	float:left;
+          	border:0;
+          	margin:0;
+          	padding:0;
+          	height:36px;
+          	width:auto;
+          	overflow:hidden;
+          	white-space:nowrap;
+          	text-overflow:ellipsis;
+      	}
+      	.content_tab_frame>.content_tab{
+          	float:left;
+          	display:block;
+          	height:36px;
+          	border:0;
+          	/*border-right:1px solid gray;*/
+          	padding:0 10px;
+          	min-width:60px;
+          	width:auto;
+          	color:black;
+          	display:block;
+          	text-align:center;
+          	line-height:36px;
+          	background-color:white;
+          	color:black;  
+      	}
+      	
+      	.content_tab_frame>.active{
+          	background-color:black;
+          	color:white;  
+      	}
+      	.content_iframe{
+      	  	width:100%;
+      	  	padding:0;
+      	 	border:0;
+      	}
     </style>
   </head>
   
-  <body class="hold-transition skin-blue sidebar-mini sidebar-collapse" >  
+  <body class="hold-transition skin-green sidebar-mini sidebar-collapse" >  
     <div class="wrapper">    
        <header class="main-header">
         <!-- Logo -->
@@ -58,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <span class="logo-lg"><b>Xinyi</b>GLASS</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top green" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -121,21 +213,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1 id="test">
-           	 信义玻璃B2B电子商务平台
-            <small>Version 1.0</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#" data-iframehref="home.do"><i class="fa fa-dashboard"></i> 主页</a></li>
-          </ol>
+    	<section class="content-header" style="position:relative;height:40px;border-bottom:4px solid black;border-top:0;padding:0;width:auto;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+          <a class="tab_button_left pointer" style="background-color:white;color:black" ><i class="fa fa-backward"></i></a>
+          <a class="tab_button_fullscreen pointer" fullscreen="false" style="background-color:white;color:black" ><i class="fa fa-toggle-off"></i></a>
+          <a class="tab_button_fullscreen pointer" fullscreen="true" style="background-color:white;color:#00a65a;display:none" ><i class="fa fa-toggle-on"></i></a>
+
+          <div class="dropdown tab_selection" >
+          	<button type="button" class="tab_button_selection dropdown-toggle" data-toggle="dropdown">操作&nbsp;<i class="fa fa-caret-down"></i></button>
+            
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="position:fixed;top:85px;left:auto;right:0">
+              <li role="presentation">
+                <a role="menuitem" data-tabtype="refreshTab" tabindex="-1" href="#">刷新当前标签页</a>
+              </li>
+              <li role="presentation">
+                 <a role="menuitem" data-tabtype="closeOthers" tabindex="-1" href="#">关闭其他标签页</a>
+              </li>
+              <li role="presentation">
+                <a role="menuitem" data-tabtype="closeAll" tabindex="-1" href="#">关闭所有标签页</a>
+              </li>
+            </ul>
+            
+          </div>
+
+          <a class="tab_button_right pointer" style="background-color:white;color:black" ><i class="fa fa-forward"></i></a>
+          <nav class="content_tab_area">
+            <div class="content_tab_frame" style="margin-left:0px">
+              <a class="content_tab pointer active" data-tabfunc="0" >首页</a>
+            </div>
+          </nav>
         </section>
 
         <!-- Main content -->
-        <section class="content" style="padding:0">
-          <!-- Info boxes -->
-          <iframe frameborder="0" src="home.do" id="mainframe" scrolling="yes" framespacing="0"  style="width:100%;padding:0" ></iframe>
-        </section><!-- /.content -->
+        <section id="iframe_area" class="content" style="padding:0">
+            <!-- Info boxes -->
+            <iframe class="content_iframe" src="home.do" data-tabfunc="0" frameborder="0" scrolling="yes" framespacing="0" ></iframe>
+    	</section>
         
         <!-- 用户信息存放区域 start -->
      	<input type="hidden" id="USER_ID" value="${USER_ID}"/>  
@@ -191,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
     <script type="text/javascript" src="plugin/js/cropbox.js"></script>
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
-     <script type="text/javascript" src="plugin/js/data.validate.js"></script>
+    <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript">
         $('i[data-pwd]').on('click',function(){
     		if($(this).data('pwd')=='show'){
@@ -276,14 +388,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        $('#unread_menu').append(newmail); 		
 				    }
 				}
-				$().iframeListener();
+				//$().iframeListener();
             	
             }
         }
-        $().iframeListener();
+        //$().iframeListener();
         
         $('#mailrefresh').click();
     
+    
+        /*
     	width=$(window).width();
         height=$(window).height();
         if(width>=768){
@@ -321,6 +435,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		} 
     		isResizing = true; 
     	}; 
+    	*/
 	</script>
   </body>
 </html>

@@ -29,7 +29,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="FuncPerm">
+        <table id="main-table" data-table="FuncPerm">
           <tr>
             <th class="USER_NAME" data-column="db">用户账号</th>
      	    <th class="USER_DESC" data-column="db">用户姓名</th>
@@ -83,8 +83,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -241,39 +241,40 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                   	 	$('.USER_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
-                    	$('.USER_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
-                    	$('.FUNCTION_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].FUNCTION_CODE); 
-                    	$('.FUNCTION_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].FUNCTION_NAME);
+                   	 	$('.USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
+                    	$('.USER_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
+                    	$('.FUNCTION_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].FUNCTION_CODE); 
+                    	$('.FUNCTION_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].FUNCTION_NAME);
                     	if(data.rows[i].INSERT_FLAG=='Y'){
-                    	    $('.INSERT_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	    $('.INSERT_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.INSERT_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.INSERT_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	}  
                     	if(data.rows[i].UPDATE_FLAG=='Y'){
-                    	    $('.UPDATE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	    $('.UPDATE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.UPDATE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.UPDATE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	}
                     	if(data.rows[i].APPROVE_FLAG=='Y'){
-                    	    $('.APPROVE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	    $('.APPROVE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.APPROVE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.APPROVE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	}
                     	if(data.rows[i].FINAL_APPROVE_FLAG=='Y'){
-                    	    $('.FINAL_APPROVE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	    $('.FINAL_APPROVE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.FINAL_APPROVE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.FINAL_APPROVE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	}
                     	if(data.rows[i].DELETE_FLAG=='Y'){
-                    	    $('.DELETE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
+                    	    $('.DELETE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-check green"></i>');
                     	}else{
-                    	    $('.DELETE_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
+                    	    $('.DELETE_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-close red"></i>');
                     	} 
-                    	$('.START_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
-                    	$('.END_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
-                    	$('.P_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].P_ID); 
+                    	$('.START_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
+                    	$('.END_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
+                    	$('.P_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].P_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='user'){

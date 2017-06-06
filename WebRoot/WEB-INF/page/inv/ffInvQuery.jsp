@@ -26,7 +26,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="LgInv">
+        <table id="main-table" data-table="LgInv">
           <tr>
             <th class="ORGANIZATION_NAME" data-column="db">库存组织</th>
             <th class="ITEM_NUMBER" data-column="db">物料编码</th>
@@ -77,8 +77,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -208,21 +208,22 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.ORGANIZATION_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME); 
-                   	 	$('.ITEM_NUMBER',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_NUMBER); 
-                    	$('.ITEM_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_DESC);
-                    	$('.ONHAND_UOM_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_UOM_CODE);   
-                    	$('.THICKNESS',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].THICKNESS);   
-                    	$('.SPEC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SPEC); 
-                    	$('.COLOUR',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].COLOUR); 
-                    	$('.GRADE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].GRADE); 
-                    	$('.PACK_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PACK_DESC); 
-                    	$('.DISPLAY_TON_QTY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_TON_QTY); 
-                    	$('.DISPLAY_ONHAND_QTY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_ONHAND_QTY); 
-                    	$('.DISPLAY_BOX_QTY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_BOX_QTY); 
-                    	$('.ORGANIZATION_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
-                    	$('.INVENTORY_ITEM_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].INVENTORY_ITEM_ID); 
+                    	$('.ORGANIZATION_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME); 
+                   	 	$('.ITEM_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_NUMBER); 
+                    	$('.ITEM_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_DESC);
+                    	$('.ONHAND_UOM_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_UOM_CODE);   
+                    	$('.THICKNESS',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].THICKNESS);   
+                    	$('.SPEC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SPEC); 
+                    	$('.COLOUR',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].COLOUR); 
+                    	$('.GRADE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GRADE); 
+                    	$('.PACK_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PACK_DESC); 
+                    	$('.DISPLAY_TON_QTY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_TON_QTY); 
+                    	$('.DISPLAY_ONHAND_QTY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_ONHAND_QTY); 
+                    	$('.DISPLAY_BOX_QTY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DISPLAY_BOX_QTY); 
+                    	$('.ORGANIZATION_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
+                    	$('.INVENTORY_ITEM_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].INVENTORY_ITEM_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='organ'){

@@ -15,6 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="plugin/css/public.css">
 	<script type="text/javascript" src="plugin/jQuery/jQuery-2.1.4.min.js"></script>
 	<script src="plugin/jQuery/jquery-ui.min.js"></script>	
+	<style>
+	 .pop_frame .content .ui-tabs-panel{padding:0;}
+	 .ui-widget.ui-widget-content{border:0px;}
+	</style>
   </head> 
   <body>
     <div id="container">
@@ -26,7 +30,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="mHeader" data-table="MenuHeader">
+        <table id="main-table" data-table="MenuHeader">
           <tr>
             <th class="MENU_CODE" data-column="db">菜单编码</th>
             <th class="MENU_NAME" data-column="db">菜单名称</th>
@@ -70,8 +74,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#mHeader" />
-			<jsp:param name="odtable" value="#mHeader" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -235,6 +239,7 @@
     
     
     <!-- 菜单明细新增/更新区域 start -->
+      
     <div id="detail_ui" class="pop_frame row-3" style="z-index:104">     
         <div class='title pointer'>      
           <span data-type="update"><i class="fa fa-th-list  fa-1x" aria-hidden="true"></i>&nbsp;更新菜单明细</span>
@@ -242,6 +247,7 @@
         </div>
         <a class="close-detail-ui-frame" data-type="close">&#215;</a>
         <div class="line"></div>
+        <!--
         <div class="content row-3">
           <form id="updateDetailData">
             <input type="hidden" id="MENU_ID_DETAIL" name="MENU_ID" data-update="db" value=""/>
@@ -267,8 +273,51 @@
         <div class='foot'>       
           <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="menu/updateMenuLine.do" data-refresh="sub_refresh">提交更新</button>
           <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="menu/insertMenuLine.do" data-refresh="sub_refresh">新增</button>
-        </div>    
-      </div>   
+        </div>  
+        -->  
+        <div class="content " id="detail_ui_tabs" style="padding:0;">   
+      	  <form>
+      		<ul>
+	          <li><a href="#tabs-1">子菜单操作</a></li>
+	          <li><a href="#tabs-2">功能操作</a></li>
+	        </ul>
+	        <input type="hidden" id="MENU_ID_DETAIL" name="MENU_ID" data-update="db" value=""/>
+	        <label for="MENU_SEQUENCE" class="left md">菜单序号</label> 
+	        <input type="text" id="MENU_SEQUENCE" name="MENU_SEQUENCE" data-update="db" class="left lg" required="required"/>
+	        <label for="MENU_ENABLED_FLAG" class="left md">是否启用</label> 
+	        <select class="left lg" id="MENU_ENABLED_FLAG" name="ENABLED_FLAG" data-update="db" data-notnull="true" required='required' data-listurl="list/getEnableFlag.do"></select> 
+	        <br style="clear:both"/>
+	        <div id="tabs-1" class='tab' style="margin:0px 0;">	           
+	            <div style="height:40px;">
+		            <label for="SUB_MENU_CODE" class="left md">子菜单编码</label> 
+		            <input type="text" id="SUB_MENU_CODE" name="SUB_MENU_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="detail_ui" data-lovbtn="SUB_MENU_LOV" data-param="MENU_CODE"/>
+		            <input type='hidden' id='SUB_MENU_ID' name='SUB_MENU_ID' data-update="db"/>
+		            <input type='button' id="SUB_MENU_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="菜单查询" data-queryurl="lov/getMenuPage.do" data-jsontype="menu" data-defaultquery="true" data-th=["菜单ID","菜单编码","菜单名称","描述"] data-td=["MENU_ID&none","MENU_CODE","MENU_NAME","MENU_DESC"] data-selectname=["菜单编码","菜单名称"] data-selectvalue=["MENU_CODE","MENU_NAME"] data-choose=[".MENU_ID",".MENU_CODE",".MENU_NAME"] data-recid=["#SUB_MENU_ID","#SUB_MENU_CODE","#SUB_MENU_NAME"] value="···"/>  
+		            <label for='SUB_MENU_NAME' class="left md">子菜单名称</label> 
+		            <input type="text" id="SUB_MENU_NAME" name="SUB_MENU_NAME" data-update="db" class="left lg" readonly="readonly"/>
+	        	</div>	        	
+	        </div>
+	        <div id="tabs-2" class='tab' style="margin:0px 0;">	           
+	            <div style="height:40px;">
+		            <label for='FUNCTION_CODE' class="left md">功能编码</label> 
+		            <input type="text" id="FUNCTION_CODE" name="FUNCTION_CODE" data-update="db" class="left md" data-modify="true" data-pageframe="detail_ui" data-lovbtn="FUNCTION_LOV" data-param="FUNC_CODE"/>
+		            <input type='hidden' id='FUNCTION_ID' name='FUNCTION_ID' data-update="db"/>
+		            <input type='button' id="FUNCTION_LOV" class='left button pointer' data-pageframe="lov" data-reveal-id="lov" data-key="true" data-callback="detail_ui" data-bg="lov-modal-bg" data-dismissmodalclass='close-lov' data-lovname="功能查询" data-queryurl="lov/getFuncPage.do" data-jsontype="func" data-defaultquery="true" data-th=["功能ID","功能编码","功能名称","描述"] data-td=["FUNC_ID&none","FUNC_CODE","FUNC_NAME","FUNC_DESC"] data-selectname=["功能编码","功能名称"] data-selectvalue=["FUNCTION_CODE","FUNCTION_NAME"] data-choose=[".FUNC_ID",".FUNC_CODE",".FUNC_NAME"] data-recid=["#FUNCTION_ID","#FUNCTION_CODE","#FUNCTION_NAME"] value="···"/>  
+		            <label for='FUNCTION_NAME' class="left md">功能名称</label> 
+		            <input type="text" id="FUNCTION_NAME" name="FUNCTION_NAME" data-update="db" class="left lg"  readonly="readonly"/>
+	            </div>	        	
+	        </div>
+	       
+	      </div>
+      	 </form> 
+      	 <div class='foot'>       
+		      <button class="right update_confirm pointer" data-type="update" data-keyup="enter" data-crudtype="update" data-pageframe="detail_ui" data-updateurl="menu/updateMenuLine.do" data-refresh="sub_refresh" data-func="$().beforeUpdate();">提交更新</button>
+		      <button class="right update_confirm pointer" data-type="insert" data-keyup="enter" data-crudtype="insert" data-pageframe="detail_ui" data-inserturl="menu/insertMenuLine.do" data-refresh="sub_refresh" data-func="$().beforeInsert();">新增</button>
+		 </div>         
+      </div>  
+      
+      
+      
     <!-- 菜单明细新增/更新区域 end -->  
 
 <!----------------------------------------------菜单明细-------------------------------------------------------- -->       
@@ -286,7 +335,10 @@
     		$("#detail").draggable({ handle: ".title" });
     		$("#detail_ui").draggable({ handle: ".title" });
     		$("#query").draggable({ handle: ".title" });
- 
+    		
+    		//配置tabs
+ 			$("#detail_ui_tabs").tabs();
+ 			
     		//初始化CRUD和LOV条件查询
     		$().crudListener();	
     		$().revealListener(); 
@@ -350,13 +402,14 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.MENU_CODE',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].MENU_CODE); 
-                   	 	$('.MENU_NAME',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].MENU_NAME); 
-                    	$('.DESCRIPTION',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);
-                    	$('.ICON_CODE',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].ICON_CODE); 
-                    	$('.ICON_DESC',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].ICON_DESC);   
-                    	$('.MENU_ID',$('#mHeader tr:eq('+(i+1)+')')).html(data.rows[i].MENU_ID); 
+                    	$('.MENU_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_CODE); 
+                   	 	$('.MENU_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_NAME); 
+                    	$('.DESCRIPTION',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);
+                    	$('.ICON_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ICON_CODE); 
+                    	$('.ICON_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ICON_DESC);   
+                    	$('.MENU_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().detailShow();
                 	$().revealListener(); 

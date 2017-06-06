@@ -28,7 +28,7 @@ public class LgInvService {
 		sqlBuf.append(SqlStmtPub.getAndStmt("HEIGHT",conditionMap.get("height"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("THICKNESS",conditionMap.get("thickness"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("COATING_TYPE",conditionMap.get("coatingType"),paramMap));
-		sqlBuf.append(" ORDER BY "+conditionMap.get("orderby"));
+		sqlBuf.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 }

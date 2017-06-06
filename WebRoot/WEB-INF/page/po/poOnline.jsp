@@ -27,7 +27,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="pHeader" data-table="PoHeader">
+        <table id="main-table" data-table="PoHeader">
           <tr>
             <th class="PO_NUMBER" data-column="db">PO订单号</th>
             <th class="CUSTOMER_CONTRACT_NUMBER" data-column="db">客订单号</th>
@@ -99,8 +99,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#pHeader" />
-			<jsp:param name="odtable" value="#pHeader" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -603,27 +603,28 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.PO_NUMBER',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].PO_NUMBER); 
-                   	 	$('.CUSTOMER_CONTRACT_NUMBER',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CUSTOMER_CONTRACT_NUMBER); 
-                    	$('.CURR_CODE',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CURR_CODE);
-                    	$('.PARTY_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
-                    	$('.ACCOUNT_NUMBER',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);     
-                    	$('.SALES_ORG_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME);           	
-                    	$('.ORGANIZATION_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].SALES_ORG_NAME);           	
-                    	$('.STATUS_DESC',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_DESC); 
-                    	$('.BOOK_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].BOOK_NAME); 
-                    	$('.BOOK_DATE',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].BOOK_DATE); 
-                    	$('.CHECK_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CHECK_NAME); 
-                    	$('.CHECK_DATE',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CHECK_DATE); 
-                    	$('.APPROVE_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].APPROVE_NAME); 
-                    	$('.APPROVE_DATE',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].APPROVE_DATE); 
-                    	$('.CANCEL_NAME',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CANCEL_NAME); 
-                    	$('.CANCEL_DATE',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].CANCEL_DATE); 
-                    	$('.REMARK',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].REMARK); 
-                    	$('.PO_HEADER_ID',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].PO_HEADER_ID); 
-                    	$('.SHIP_FROM_ORG_ID',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].SHIP_FROM_ORG_ID); 
-                    	$('.STATUS',$('#pHeader tr:eq('+(i+1)+')')).html(data.rows[i].STATUS); 
+                    	$('.PO_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PO_NUMBER); 
+                   	 	$('.CUSTOMER_CONTRACT_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CUSTOMER_CONTRACT_NUMBER); 
+                    	$('.CURR_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CURR_CODE);
+                    	$('.PARTY_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
+                    	$('.ACCOUNT_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);     
+                    	$('.SALES_ORG_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME);           	
+                    	$('.ORGANIZATION_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SALES_ORG_NAME);           	
+                    	$('.STATUS_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_DESC); 
+                    	$('.BOOK_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].BOOK_NAME); 
+                    	$('.BOOK_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].BOOK_DATE); 
+                    	$('.CHECK_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CHECK_NAME); 
+                    	$('.CHECK_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CHECK_DATE); 
+                    	$('.APPROVE_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].APPROVE_NAME); 
+                    	$('.APPROVE_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].APPROVE_DATE); 
+                    	$('.CANCEL_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CANCEL_NAME); 
+                    	$('.CANCEL_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CANCEL_DATE); 
+                    	$('.REMARK',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].REMARK); 
+                    	$('.PO_HEADER_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PO_HEADER_ID); 
+                    	$('.SHIP_FROM_ORG_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SHIP_FROM_ORG_ID); 
+                    	$('.STATUS',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].STATUS); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().detailShow();
                 	$().revealListener(); 

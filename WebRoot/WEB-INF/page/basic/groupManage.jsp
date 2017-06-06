@@ -26,7 +26,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="gHeader" data-table="GroupHeader">
+        <table id="main-table" data-table="GroupHeader">
           <tr>
             <th class="GROUP_CODE" data-column="db">工作组编码</th>
             <th class="GROUP_NAME" data-column="db">工作组名称</th>
@@ -66,8 +66,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#gHeader" />
-			<jsp:param name="odtable" value="#gHeader" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -333,10 +333,10 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.GROUP_CODE',$('#gHeader tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_CODE); 
-                   	 	$('.GROUP_NAME',$('#gHeader tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
-                    	$('.DESCRIPTION',$('#gHeader tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);  
-                    	$('.GROUP_ID',$('#gHeader tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_ID); 
+                    	$('.GROUP_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_CODE); 
+                   	 	$('.GROUP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
+                    	$('.DESCRIPTION',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);  
+                    	$('.GROUP_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_ID); 
                 	}
                 	$().crudListener();
                 	$().detailShow();
@@ -349,6 +349,7 @@
                     	$('.GROUP_SEQUENCE',$('#gLine tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_SEQUENCE); 
                     	$('.ENABLED',$('#gLine tr:eq('+(i+1)+')')).html(data.rows[i].ENABLED);
         	        }
+        	        $().afterRowDefine();
         	        $().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='group'){

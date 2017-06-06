@@ -26,7 +26,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="OnhandSet">
+        <table id="main-table" data-table="OnhandSet">
           <tr>
             <th class="ORG_NAME" data-column="db">库存组织</th>
      	    <th class="GREATER_BOX" data-column="db">库存上限值</th>
@@ -64,8 +64,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -185,11 +185,12 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.ORG_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME);  
-                    	$('.GREATER_BOX',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_GREATER_BOX);   
-                    	$('.DISPLAY_BOX',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_DISPLAY_BOX); 
-                    	$('.ORGANIZATION_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
+                    	$('.ORG_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME);  
+                    	$('.GREATER_BOX',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_GREATER_BOX);   
+                    	$('.DISPLAY_BOX',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ONHAND_DISPLAY_BOX); 
+                    	$('.ORGANIZATION_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='organ'){

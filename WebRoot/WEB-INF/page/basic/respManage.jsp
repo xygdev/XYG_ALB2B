@@ -29,7 +29,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="Resp">
+        <table id="main-table" data-table="Resp">
           <tr>
             <th class="RESP_CODE" data-column="db">职责编码</th>
             <th class="RESP_NAME" data-column="db">职责名称</th>
@@ -77,8 +77,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -222,16 +222,17 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.RESP_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].RESP_CODE); 
-                   	 	$('.RESP_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].RESP_NAME); 
-                    	$('.DESCRIPTION',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);
-                    	$('.MENU_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].MENU_CODE); 
-                    	$('.MENU_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].MENU_NAME);   
-                    	$('.START_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
-                    	$('.END_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
-                    	$('.MENU_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].MENU_ID); 
-                    	$('.RESP_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].RESP_ID); 
+                    	$('.RESP_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RESP_CODE); 
+                   	 	$('.RESP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RESP_NAME); 
+                    	$('.DESCRIPTION',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION);
+                    	$('.MENU_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_CODE); 
+                    	$('.MENU_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_NAME);   
+                    	$('.START_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
+                    	$('.END_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
+                    	$('.MENU_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MENU_ID); 
+                    	$('.RESP_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RESP_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='menu'){

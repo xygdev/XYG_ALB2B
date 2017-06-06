@@ -26,7 +26,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="Group">
+        <table id="main-table" data-table="Group">
           <tr>
             <th class="ORG_NAME" data-column="db">销售公司</th>
             <th class="PARTY_NAME" data-column="db">客户名称</th>
@@ -60,7 +60,7 @@
       <!-- 主表格按钮区域 start -->
       <div class="table_button" id="table" data-table="Group">
         <div class="setting">
-          <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" ddata-dismissmodalclass="close-setting"></i>
+          <i class="fa fa-cog pointer" title="表格设置" data-reveal-id="setting" data-dismissmodalclass="close-setting"></i>
         </div>
         <div class="setting">
           <i class="fa fa-search pointer" title="条件查询" data-reveal-id="query" data-key="true" data-dismissmodalclass="close-query-frame"></i>
@@ -71,8 +71,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -197,16 +197,17 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.ORG_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME); 
-                   	 	$('.PARTY_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
-                    	$('.ACCOUNT_NUMBER',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);
-                    	$('.ACCOUNT_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NAME); 
-                    	$('.STATUS_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_DESC);   
-                    	$('.GROUP_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_CODE);   
-                    	$('.GROUP_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
-                    	$('.CUST_ACCOUNT_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].CUST_ACCOUNT_ID); 
-                    	$('.ORG_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORG_ID); 
+                    	$('.ORG_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORG_NAME); 
+                   	 	$('.PARTY_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
+                    	$('.ACCOUNT_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);
+                    	$('.ACCOUNT_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NAME); 
+                    	$('.STATUS_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].STATUS_DESC);   
+                    	$('.GROUP_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_CODE);   
+                    	$('.GROUP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
+                    	$('.CUST_ACCOUNT_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].CUST_ACCOUNT_ID); 
+                    	$('.ORG_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORG_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='group'){

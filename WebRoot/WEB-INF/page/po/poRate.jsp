@@ -29,7 +29,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="PoRate">
+        <table id="main-table" data-table="PoRate">
           <tr>
             <th class="PO_NUMBER" data-column="db">PO单号</th>
             <th class="PARTY_NAME" data-column="db">客户名称</th>
@@ -78,8 +78,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -191,20 +191,21 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.PO_NUMBER',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PO_NUMBER); 
-                   	 	$('.PARTY_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
-                    	$('.ACCOUNT_NUMBER',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);
-                    	$('.COATING_TYPE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].COATING_TYPE);   
-                    	$('.THICKNESS',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].THICKNESS);   
-                    	$('.WIDTH',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].WIDTH); 
-                    	$('.HEIGHT',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].HEIGHT); 
-                    	$('.APPROVAL_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].APPROVAL_DATE); 
-                    	$('.PIE_QUANTITY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PIE_QUANTITY); 
-                    	$('.ORDER_QUANTITY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORDER_QUANTITY); 
-                    	$('.BAK_QUANTITY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].BAK_QUANTITY); 
-                    	$('.SHIPPED_QUANTITY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SHIPPED_QUANTITY); 
-                    	$('.PO_LINE_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PO_LINE_ID); 
+                    	$('.PO_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PO_NUMBER); 
+                   	 	$('.PARTY_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
+                    	$('.ACCOUNT_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ACCOUNT_NUMBER);
+                    	$('.COATING_TYPE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].COATING_TYPE);   
+                    	$('.THICKNESS',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].THICKNESS);   
+                    	$('.WIDTH',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].WIDTH); 
+                    	$('.HEIGHT',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].HEIGHT); 
+                    	$('.APPROVAL_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].APPROVAL_DATE); 
+                    	$('.PIE_QUANTITY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PIE_QUANTITY); 
+                    	$('.ORDER_QUANTITY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORDER_QUANTITY); 
+                    	$('.BAK_QUANTITY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].BAK_QUANTITY); 
+                    	$('.SHIPPED_QUANTITY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SHIPPED_QUANTITY); 
+                    	$('.PO_LINE_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PO_LINE_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='coating'){

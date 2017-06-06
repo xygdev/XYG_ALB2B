@@ -4,7 +4,12 @@ a{text-decoration:none;color:black}
 ol, ul, li {margin:0;padding:0;list-style:none;}
 table{border-collapse:collapse;border-spacing:0;width:100%;border-style:solid;border-width:0 1px 1px 1px;border-color:#e6e6e6}
 th{border-style:solid;border-width:1px 0 0 1px;border-color:#e6e6e6;background-color:#f2f2f2;height:50px}
-td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#7a7a7a;background-color:#f9f9f9;text-align:center;height:40px}	
+/*
+tr:focus>td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#f9f9f9;background-color:#00A65A;text-align:center;height:40px}
+tr:hover>td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#f9f9f9;background-color:#7a7a7a;text-align:center;height:40px}
+*/
+td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#7a7a7a;background-color:#f9f9f9;text-align:center;height:40px;/*min-width:100px;white-space:nowrap;text-indent:20px*/}	
+
 .pointer{cursor:pointer}
 .left{float:left;}
 .right{float:right;}
@@ -38,7 +43,8 @@ input:required,select:required{background-color:#FFFFCC}
 /* ==========================================================================
 主表格
 ========================================================================== */
-.table{position:relative;width:100%;min-height:270px}  
+.table{position:relative;width:100%;min-height:270px;overflow-x:auto;overflow-y:hidden} 
+.table td{min-width:100px;white-space:nowrap;} 
 /* ==========================================================================
 主表格按钮
 ========================================================================== */
@@ -113,15 +119,15 @@ input:required,select:required{background-color:#FFFFCC}
 .pop_frame>.content.row-6{height:200px}
 .pop_frame>.content.row-9{height:275px}
 .pop_frame>.foot{position:relative;width:680px;height:30px;padding:5px 0}
-.pop_frame>.content>form>label{font-size:1em;padding:10px 20px 5px 0;text-align:right}
-.pop_frame>.content>form>label.sm{width:60px}
-.pop_frame>.content>form>label.md{width:80px}
-.pop_frame>.content>form>label.lg{width:100px}
-.pop_frame>.content>form>label.blank{width:10px;padding:10px 5px 5px 0;}
-.pop_frame>.content>form>input{height:20px;font-size:1em;margin:5px 0}
+.pop_frame>.content form label{font-size:1em;padding:10px 20px 5px 0;text-align:right}
+.pop_frame>.content>form label.sm{width:60px}
+.pop_frame>.content form label.md{width:80px}
+.pop_frame>.content>form label.lg{width:100px}
+.pop_frame>.content>form label.blank{width:10px;padding:10px 5px 5px 0;}
+.pop_frame>.content form input{height:20px;font-size:1em;margin:5px 0}
 .pop_frame>.content>form>input.sm{width:120px}
-.pop_frame>.content>form>input.md{width:170px}
-.pop_frame>.content>form>input.lg{width:220px}
+.pop_frame>.content form input.md{width:170px}
+.pop_frame>.content form input.lg{width:220px}
 .pop_frame>.content>form>input.lglov{width:495px}
 .pop_frame>.content>form>input.lgx2{width:545px}
 .pop_frame>.content>form>input.password{width:195px}
@@ -129,7 +135,7 @@ input:required,select:required{background-color:#FFFFCC}
 .pop_frame>.content>form>input.checkbox{width:30px;margin:12px 2px}
 .pop_frame>.content>form i{display:block;margin:8px 5px;}
 .pop_frame>.content>form i.hide{display:none}
-.pop_frame>.content>form>input.button{background-color:black;color:white;width:50px;height:25px;line-height:1;border:none;-moz-border-top-right-radius:5px;-webkit-border-top-right-radius:5px;border-top-right-radius:5px;-moz-border-bottom-right-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-right-radius:5px;margin:5px 0;font-size:1.2em;text-align:center;vertical-align:middle}
+.pop_frame>.content form input.button{background-color:black;color:white;width:50px;height:25px;line-height:1;border:none;-moz-border-top-right-radius:5px;-webkit-border-top-right-radius:5px;border-top-right-radius:5px;-moz-border-bottom-right-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-right-radius:5px;margin:5px 0;font-size:1.2em;text-align:center;vertical-align:middle}
 .pop_frame>.content>form>select{width:206px;height:26px;font-size:1em;margin:5px 0;text-algin:center}
 .pop_frame>.content>form>select.lg{width:226px}
 .pop_frame>.content>form>textarea{width:546px;height:100px;font-size:1em;margin:5px 0}
@@ -180,6 +186,7 @@ lov框
 .lov_frame>.querybox>.lov_button{width:15px;height:26px;padding:3px 5px}
 .lov_frame>.contentbox{min-width:460px;min-height:280px;padding:0 20px}
 .lov_frame>.footer{width:100%;height:50px}
+.lov_frame>.contentbox>table{border-collapse:collapse;border-spacing:0;width:100%;border-style:solid;border-width:0 1px 1px 1px;border-color:#e6e6e6}
 .lov_frame>.contentbox>table>tbody>tr>th{border-style:solid;border-width:1px 0 0 1px;border-color:#e6e6e6;background-color:#f2f2f2;min-width:100px;max-width:300px;height:30px}
 .lov_frame>.contentbox>table>tbody>tr>td{border-style:solid;border-width:1px 0 0 0;border-color:#e6e6e6;color:#7a7a7a;background-color:#f9f9f9;text-align:center;min-width:100px;max-width:300px;height:20px;cursor:pointer}
 .lov_frame>.contentbox>table>tbody>tr:hover{background-color:#7a7a7a;color:#f9f9f9}

@@ -37,7 +37,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="Mail">
+        <table id="main-table" data-table="Mail">
           <tr>
             <th class="READ_FLAG" data-column="db">邮件状态</th>
             <th class="MAIL_TITLE" data-column="db">邮件标题</th>
@@ -80,8 +80,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -239,18 +239,19 @@
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
         	            if(data.rows[i].READ_FLAG=='N'){
-        	                $('.READ_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-envelope-o"></i>');
+        	                $('.READ_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-envelope-o"></i>');
         	            }else{
-        	                $('.READ_FLAG',$('#tb tr:eq('+(i+1)+')')).html('<i class="fa fa-envelope-open"></i>');
+        	                $('.READ_FLAG',$('#main-table tr:eq('+(i+1)+')')).html('<i class="fa fa-envelope-open"></i>');
         	            }
-                    	$('.MAIL_TITLE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].MAIL_TITLE); 
-                   	 	$('.SEND_USER_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_USER_NAME); 
-                    	$('.SEND_USER_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_USER_DESC); 
-                    	$('.SEND_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_DATE);   
-                    	$('.READ_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].READ_DATE); 
-                    	$('.SEND_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_ID); 
-                    	$('.RECEIVE_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].RECEIVE_ID); 
+                    	$('.MAIL_TITLE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].MAIL_TITLE); 
+                   	 	$('.SEND_USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_USER_NAME); 
+                    	$('.SEND_USER_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_USER_DESC); 
+                    	$('.SEND_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_DATE);   
+                    	$('.READ_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].READ_DATE); 
+                    	$('.SEND_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_ID); 
+                    	$('.RECEIVE_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RECEIVE_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().mailListener();
                 	$().revealListener();  

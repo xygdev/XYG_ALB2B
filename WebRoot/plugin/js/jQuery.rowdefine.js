@@ -300,6 +300,9 @@
              	    }
              	}
             }
+        	if(options.func!=null||options.func!=''){
+				eval(options.func);
+			}
         });     
     }
 })(jQuery);

@@ -2,7 +2,7 @@
                     jQuery 分页功能
                     Create Date:2015.12.12
                     Create By:bird
-                    Last Update Date:2016.7.12
+                    Last Update Date:2017.5.25
                     Last Update By:bird
                           修改日志
            2015.12.12   创建文件
@@ -20,6 +20,7 @@
                         修改bug，设置当数据只有一页时，同时隐藏上一页，下一页等四个按钮
            2016.9.05    修改bug，当条件查询查无数据时，显示查无数据，并且隐藏隐藏上一页，
            				下一页等四个按钮以及清空记录数栏位
+           2017.5.25    
 *********************************************************/
 (function($) {                                      	
 	/******************listener start***********************
@@ -77,8 +78,8 @@
 				//if(options.func!=null||options.func!=''){
 				//	eval(options.func);
 				//}
-				//$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','visible');
-				$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','inherit');//MODIFY BY BIRD 2016.12.21
+				$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','hidden');//MODIFY BY BIRD 2017.05.25
+				//$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','inherit');//MODIFY BY BIRD 2016.12.21
        	        if(!value){
        	            param=null;
        	        }else{
@@ -119,6 +120,7 @@
 						if(parseInt(data.pageMinRow)!=0){
 							jsontype=$('#'+options.pageframe+' input[data-type="jsontype"]').val();
 							jQuery.json.getContent(data,jsontype);/****获取json遍历数据，插入表格****/
+							$('table[data-table="'+tablename+'"] i[data-show="true"]').css('visibility','inherit');//MODIFY BY BIRD 2017.05.25
 							for(j=0;j<=(pageSize-(pageMaxRow-pageMinRow+1));j++){/****隐藏空白行****/
 								$('table[data-table="'+tablename+'"] tr:eq('+(pageSize-j+1)+')').css('display','none');
 		                	}

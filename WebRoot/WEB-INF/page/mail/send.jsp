@@ -35,7 +35,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="Mail">
+        <table id="main-table" data-table="Mail">
           <tr>
             <th class="MAIL_TITLE" data-column="db">邮件标题</th>
      	    <th class="SEND_DATE" data-column="db">发件时间</th>
@@ -75,8 +75,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -203,6 +203,10 @@
     		$("#query").draggable({ handle: ".title" });
     		$("#send_mail").draggable({ handle: ".title" });
     		
+    		//初始化CRUD和LOV条件查询
+    		$().crudListener();	
+    		$().revealListener(); 
+    		
     		//搜索栏初始化
     		$('#locations').manifest({
           		formatDisplay: function (data, $item, $mpItem) {
@@ -309,12 +313,13 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-        	            $('.REC_USER_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].REC_USER_NAME); 
-                    	$('.MAIL_TITLE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_TITLE); 
-                    	$('.SEND_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_DATE);   
-                    	$('.SEND_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SEND_ID); 
-                    	$('.RECEIVE_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].RECEIVE_ID); 
+        	            $('.REC_USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].REC_USER_NAME); 
+                    	$('.MAIL_TITLE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_TITLE); 
+                    	$('.SEND_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_DATE);   
+                    	$('.SEND_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SEND_ID); 
+                    	$('.RECEIVE_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RECEIVE_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().mailListener();
                 	$().revealListener();  

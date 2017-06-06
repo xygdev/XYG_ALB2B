@@ -112,11 +112,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <form role="form" id="loginFrom" name="loginFrom" method="post" action="login.do">
    		  <div class="form-group" style="padding:0 25px">
      	    <label for="name">用户名</label>
-      	    <input type="text" class="form-control" id="username" name="username" placeholder="请填入用户名" required="required"/>
+      	    <input type="text" class="form-control" id="username" name="username" placeholder="请填入用户名" autocomplete="off" required="required"/>
    		  </div>
    		  <div class="form-group" style="padding:0 25px">
      	    <label for="name">密码</label>
-      	    <input type="password" class="form-control" id="password" name="password" placeholder="请填入密码" required="required"/>
+      	    <input type="password" class="form-control" id="password" name="password" placeholder="请填入密码" autocomplete="off" required="required"/>
    		  </div>
    		  <input type="hidden" id="lang" name="lang" value="ZHS"/>
    		  <button type="submit" class="btn btn-defult login-btn">登录</button>

@@ -26,7 +26,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="ResnInv">
+        <table id="main-table" data-table="ResnInv">
           <tr>
             <th class="PARTY_NAME" data-column="db">客户名称</th>
             <th class="ORGANIZATION_NAME" data-column="db">库存组织</th>
@@ -69,8 +69,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -198,17 +198,18 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.PARTY_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
-                    	$('.ORGANIZATION_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME); 
-                   	 	$('.ITEM_NUMBER',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_NUMBER); 
-                    	$('.ITEM_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_DESC); 
-						$('.PACK_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].PACK_DESC); 
-                    	$('.SPEC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].SPEC); 
-                    	$('.COATING_TYPE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].COATING_TYPE); 
-                    	$('.BOX_QTY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].BOX_QTY); 
-                    	$('.ORGANIZATION_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
-                    	$('.INVENTORY_ITEM_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].INVENTORY_ITEM_ID); 
+                    	$('.PARTY_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PARTY_NAME); 
+                    	$('.ORGANIZATION_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME); 
+                   	 	$('.ITEM_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_NUMBER); 
+                    	$('.ITEM_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ITEM_DESC); 
+						$('.PACK_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].PACK_DESC); 
+                    	$('.SPEC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].SPEC); 
+                    	$('.COATING_TYPE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].COATING_TYPE); 
+                    	$('.BOX_QTY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].BOX_QTY); 
+                    	$('.ORGANIZATION_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_ID); 
+                    	$('.INVENTORY_ITEM_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].INVENTORY_ITEM_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='cust'){

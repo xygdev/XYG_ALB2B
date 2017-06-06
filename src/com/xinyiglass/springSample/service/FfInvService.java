@@ -29,7 +29,7 @@ public class FfInvService {
 		sqlBuf.append(SqlStmtPub.getAndStmt("COLOUR",conditionMap.get("colour"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("GRADE",conditionMap.get("grade"),paramMap));
 		sqlBuf.append(SqlStmtPub.getAndStmt("PACK_CODE",conditionMap.get("packCode"),paramMap));
-		sqlBuf.append(" ORDER BY "+conditionMap.get("orderby"));
+		sqlBuf.append(" ORDER BY "+conditionMap.get("orderBy"));
 		return pagePub.qPageForJson(sqlBuf.toString(), paramMap, pageSize, pageNo, goLastPage);
 	}
 }

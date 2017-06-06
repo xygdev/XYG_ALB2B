@@ -29,7 +29,7 @@
     
       <!-- 主表格区域 start -->
       <div class="table">
-        <table id="tb" data-table="OnhandPerm">
+        <table id="main-table" data-table="OnhandPerm">
           <tr>
             <th class="USER_NAME" data-column="db">用户账号</th>
      	    <th class="USER_DESC" data-column="db">用户姓名</th>
@@ -75,8 +75,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#tb" />
-			<jsp:param name="odtable" value="#tb" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -233,15 +233,16 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                   	 	$('.USER_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
-                    	$('.USER_DESC',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
-                    	$('.ORGANIZATION_CODE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_CODE); 
-                    	$('.ORGANIZATION_NAME',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME);   
-                    	$('.GLASS_INDUSTRY',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].GLASS_INDUSTRY);   
-                    	$('.START_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
-                    	$('.END_DATE',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
-                    	$('.P_ID',$('#tb tr:eq('+(i+1)+')')).html(data.rows[i].P_ID); 
+                   	 	$('.USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
+                    	$('.USER_DESC',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_DESC);
+                    	$('.ORGANIZATION_CODE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_CODE); 
+                    	$('.ORGANIZATION_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].ORGANIZATION_NAME);   
+                    	$('.GLASS_INDUSTRY',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GLASS_INDUSTRY);   
+                    	$('.START_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
+                    	$('.END_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
+                    	$('.P_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].P_ID); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().revealListener(); 
         	    }else if(JSONtype=='user'){

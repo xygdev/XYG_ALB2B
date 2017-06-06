@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="plugin/css/jquery.datetimepicker.css">
 	<script src="plugin/jQuery/jquery.datetimepicker.full.js"></script>	
 	<script src="plugin/js/xygdev.commons.js"></script>	
+	
   </head> 
   <body>
     <div id="container">
@@ -29,8 +30,8 @@
       <!-- 数据加载动画 end -->
     
       <!-- 主表格区域 start -->
-      <div class="table">
-        <table id="user" data-table="User">
+      <div class="table pointer">
+        <table id="main-table" data-table="User">
           <tr>
             <th class="USER_NAME" data-column="db">用户账号</th>
             <th class="DESCRIPTION" data-column="db">用户名称</th>
@@ -60,7 +61,7 @@
      	      <i class="fa fa-picture-o changeIMG pointer hidden" title="更改头像" data-show="true" data-reveal-id="headimg"></i>
      	    </td>
      	    <td class="ACTION" data-column="normal">
-     	      <i class="fa fa-pencil fa-fw update pointer hidden" data-show="true" title="更新客户" data-reveal-id="ui" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="user/userPreUpdate.do" data-type="update" data-updateparam=["USER_ID",".USER_ID"]  data-func="$().setUpdatePWD();"></i>
+     	      <i class="fa fa-pencil fa-fw update pointer hidden" data-show="true" title="更新客户" data-reveal-id="ui" data-key="true" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-update" data-preupdateurl="user/userPreUpdate.do" data-type="update" data-updateparam=["USER_ID",".USER_ID"]  data-func="$().setUpdatePWD();"></i>
      	      &nbsp;
      	      <i class="fa fa-user-circle fa-fw pointer hidden show_detail hidden" data-show="true" title="客户分配" data-reveal-id="detail" data-dismissmodalclass="close-detail-frame"></i>
      	    </td>
@@ -80,7 +81,7 @@
           <i class="fa fa-search pointer" data-reveal-id="query" data-key="true" title="条件查询" data-dismissmodalclass="close-query-frame"></i>
         </div>
         <div class="setting">
-          <i class="fa fa-user-plus pointer" data-reveal-id="ui" data-key="true" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforePreInsert(); " data-revealfunc="$().afterReveal(); " ></i>
+          <i class="fa fa-user-plus pointer" data-reveal-id="ui" data-key="true" title="新增用户" data-dismissmodalclass="close-ui-frame" data-crudtype="pre-insert" data-type="insert" data-func="$().beforePreInsert();" data-revealfunc="$().afterReveal(); " ></i>
         </div>
         <div class="setting">
           <i id='refresh' class="fa fa-refresh pointer" title="刷新数据" data-pagetype='refresh' data-pageframe="table"></i>
@@ -88,8 +89,8 @@
         <div id="setting">
           <!-- 设置菜单区域 start -->
           <jsp:include page="../public/setting.jsp" >
-			<jsp:param name="rdtable" value="#user" />
-			<jsp:param name="odtable" value="#user" />
+			<jsp:param name="rdtable" value="#main-table" />
+			<jsp:param name="odtable" value="#main-table" />
 			<jsp:param name="pageframe" value="table" />
 		  </jsp:include>
           <!-- 设置菜单区域 end -->    
@@ -460,23 +461,24 @@
         	getContent:function(data,JSONtype){  
         	    if(JSONtype=='table'){
         	        for(i=0;i<(pageMaxRow-pageMinRow+1);i++){
-                    	$('.USER_ID',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].USER_ID); 
-                   	 	$('.USER_NAME',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
-                    	$('.DESCRIPTION',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION); 
-                    	$('.START_DATE',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
-                    	$('.END_DATE',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
-                    	$('.RESP_NAME',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].RESP_NAME); 
-                    	$('.USER_TYPE',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].USER_TYPE_M); 
+                    	$('.USER_ID',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_ID); 
+                   	 	$('.USER_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_NAME); 
+                    	$('.DESCRIPTION',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].DESCRIPTION); 
+                    	$('.START_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].START_DATE);   
+                    	$('.END_DATE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].END_DATE); 
+                    	$('.RESP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].RESP_NAME); 
+                    	$('.USER_TYPE',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].USER_TYPE_M); 
                     	if(data.rows[i].USER_TYPE=='CUSTOMER'){
-                    	  $('.ACTION i[data-reveal-id="detail"]',$('#user tr:eq('+(i+1)+')')).css('visibility','visible');
+                    	  $('.ACTION i[data-reveal-id="detail"]',$('#main-table tr:eq('+(i+1)+')')).css('visibility','visible');
                     	}else{
-                    	  $('.ACTION i[data-reveal-id="detail"]',$('#user tr:eq('+(i+1)+')')).css('visibility','hidden');
+                    	  $('.ACTION i[data-reveal-id="detail"]',$('#main-table tr:eq('+(i+1)+')')).css('visibility','hidden');
                     	};
-                    	$('.EMP_NUMBER',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].EMP_NUMBER); 
-                    	$('.EMP_NAME',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].EMP_NAME); 
-                    	$('.GROUP_NAME',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
-                    	$('.IMG_URL',$('#user tr:eq('+(i+1)+')')).html(data.rows[i].IMG_URL); 
+                    	$('.EMP_NUMBER',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].EMP_NUMBER); 
+                    	$('.EMP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].EMP_NAME); 
+                    	$('.GROUP_NAME',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].GROUP_NAME); 
+                    	$('.IMG_URL',$('#main-table tr:eq('+(i+1)+')')).html(data.rows[i].IMG_URL); 
                 	}
+                	$().afterRowDefine();
                 	$().crudListener();
                 	$().detailShow();
                 	$().changeIMG(); 
@@ -558,6 +560,7 @@
        	        	$('#DESC').val(data.rows[0].DESCRIPTION);
        	        	$('#USER_TYPE').val(data.rows[0].USER_TYPE);
        	        	$('#START_DATE').val(data.rows[0].START_DATE);
+       	        	$('#END_DATE').val(data.rows[0].END_DATE);
        	        	$('#ENCRYPTED_USER_PASSWORD').val(data.rows[0].ENCRYPTED_USER_PASSWORD);
        	        	$('#PASSWORD_DATE').val(data.rows[0].PASSWORD_DATE);
        	        	$('#RESP_ID').val(data.rows[0].RESP_ID);
@@ -586,6 +589,7 @@
        	    }
        	}
     </script>
+    
     <script type="text/javascript" src="plugin/layer/layer.js"></script>
     <script type="text/javascript" src="plugin/js/data.validate.js"></script>
     <script type="text/javascript" src="plugin/js/jQuery.reveal.js"></script> 
